@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
 
+import project.csc207.lightsOutGame.LightsOutStartingActivity;
 import project.csc207.slidingtiles.StartingActivity;
 
 public class AccountActivity extends AppCompatActivity {
@@ -16,13 +17,20 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
+        addLightsOutListener();
+        displayAccountName();
+    }
+
+    /**
+     * Change text to account name.
+     */
+    private void displayAccountName() {
         TextView accountNameTextView = findViewById(R.id.AccountName);
         String username = Account.getCurrentAccount().getUserName();
         accountNameTextView.setText(username);
-
     }
 
-    /*
+    /**
     Activate the game sliding tiles.
      */
     private void addSlidingTilesListener() {
@@ -33,6 +41,20 @@ public class AccountActivity extends AppCompatActivity {
                 Intent slidingTilesIntent = new Intent(AccountActivity.this,
                         StartingActivity.class);
                 startActivity(slidingTilesIntent);
+            }
+        });
+    }
+
+    /**
+     * Activate Lights Out game.
+     */
+    private void addLightsOutListener() {
+        Button lightsOutButton = findViewById(R.id.LightsOutButton);
+        lightsOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lightsOutIntent = new Intent(AccountActivity.this, LightsOutStartingActivity.class);
+                startActivity(lightsOutIntent);
             }
         });
     }

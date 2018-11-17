@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">GameCentre</string>
     <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="sliding_tiles_name">Sliding Tiles</string>
+    <string name="lights_out_name">Lights Out</string>
+    <string name="load_game">Load Saved Game</string>
+    <string name="new_game">New Game</string>
+    <string name="save_game">Save Game</string>
+    <string name="scoreboard">Score Board</string>
+    <string name="account_name">Account Name</string>
 </resources>

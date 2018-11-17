@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
         android:layout_centerHorizontal="true"
-        android:text="New Game" />
+        android:text="@string/new_game" />
 
     <Button
         android:id="@+id/LoadButton"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
         android:layout_toStartOf="@+id/StartButton"
-        android:text="Load Saved Game" />
+        android:text="@string/load_game" />
 
     <Button
         android:id="@+id/SaveButton"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
         android:layout_toEndOf="@+id/StartButton"
-        android:text="Save Game" />
+        android:text="@string/save_game" />
 
     <TextView
         android:id="@+id/AccountNameSliding"
@@ -47,7 +47,7 @@
         android:layout_alignStart="@+id/LoadButton"
         android:layout_alignParentTop="true"
         android:layout_marginTop="12dp"
-        android:text="AccountName" />
+        android:text="@string/account_name" />
 
     <RadioGroup
         android:id="@+id/ChoicesOfBoardSize"
@@ -101,7 +101,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="458dp"
-        android:text="Score Board" />
+        android:text="@string/scoreboard" />
 
 
 </RelativeLayout>

@@ -46,21 +46,28 @@ public class StartingActivity extends AppCompatActivity {
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
-        TextView accountNameSlidingTextView = findViewById(R.id.AccountNameSliding);
-        String username = Account.getCurrentAccount().getUserName();
-        accountNameSlidingTextView.setText(username);
+        displayAccountName();
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
         addNumRowsListener();
 
-        final Button rankbutton = (Button) findViewById(R.id.RankButton);
-        rankbutton.setOnClickListener(new View.OnClickListener() {
+        final Button rankButton = findViewById(R.id.RankButton);
+        rankButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openScoreRank();
             }
         });
+    }
+
+    /**
+     * Change the text to show the account's name.
+     */
+    private void displayAccountName() {
+        TextView accountNameSlidingTextView = findViewById(R.id.AccountNameSliding);
+        String username = Account.getCurrentAccount().getUserName();
+        accountNameSlidingTextView.setText(username);
     }
 
     public void openScoreRank() {
