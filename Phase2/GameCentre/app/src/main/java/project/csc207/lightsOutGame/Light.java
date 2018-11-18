@@ -31,7 +31,7 @@ public class Light implements Comparable<Light>, Serializable {
         return id;
     }
 
-    public int getBackgroud() {
+    public int getBackground() {
         return background;
     }
 

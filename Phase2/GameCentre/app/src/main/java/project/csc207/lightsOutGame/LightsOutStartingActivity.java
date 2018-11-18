@@ -12,6 +12,8 @@ import project.csc207.R;
 
 public class LightsOutStartingActivity extends AppCompatActivity {
 
+    private LightOutBoardManager boardManager = new LightOutBoardManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

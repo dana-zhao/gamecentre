@@ -9,18 +9,18 @@ import java.util.Random;
 /**
  * manage the LightOutBoard, including switch light, check for a win, and managing taps
  */
-public class LightOutBoardManager implements Serializable {
+class LightOutBoardManager implements Serializable {
 
     /**
      *  the LightsOut Board to be managed
      */
     private  LightsOutBoard lightsOutBoard;
 
-    public LightsOutBoard getLightsOutBoard() {
+    LightsOutBoard getLightsOutBoard() {
         return lightsOutBoard;
     }
 
-    public LightOutBoardManager(){
+    LightOutBoardManager(){
         List<Light> lights = new ArrayList<>();
         final int numLights = LightsOutBoard.NUM_COLS * LightsOutBoard.NUM_ROWS;
         for (int lightsNum = 0; lightsNum != numLights; lightsNum++){
@@ -39,17 +39,15 @@ public class LightOutBoardManager implements Serializable {
      * @return whether all lights in Light Out Board are On
      */
     boolean allLightsOn(){
-        boolean allLightsOn = true;
         for (int i =0; i < lightsOutBoard.numLights()-1; i++){
             int row = i / LightsOutBoard.NUM_ROWS;
             int col = 1 % LightsOutBoard.NUM_COLS;
             Light lightToCheck = lightsOutBoard.getLight(row, col);
             if (!lightToCheck.getState()){
-                allLightsOn = false;
-                break;
+                return false;
             }
         }
-        return allLightsOn;
+        return true;
     }
 
 
