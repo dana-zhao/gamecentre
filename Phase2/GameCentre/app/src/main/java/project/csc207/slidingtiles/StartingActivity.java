@@ -113,13 +113,8 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BoardSize != 4) {
-                    boardManager = new BoardManager(BoardSize);
-                    switchToGame();
-                } else {
-                    boardManager = new BoardManager(BoardSize);
-                    switchToGame();
-                }
+                boardManager = new BoardManager(BoardSize);
+                switchToGame();
             }
         });
     }

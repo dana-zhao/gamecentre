@@ -35,15 +35,15 @@ public class Light implements Comparable<Light>, Serializable {
         return background;
     }
 
-    public boolean isOn() {
+    boolean getState() {
         return isOn;
     }
 
     /**
-     * switch the light, change the background of light and the isOn state.
+     * switch the light, change the background of light and the getState state.
      * @param light as a Light Object
      */
-    public void stwich(Light light){
+    public void switchLight(Light light){
         if(light.isOn){
             light.isOn = false;
             light.background = R.drawable.black;
@@ -54,7 +54,6 @@ public class Light implements Comparable<Light>, Serializable {
         }
     }
 
-
     Light(int id){
         this.id = id;
         if (this.isOn){
@@ -64,6 +63,11 @@ public class Light implements Comparable<Light>, Serializable {
             background = R.drawable.black;
         }
     }
+
+    void setLight(Boolean state){
+        this.isOn = state;
+    }
+
     @Override
     public int compareTo(@NonNull Light o) {
         return o.id - this.id;
