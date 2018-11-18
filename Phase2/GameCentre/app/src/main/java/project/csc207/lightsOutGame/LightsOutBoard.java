@@ -7,8 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-
-
+/**
+ * the Board for Lights Out Game
+ */
 
 public class LightsOutBoard{
 
@@ -46,7 +47,7 @@ public class LightsOutBoard{
         return lights[row][col];
     }
 
-    public int getLights() {
+    public int numLights() {
         return NUM_COLS*NUM_COLS;
     }
 
