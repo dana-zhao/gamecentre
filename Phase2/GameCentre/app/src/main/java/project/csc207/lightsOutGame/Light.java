@@ -19,7 +19,7 @@ public class Light implements Comparable<Light>, Serializable {
     /**
      * the status of light, if On, then the light is white, otherwise is black.
      */
-    private boolean isOn = false;
+    private boolean isOn = true;
 
     /**
      *  the unique id for each light
