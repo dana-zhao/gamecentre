@@ -42,11 +42,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        try{
-            loadFromFile(SAVE_FILENAME);
-        }catch (Exception e){
-            accountManager = new AccountManager();
-        }
+        loadFromFile(SAVE_FILENAME);
 
 
         addLogInButtonListener();
@@ -103,10 +99,8 @@ public class LauncherActivity extends AppCompatActivity {
                 accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        } catch (Exception e){
+            accountManager = new AccountManager();
         }
     }
 

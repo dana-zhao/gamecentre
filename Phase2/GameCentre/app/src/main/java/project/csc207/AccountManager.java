@@ -11,14 +11,19 @@ public class AccountManager implements Serializable {
 
     private Account currentAccount;
 
-    Account getCurrentAccount() {
+    AccountManager(){
+        this.currentAccount = null;
+    }
+    public Account getCurrentAccount() {
         return currentAccount;
     }
 
-    void setCurrentAccount(String id) {
+    public void setCurrentAccount(String id) {
+
         this.currentAccount = allAccount.get(id);
     }
     boolean notNewUser(String id){
+
         return  allAccount.containsKey(id);
     }
     boolean rightPassword(String id, String password){
