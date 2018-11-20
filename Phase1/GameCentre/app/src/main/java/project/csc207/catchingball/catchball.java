@@ -21,6 +21,10 @@ import java.util.TimerTask;
 import project.csc207.R;
 
 public class catchball extends AppCompatActivity {
+
+    /*
+    the score, starting text, and elements of images
+    * */
     private TextView scoreLabel;
     private TextView startLabel;
     private ImageView box;
@@ -28,13 +32,17 @@ public class catchball extends AppCompatActivity {
     private ImageView pink;
     private ImageView black;
 
-    // Size
+    /*
+    Size of the screen
+    * */
     private int frameHeight;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
 
-    // Position
+    /*
+    Position of the obstacles
+    * */
     private int boxY;
     private int orangeX;
     private int orangeY;
@@ -43,21 +51,29 @@ public class catchball extends AppCompatActivity {
     private int blackX;
     private int blackY;
 
-    // Speed
+    /*
+    Speed of the obstacles
+    * */
     private int boxSpeed;
     private int orangeSpeed;
     private int pinkSpeed;
     private int blackSpeed;
 
-    // Score
+    /*
+    Score of the game
+     */
     private int score = 0;
 
-    // Initialize Class
+    /*
+    Initialize Class
+     */
     private Handler handler = new Handler();
     private Timer timer = new Timer();
 
 
-    // Status Check
+    /*
+    Status Check
+     */
     private boolean action_flg = false;
     private boolean start_flg = false;
 
@@ -85,10 +101,6 @@ public class catchball extends AppCompatActivity {
 
         screenWidth = size.x;
         screenHeight = size.y;
-
-        // Now
-        // Nexus4 Width: 768 Height:1280
-        // Speed Box:20 Orange:12 Pink:20 Black:16
 
         boxSpeed = Math.round(screenHeight / 60);  // 1280 / 60 = 21.333... => 21
         orangeSpeed = Math.round(screenWidth / 60); // 768 / 60 = 12.8 => 13
