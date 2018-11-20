@@ -4,27 +4,51 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class LauncherActivity extends AppCompatActivity {
 
-    /*
+    /**
     The input username field.
      */
     private EditText usernameBox;
 
-    /*
+    /**
     The input password field.
      */
     private EditText passwordBox;
-
+    /**
+     * The main save file.
+     */
+    public static final String SAVE_FILENAME = "save_file.ser";
+    /**
+     * A temporary save file.
+     */
+    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+    /**
+     * The account manager.
+     */
+    private AccountManager accountManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+        try{
+            loadFromFile(SAVE_FILENAME);
+        }catch (Exception e){
+            accountManager = new AccountManager();
+        }
+
+
         addLogInButtonListener();
         addSignUpButtonListener();
     }
@@ -41,16 +65,14 @@ public class LauncherActivity extends AppCompatActivity {
             public void onClick(View v) {
                 usernameBox = findViewById(R.id.UsernameBox);
                 passwordBox = findViewById(R.id.PasswordBox);
-                Account.currentAccount = new Account(usernameBox.getText().toString(), passwordBox.getText().toString());
 
                 String user = etUserName.getText().toString();
                 String password = etPassword.getText().toString();
 
-                SharedPreferences preferences = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-
-                String userAuthenticate = preferences.getString(user, "");
-                if (userAuthenticate.length() != 0 && userAuthenticate.equals(password)) {
+                if ( accountManager.notNewUser(user) && accountManager.rightPassword(user, password)) {
                     Intent accountActivity = new Intent(LauncherActivity.this, AccountActivity.class);
+                    accountManager.setCurrentAccount(user);
+                    saveToFile(TEMP_SAVE_FILENAME);
                     startActivity(accountActivity);
                 } else {
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
@@ -71,5 +93,36 @@ public class LauncherActivity extends AppCompatActivity {
                 startActivity(registerActivity);
             }
         });
+    }
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                accountManager = (AccountManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(accountManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 }
