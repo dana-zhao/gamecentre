@@ -12,8 +12,18 @@ import android.widget.TextView;
 
 import project.csc207.R;
 
+/** 
+ * A class that build the result of the game named catching the ball
+ * This was adapted from a video from codingwithsara on Youtube
+ * link here:
+  * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
+  */
+
 public class catchballresult extends AppCompatActivity {
 
+    /*
+    set up the outline for the result page with calculated scores
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +52,17 @@ public class catchballresult extends AppCompatActivity {
         }
     }
 
-
+    /*
+    restart the game
+     */
     public void tryAgain(View view) {
         startActivity(new Intent(getApplicationContext(), catchballstart.class));
     }
 
 
-    // Disable Return Button
+    /*
+    Disable Return Button
+     */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 
