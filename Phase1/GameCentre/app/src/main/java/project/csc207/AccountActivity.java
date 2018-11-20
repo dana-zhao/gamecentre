@@ -20,6 +20,7 @@ public class AccountActivity extends AppCompatActivity {
         TextView accountNameTextView = findViewById(R.id.AccountName);
         String username = Account.getCurrentAccount().getUserName();
         accountNameTextView.setText(username);
+        addCatchTheBallListener();
 
     }
 
