@@ -4,17 +4,46 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import project.csc207.slidingtiles.BoardManager;
+
 public class RegisterActivity extends AppCompatActivity {
+    /**
+     * The main save file.
+     */
+    public static final String SAVE_FILENAME = "save_file.ser";
+    /**
+     * A temporary save file.
+     */
+    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+    /**
+     * The account manager.
+     */
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            loadFromFile(SAVE_FILENAME);
+        }
+        catch (Exception e){
+            accountManager = new AccountManager();
+        }
+
         setContentView(R.layout.activity_register);
+
 
         final EditText userName = findViewById(R.id.userRegister);
         final EditText password = findViewById(R.id.passRegister);
@@ -25,17 +54,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences preferences = getSharedPreferences("MYPREFS", MODE_PRIVATE);
                 String newUser = userName.getText().toString();
                 String newPassword = password.getText().toString();
 
-                SharedPreferences.Editor editor = preferences.edit();
+                Boolean isNewUer = !accountManager.notNewUser(newUser);
 
-                Boolean existsUser = preferences.contains(newUser);
-
-                if (!existsUser) {
-                    editor.putString(newUser, newPassword);
-                    editor.commit();
+                if (isNewUer) {
+                    accountManager.signUp(newUser, newPassword);
+                    saveToFile(SAVE_FILENAME);
                     Intent logInScreen = new Intent(RegisterActivity.this, LauncherActivity.class);
                     startActivity(logInScreen);
                 } else {
@@ -43,5 +69,37 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                accountManager = (AccountManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(accountManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 }
