@@ -7,8 +7,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import project.csc207.R;
 
+/** 
+ * A class that build the starting page of the game named catching the ball
+ * This was adapted from a video from codingwithsara on Youtube
+ * link here:
+  * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
+  */
+
 public class catchballstart extends AppCompatActivity {
 
+    /*
+    build the outline of the background
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,13 +26,16 @@ public class catchballstart extends AppCompatActivity {
 
     }
 
-
-
+    /*
+    start the game
+     */
     public void startGame(View view) {
         startActivity(new Intent(getApplicationContext(), catchball.class));
     }
 
-    // Disable Return Button
+    /*
+    Disable Return Button
+     */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 

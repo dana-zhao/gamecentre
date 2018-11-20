@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -19,6 +18,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import project.csc207.R;
+
+/** 
+ * A class that build the basis of the game named catching the ball
+ * This was adapted from a video from codingwithsara on Youtube
+ * link here:
+  * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
+  */
 
 public class catchball extends AppCompatActivity {
 
@@ -77,9 +83,9 @@ public class catchball extends AppCompatActivity {
     private boolean action_flg = false;
     private boolean start_flg = false;
 
-
-
-
+    /*
+    set up for game
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,12 +113,6 @@ public class catchball extends AppCompatActivity {
         pinkSpeed = Math.round(screenWidth / 36);   // 768 / 36 = 21.333... => 21
         blackSpeed = Math.round(screenWidth / 45); // 768 / 45 = 17.06... => 17
 
-        //Log.v("SPEED_BOX", boxSpeed + "");
-        //Log.v("SPEED_ORANGE", orangeSpeed + "");
-        //Log.v("SPEED_PINK", pinkSpeed + "");
-        //Log.v("SPEED_BLACK", blackSpeed + "");
-
-
         // Move to out of screen.
         orange.setX(-80);
         orange.setY(-80);
@@ -123,6 +123,10 @@ public class catchball extends AppCompatActivity {
 
         scoreLabel.setText("Score : 0");
     }
+
+    /*
+    change the position while hitting the obstacles
+     */
     public void changePos() {
 
         hitCheck();
@@ -178,7 +182,9 @@ public class catchball extends AppCompatActivity {
 
     }
 
-
+    /*
+    check if it hits the obstacles
+     */
     public void hitCheck() {
 
         // If the center of the ball is in the box, it counts as a hit.
@@ -233,7 +239,9 @@ public class catchball extends AppCompatActivity {
 
     }
 
-
+    /*
+    adjust the frame and manage the time
+     */
     public boolean onTouchEvent(MotionEvent me) {
 
         if (start_flg == false) {
@@ -280,7 +288,9 @@ public class catchball extends AppCompatActivity {
     }
 
 
-    // Disable Return Button
+    /*
+    Disable Return Button
+     */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 
