@@ -18,13 +18,15 @@ public class AccountManager implements Serializable {
         return currentAccount;
     }
 
-    public void setCurrentAccount(String id) {
+    void setCurrentAccount(String id) {
 
         this.currentAccount = allAccount.get(id);
     }
     boolean notNewUser(String id){
-
         return  allAccount.containsKey(id);
+    }
+    public void updateAccount(){
+        allAccount.put(currentAccount.getUserName(), currentAccount);
     }
     boolean rightPassword(String id, String password){
         return allAccount.get(id).getPassword().equals(password);

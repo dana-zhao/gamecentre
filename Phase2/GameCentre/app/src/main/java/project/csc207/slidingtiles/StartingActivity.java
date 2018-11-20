@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 
 import project.csc207.Account;
 import project.csc207.AccountManager;
+import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.ScoreRank;
 
@@ -51,7 +52,7 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile(LauncherActivity.SAVE_FILENAME);
         accountManager.getCurrentAccount().setBm(new BoardManager(BoardSize));
         saveToFile(TEMP_SAVE_FILENAME);
 
@@ -160,6 +161,7 @@ public class StartingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                accountManager.updateAccount();
                 saveToFile(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();

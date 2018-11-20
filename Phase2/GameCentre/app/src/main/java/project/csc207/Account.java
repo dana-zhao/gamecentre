@@ -63,6 +63,9 @@ public class Account implements Serializable {
         return bm;
     }
 
+    /**
+     * Set the saved boardManager
+     */
     public void setBm(BoardManager bm) {
         this.bm = bm;
     }
