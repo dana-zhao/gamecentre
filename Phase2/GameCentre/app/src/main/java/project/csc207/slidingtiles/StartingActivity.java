@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import project.csc207.Account;
+import project.csc207.AccountManager;
 import project.csc207.R;
 import project.csc207.ScoreRank;
 
@@ -36,13 +37,22 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+
+    /**
+     * The board size.
+     */
     private int BoardSize = 4;
+
+    /**
+     * The account manager.
+     */
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = new BoardManager(BoardSize);
+        loadFromFile(TEMP_SAVE_FILENAME);
+        accountManager.getCurrentAccount().setBm(new BoardManager(BoardSize));
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -66,7 +76,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void displayAccountName() {
         TextView accountNameSlidingTextView = findViewById(R.id.AccountNameSliding);
-        String username = Account.getCurrentAccount().getUserName();
+        String username = accountManager.getCurrentAccount().getUserName();
         accountNameSlidingTextView.setText(username);
     }
 
@@ -113,7 +123,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(BoardSize);
+                accountManager.getCurrentAccount().setBm(new BoardManager(BoardSize));
                 switchToGame();
             }
         });
@@ -193,7 +203,7 @@ public class StartingActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -214,7 +224,7 @@ public class StartingActivity extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(accountManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

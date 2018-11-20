@@ -35,12 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            loadFromFile(SAVE_FILENAME);
-        }
-        catch (Exception e){
-            accountManager = new AccountManager();
-        }
+        loadFromFile(SAVE_FILENAME);
+
 
         setContentView(R.layout.activity_register);
 
@@ -80,10 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
                 accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        } catch (Exception e){
+            accountManager = new AccountManager();
         }
     }
 

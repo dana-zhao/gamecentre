@@ -21,6 +21,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import project.csc207.Account;
+import project.csc207.AccountManager;
 import project.csc207.R;
 import project.csc207.ScoreResult;
 
@@ -33,7 +34,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The board manager.
      */
     private BoardManager boardManager;
-
+    /**
+     * The account manager.
+     */
+    private AccountManager accountManager;
     /**
      * The buttons to display.
      */
@@ -75,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        boardManager = accountManager.getCurrentAccount().getBm();
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -131,7 +136,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public void openScoreResult() {
         SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
-        String user = Account.getCurrentAccount().getUserName();
+        String user = accountManager.getCurrentAccount().getUserName();
         ;
         int userScore = 150;
 
@@ -207,7 +212,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+               accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -228,7 +233,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(accountManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
