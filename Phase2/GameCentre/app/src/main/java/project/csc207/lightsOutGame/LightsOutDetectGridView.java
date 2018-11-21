@@ -1,11 +1,4 @@
-package project.csc207.slidingtiles;
-
-/*
-Adapted from:
-https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
-
-This extension of GridView contains built in logic for handling swipes between buttons
- */
+package project.csc207.lightsOutGame;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,49 +8,52 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
-public class GestureDetectGridView extends GridView {
+public class LightsOutDetectGridView extends GridView {
+
+
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
-    private MovementController mController;
+    private SwitchController sController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+    private LightsOutBoardManager lightsOutBoardManager;
 
-    public GestureDetectGridView(Context context) {
+
+    public LightsOutDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
-    public GestureDetectGridView(Context context, AttributeSet attrs) {
+    public LightsOutDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LightsOutDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
+    public LightsOutDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
                                  int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
     private void init(final Context context) {
-        mController = new MovementController();
+        sController = new SwitchController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
-                int position = GestureDetectGridView.this.pointToPosition
+                int position = LightsOutDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                sController.processTapSwitch(context, position);
                 return true;
             }
 
@@ -68,6 +64,7 @@ public class GestureDetectGridView extends GridView {
 
         });
     }
+
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -101,8 +98,8 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-        mController.setBoardManager(boardManager);
+    public void setLightsOutBoardManager(LightsOutBoardManager lightsOutBoardManager) {
+        this.lightsOutBoardManager = lightsOutBoardManager;
+        sController.setLightsOutBoardManager(lightsOutBoardManager);
     }
 }

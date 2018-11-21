@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.R;
 import project.csc207.ScoreResult;
@@ -65,21 +64,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private int score = 0;
 
 
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    // Display
-    public void display() {
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
-        boardManager = accountManager.getCurrentAccount().getBm();
+        boardManager = accountManager.getCurrentAccount().getBoardManager();
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -105,7 +97,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     }
                 });
 
-        final Button undoButton = (Button) findViewById(R.id.undoButton);
+        final Button undoButton =  findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,10 +105,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
             }
         });
 
-        final Chronometer chronometerTimer = (Chronometer) findViewById(R.id.timer);
+        final Chronometer chronometerTimer =  findViewById(R.id.timer);
         chronometerTimer.start();
 
-        Button finishButton = (Button) findViewById(R.id.finish);
+        Button finishButton = findViewById(R.id.finish);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,6 +237,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         display();
+    }
+
+    /**
+     * Set up the background image for each button based on the master list
+     * of positions, and then call the adapter to set the view.
+     */
+    // Display
+    public void display() {
+        updateTileButtons();
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
 }

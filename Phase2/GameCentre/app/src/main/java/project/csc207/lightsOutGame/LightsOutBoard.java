@@ -2,16 +2,18 @@ package project.csc207.lightsOutGame;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 import java.util.Stack;
 
 /**
  * the Board for Lights Out Game
  */
 
-public class LightsOutBoard{
+public class LightsOutBoard extends Observable implements Serializable, Iterable<Light> {
 
 
     static int NUM_ROWS = 5;

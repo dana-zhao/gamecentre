@@ -1,6 +1,5 @@
 package project.csc207.lightsOutGame;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.Random;
 /**
  * manage the LightOutBoard, including switch light, check for a win, and managing taps
  */
-class LightOutBoardManager implements Serializable {
+public class LightsOutBoardManager implements Serializable {
 
     /**
      *  the LightsOut Board to be managed
@@ -20,15 +19,15 @@ class LightOutBoardManager implements Serializable {
         return lightsOutBoard;
     }
 
-    LightOutBoardManager(){
+    LightsOutBoardManager(){
         List<Light> lights = new ArrayList<>();
         final int numLights = LightsOutBoard.NUM_COLS * LightsOutBoard.NUM_ROWS;
         for (int lightsNum = 0; lightsNum != numLights; lightsNum++){
-            Light nextLight = new Light(lightsNum);
+            Light light = new Light(lightsNum);
             //Assign light a random on or off state
             Random randomBool = new Random();
-            nextLight.setLight(randomBool.nextBoolean());
-            lights.add(new Light(lightsNum));
+            light.setLight(randomBool.nextBoolean());
+            lights.add(light);
         }
         this.lightsOutBoard = new LightsOutBoard(lights);
     }
