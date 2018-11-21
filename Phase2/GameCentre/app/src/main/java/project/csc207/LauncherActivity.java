@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -31,10 +33,6 @@ public class LauncherActivity extends AppCompatActivity {
      */
     public static final String SAVE_FILENAME = "save_file.ser";
     /**
-     * A temporary save file.
-     */
-    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
-    /**
      * The account manager.
      */
     private AccountManager accountManager;
@@ -42,9 +40,8 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        loadFromFile(SAVE_FILENAME);
-
-
+        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        accountManager.hasAllAccount();
         addLogInButtonListener();
         addSignUpButtonListener();
     }
@@ -68,7 +65,7 @@ public class LauncherActivity extends AppCompatActivity {
                 if ( accountManager.notNewUser(user) && accountManager.rightPassword(user, password)) {
                     Intent accountActivity = new Intent(LauncherActivity.this, AccountActivity.class);
                     accountManager.setCurrentAccount(user);
-                    saveToFile(TEMP_SAVE_FILENAME);
+                    saveToFile(SAVE_FILENAME);
                     startActivity(accountActivity);
                 } else {
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
@@ -99,8 +96,9 @@ public class LauncherActivity extends AppCompatActivity {
                 accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
-        } catch (Exception e){
+        }catch (Exception e) {
             accountManager = new AccountManager();
+            System.out.println("not read ");
         }
     }
 

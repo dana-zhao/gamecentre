@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 import project.csc207.slidingtiles.BoardManager;
 
@@ -22,11 +23,11 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    public static final String SAVE_FILENAME = "save_file.ser";
+
     /**
      * A temporary save file.
      */
-    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+
     /**
      * The account manager.
      */
@@ -35,8 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(SAVE_FILENAME);
-
+        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        accountManager.hasAllAccount();
 
         setContentView(R.layout.activity_register);
 
@@ -57,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (isNewUer) {
                     accountManager.signUp(newUser, newPassword);
-                    saveToFile(SAVE_FILENAME);
+                    saveToFile(LauncherActivity.SAVE_FILENAME);
                     Intent logInScreen = new Intent(RegisterActivity.this, LauncherActivity.class);
                     startActivity(logInScreen);
                 } else {
@@ -76,8 +77,9 @@ public class RegisterActivity extends AppCompatActivity {
                 accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             accountManager = new AccountManager();
+            System.out.println("not read ");
         }
     }
 

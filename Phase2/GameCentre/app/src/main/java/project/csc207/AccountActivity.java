@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import project.csc207.lightsOutGame.LightsOutStartingActivity;
+
 import project.csc207.slidingtiles.BoardManager;
 import project.csc207.slidingtiles.StartingActivity;
 
@@ -23,7 +23,7 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * A temporary save file.
      */
-    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+
     /**
      * The account manager.
      */
@@ -31,10 +31,11 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        accountManager.hasAllAccount();
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
-        addLightsOutListener();
+
         displayAccountName();
     }
 
@@ -65,16 +66,7 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * Activate Lights Out game.
      */
-    private void addLightsOutListener() {
-        Button lightsOutButton = findViewById(R.id.LightsOutButton);
-        lightsOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent lightsOutIntent = new Intent(AccountActivity.this, LightsOutStartingActivity.class);
-                startActivity(lightsOutIntent);
-            }
-        });
-    }
+
     private void loadFromFile(String fileName) {
 
         try {
@@ -93,19 +85,4 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(accountManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 }

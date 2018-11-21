@@ -7,32 +7,42 @@ public class AccountManager implements Serializable {
     /*
    All accounts with key account Id and variable Account
     */
-    private static HashMap<String, Account> allAccount = new HashMap<String, Account>();
+    private HashMap<String, Account> allAccount;
 
     private Account currentAccount;
 
     AccountManager(){
         this.currentAccount = null;
+        this.allAccount = null;
     }
+
     public Account getCurrentAccount() {
         return currentAccount;
     }
-
+    void hasAllAccount(){
+        if(allAccount == null){
+            setAllAccount( new HashMap<>());
+        }
+    }
     void setCurrentAccount(String id) {
 
         this.currentAccount = allAccount.get(id);
     }
     boolean notNewUser(String id){
-        return  allAccount.containsKey(id);
+        return  this.allAccount.containsKey(id);
     }
     public void updateAccount(){
         allAccount.put(currentAccount.getUserName(), currentAccount);
     }
     boolean rightPassword(String id, String password){
-        return allAccount.get(id).getPassword().equals(password);
+        return this.allAccount.get(id).getPassword().equals(password);
     }
 
     void signUp(String id, String password){
-        allAccount.put(id, new Account(id, password));
+        this.allAccount.put(id, new Account(id, password));
+    }
+
+    void setAllAccount(HashMap hashMap){
+        this.allAccount = hashMap;
     }
 }
