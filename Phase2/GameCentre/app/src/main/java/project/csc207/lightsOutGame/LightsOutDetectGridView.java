@@ -53,7 +53,7 @@ public class LightsOutDetectGridView extends GridView {
                 int position = LightsOutDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                sController.processTapSwtich(context, position);
+                sController.processTapSwitch(context, position);
                 return true;
             }
 

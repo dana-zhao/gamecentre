@@ -46,32 +46,36 @@ public class Light implements Comparable<Light>, Serializable {
     public void switchLight(Light light){
         if(light.isOn){
             light.isOn = false;
-            light.background = R.drawable.black;
+            light.background = R.drawable.lightsoff;
         }
         else{
             light.isOn = true;
-            light.background = R.drawable.white;
+            light.background = R.drawable.lightson;
         }
     }
 
     Light(int id){
         this.id = id;
-        if (this.isOn){
-            background = R.drawable.white;
-        }
-        else{
-            background = R.drawable.black;
-        }
+        setLight(isOn);
     }
 
+    /**
+     * set the state and the background of the light based on the given statement of light
+     * default statement is true for isOn
+     * @param state the statement of light
+     */
     void setLight(Boolean state){
         this.isOn = state;
+        if (state){
+            background = R.drawable.lightson;
+        }
+        else{
+            background = R.drawable.lightsoff;
+        }
     }
 
     @Override
     public int compareTo(@NonNull Light o) {
         return o.id - this.id;
     }
-
-
 }
