@@ -36,6 +36,8 @@ public class catchballstart extends AppCompatActivity {
     /*
     Disable Return Button
      */
+
+    /*
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 
@@ -48,5 +50,6 @@ public class catchballstart extends AppCompatActivity {
 
         return super.dispatchKeyEvent(event);
     }
+    */
 
 }

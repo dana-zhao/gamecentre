@@ -35,6 +35,11 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
 
+    /*
+    the scoreboard for sliding tiles
+    * */
+    private ScoreBoardSliding scoreBoardSliding;
+
         /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
@@ -103,6 +108,10 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         Tile second = this.tiles[row2][col2];
         this.tiles[row1][col1] = second;
         this.tiles[row2][col2] = first;
+
+        // notify the scoreboard to add the score
+        scoreBoardSliding.addMoves();
+
         setChanged();
         notifyObservers();
         gameMoves.push(new int[]{row1, col1, row2, col2});

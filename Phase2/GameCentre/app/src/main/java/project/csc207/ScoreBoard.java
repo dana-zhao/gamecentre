@@ -9,10 +9,14 @@ public interface ScoreBoard {
      */
     public void scoreCount();
 
+
     /*
     Compare the score before the game and after, store the higher one.
      */
+    /*
     public void updateHigherScore();
+    */
+
 
     /*
     Add the moves.
