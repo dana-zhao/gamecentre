@@ -41,7 +41,6 @@ public class catchballresult extends AppCompatActivity {
         if (score > highScore) {
             highScoreLabel.setText("High Score : " + score);
 
-            // Update High Score
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("HIGH_SCORE", score);
             editor.commit();
@@ -63,6 +62,7 @@ public class catchballresult extends AppCompatActivity {
     /*
     Disable Return Button
      */
+    /*
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 
@@ -75,4 +75,5 @@ public class catchballresult extends AppCompatActivity {
 
         return super.dispatchKeyEvent(event);
     }
+    */
 }

@@ -95,10 +95,12 @@ public class ScoreBoardSliding implements project.csc207.ScoreBoard {
     /*
     Compare the score before the game and after, store the higher one.
      */
+    /*
     public void updateHigherScore() {
         if (newScore > score) {
             score = newScore;
         }
 
     }
+    */
 }

@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * scoreboard and score_result
      */
-    private ScoreBoardSliding scoreboard;
+    private ScoreBoardSliding scoreboardsliding;
     private ScoreResult scoreresult;
 
     private int score = 0;
@@ -113,12 +113,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
             @Override
             public void onClick(View v) {
                 chronometerTimer.stop();
-                // scoreboard.timeTaken(chronometerTimer.getFormat());
+                scoreboardsliding.timeTaken(chronometerTimer.getFormat());
                 // convert string time to the int
-                //scoreboard.convertTime();
-                //scoreboard.scoreCount();
+                scoreboardsliding.convertTime();
+                scoreboardsliding.scoreCount();
 
-                openScoreResult();
+                openScoreResult(scoreboardsliding.getScore());
             }
         });
     }
@@ -126,7 +126,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * after game is over, clicking the finish button
      */
-    public void openScoreResult() {
+    public void openScoreResult(double score) {
+        /*
         SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
         String user = accountManager.getCurrentAccount().getUserName();
         int userScore = 150;
@@ -144,9 +145,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
             editor.putInt(user, userScore);
             editor.commit();
         }
+        */
 
-
+        // pass the score to the pop page and pop window
         Intent intent = new Intent(this, ScoreResult.class);
+        intent.putExtra("SCORE", score);
         startActivity(intent);
     }
 

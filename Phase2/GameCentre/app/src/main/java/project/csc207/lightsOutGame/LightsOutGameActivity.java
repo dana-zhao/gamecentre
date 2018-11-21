@@ -53,12 +53,11 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
+
         lightsGrid = findViewById(R.id.LightsGrid);
         lightsGrid.setNumColumns(5);
         lightsGrid.setLightsOutBoardManager(lightsOutBoardManager);
         lightsOutBoardManager.getLightsOutBoard().addObserver(this);
-
-
         lightsGrid.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -118,7 +117,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      */
     public void display() {
         updateLights();
-        lightsGrid.setAdapter(new CustomAdapter(lightsButtons, columnWidth, columnHeight));
+        lightsGrid.setAdapter(new CustomAdapter(lightsButtons,columnWidth,columnHeight));
     }
 
     private void loadFromFile(String fileName) {

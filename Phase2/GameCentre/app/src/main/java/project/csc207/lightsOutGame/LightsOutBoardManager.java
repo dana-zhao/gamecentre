@@ -23,11 +23,11 @@ public class LightsOutBoardManager implements Serializable {
         List<Light> lights = new ArrayList<>();
         final int numLights = LightsOutBoard.NUM_COLS * LightsOutBoard.NUM_ROWS;
         for (int lightsNum = 0; lightsNum != numLights; lightsNum++){
-            Light nextLight = new Light(lightsNum);
+            Light light = new Light(lightsNum);
             //Assign light a random on or off state
             Random randomBool = new Random();
-            nextLight.setLight(randomBool.nextBoolean());
-            lights.add(new Light(lightsNum));
+            light.setLight(randomBool.nextBoolean());
+            lights.add(light);
         }
         this.lightsOutBoard = new LightsOutBoard(lights);
     }

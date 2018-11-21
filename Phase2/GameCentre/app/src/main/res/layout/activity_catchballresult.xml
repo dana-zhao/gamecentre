@@ -9,6 +9,13 @@
     android:gravity="center"
     >
 
+    <!--
+     * A xml that build the front basis of the game named catching the ball
+     * This was adapted from a video from codingwithsara on Youtube
+     * link here:
+      * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
+    -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

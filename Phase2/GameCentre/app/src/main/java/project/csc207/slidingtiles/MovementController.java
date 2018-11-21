@@ -1,7 +1,10 @@
 package project.csc207.slidingtiles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
+
+import project.csc207.catchingball.catchballresult;
 
 class MovementController {
 
@@ -19,6 +22,7 @@ class MovementController {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+
             }
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();

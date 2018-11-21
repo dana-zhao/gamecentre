@@ -31,7 +31,6 @@ public class LightsOutStartingActivity extends AppCompatActivity {
 
     private AccountManager accountManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

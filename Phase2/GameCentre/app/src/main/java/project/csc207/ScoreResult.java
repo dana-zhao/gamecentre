@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
+import android.content.Context;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,15 +34,38 @@ public class ScoreResult extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        //loadFromFile(LauncherActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_score_result);
 
+        TextView scoreLabel = (TextView) findViewById(R.id.newscore);
+        TextView highScoreLabel = (TextView) findViewById(R.id.highScore);
+
+        int score = getIntent().getIntExtra("SCORE", 0);
+        scoreLabel.setText(score + "");
+
+        SharedPreferences settings = getSharedPreferences("HIGH_SCORE_st", Context.MODE_PRIVATE);
+        int highScore = settings.getInt("HIGH_SCORE", 0);
+
+        if (score > highScore) {
+            highScoreLabel.setText("High Score : " + score);
+
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("HIGH_SCORE", score);
+            editor.commit();
+
+        } else {
+            highScoreLabel.setText("High Score : " + highScore);
+
+        }
+
+        /*
         SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
         String user = accountManager.getCurrentAccount().getUserName();
         int score = preferences.getInt(user, 0);
 
         TextView userScore = findViewById(R.id.score);
         userScore.setText(Integer.toString(score));
+        */
 
 
         final Button playAgainButton = (Button) findViewById(R.id.playagain);
@@ -61,11 +85,15 @@ public class ScoreResult extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+
+    /*
     /**
      * Load the board manager from fileName.
      *
      * @param fileName the name of the file
      */
+    /*
     private void loadFromFile(String fileName) {
 
         try {
@@ -89,6 +117,7 @@ public class ScoreResult extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
+    /*
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -98,5 +127,5 @@ public class ScoreResult extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-    }
+    } */
 }
