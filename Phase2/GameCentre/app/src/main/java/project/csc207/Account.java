@@ -1,14 +1,20 @@
 package project.csc207;
 import java.io.Serializable;
 
+import project.csc207.lightsOutGame.LightsOutBoardManager;
 import project.csc207.slidingtiles.BoardManager;
 
 public class Account implements Serializable {
 
-    /*
+    /**
     The account saved boardManager
      */
     private BoardManager bm;
+
+    /**
+     * the Account Saved LightsOutBoardManager
+     */
+    private LightsOutBoardManager lbm;
 
     /**
     The score for the current account.
@@ -59,14 +65,32 @@ public class Account implements Serializable {
     /**
      * Return the saved boardManager
      */
-    public BoardManager getBm() {
+    public BoardManager getBoardManager() {
         return bm;
     }
 
     /**
      * Set the saved boardManager
      */
-    public void setBm(BoardManager bm) {
+    public void setBoardManager(BoardManager bm) {
         this.bm = bm;
     }
+
+    /**
+     * Return the saved LightOutBoardManager
+     * @return saved LightOutBoardManager
+     */
+    public LightsOutBoardManager getLightsOutBoardManager() {
+        return lbm;
+    }
+
+    /**
+     * set the saved LightsOutBoardManager
+     * @param lbm the given LightsOutBoardManager
+     */
+    public void setLightsOutBoardManager(LightsOutBoardManager lbm) {
+        this.lbm = lbm;
+    }
+
+
 }

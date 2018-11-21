@@ -15,14 +15,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
+import project.csc207.lightsOutGame.LightsOutStartingActivity;
 import project.csc207.slidingtiles.BoardManager;
 import project.csc207.slidingtiles.StartingActivity;
 
 public class AccountActivity extends AppCompatActivity {
 
-    /**
-     * A temporary save file.
-     */
 
     /**
      * The account manager.
@@ -35,7 +33,7 @@ public class AccountActivity extends AppCompatActivity {
         accountManager.hasAllAccount();
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
-
+        addLightsOutListener();
         displayAccountName();
     }
 
@@ -66,7 +64,16 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * Activate Lights Out game.
      */
-
+        private void addLightsOutListener() {
+        Button lightsOutButton = findViewById(R.id.LightsOutButton);
+        lightsOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lightsOutIntent = new Intent(AccountActivity.this, LightsOutStartingActivity.class);
+                startActivity(lightsOutIntent);
+            }
+        });
+    }
     private void loadFromFile(String fileName) {
 
         try {

@@ -3,21 +3,28 @@ package project.csc207.lightsOutGame;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.GridView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import project.csc207.AccountManager;
 import project.csc207.R;
 import project.csc207.slidingtiles.CustomAdapter;
 
 public class LightsOutGameActivity extends AppCompatActivity {
 
     /**
-     * Board manager of Lights Out.
+     * Board manager of Lights Out Board.
      */
-    private LightOutBoardManager boardManager;
+    private LightsOutBoardManager lightsOutBoardManager;
 
     /**
      * Buttons of Lights Out.
@@ -25,16 +32,26 @@ public class LightsOutGameActivity extends AppCompatActivity {
     private ArrayList<Button> lightsButtons = new ArrayList<>();
 
     /**
+     * the accountManager for current  Account
+     */
+    private AccountManager accountManager;
+
+    /**
      * GridView of Lights Out.
      */
     private GridView lightsGrid;
+
     private static int columnWidth, columnHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
+        lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
         setContentView(R.layout.activity_lights_out_game);
         createLights(this);
+
+
         lightsGrid.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -57,7 +74,7 @@ public class LightsOutGameActivity extends AppCompatActivity {
      * @param context the context
      */
     private void createLights(Context context) {
-        LightsOutBoard lightsBoard = boardManager.getLightsOutBoard();
+        LightsOutBoard lightsBoard = lightsOutBoardManager.getLightsOutBoard();
         lightsGrid = findViewById(R.id.LightsGrid);
         lightsGrid.setNumColumns(LightsOutBoard.NUM_COLS);
 
@@ -75,7 +92,7 @@ public class LightsOutGameActivity extends AppCompatActivity {
      * Update light backgrounds.
      */
     private void updateLights() {
-        LightsOutBoard board = boardManager.getLightsOutBoard();
+        LightsOutBoard board = lightsOutBoardManager.getLightsOutBoard();
         int nextPos = 0;
         for (Button b : lightsButtons) {
             int row = nextPos / LightsOutBoard.NUM_ROWS;
@@ -83,6 +100,12 @@ public class LightsOutGameActivity extends AppCompatActivity {
             b.setBackgroundResource(board.getLight(row, col).getBackground());
             nextPos++;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveToFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
     }
 
     /**
@@ -93,4 +116,32 @@ public class LightsOutGameActivity extends AppCompatActivity {
         lightsGrid.setAdapter(new CustomAdapter(lightsButtons, columnWidth, columnHeight));
     }
 
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                accountManager = (AccountManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(accountManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 }

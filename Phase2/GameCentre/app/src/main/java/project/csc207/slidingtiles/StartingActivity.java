@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
@@ -35,9 +34,6 @@ public class StartingActivity extends AppCompatActivity {
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
-    /**
-     * The board manager.
-     */
 
     /**
      * The board size.
@@ -53,7 +49,7 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        accountManager.getCurrentAccount().setBm(new BoardManager(BoardSize));
+        accountManager.getCurrentAccount().setBoardManager(new BoardManager(BoardSize));
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
@@ -124,7 +120,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accountManager.getCurrentAccount().setBm(new BoardManager(BoardSize));
+                accountManager.getCurrentAccount().setBoardManager(new BoardManager(BoardSize));
                 switchToGame();
             }
         });
