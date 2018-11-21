@@ -14,12 +14,14 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import project.csc207.AccountManager;
 import project.csc207.R;
 import project.csc207.slidingtiles.CustomAdapter;
 
-public class LightsOutGameActivity extends AppCompatActivity {
+public class LightsOutGameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Board manager of Lights Out Board.
@@ -39,7 +41,7 @@ public class LightsOutGameActivity extends AppCompatActivity {
     /**
      * GridView of Lights Out.
      */
-    private GridView lightsGrid;
+    private LightsOutDetectGridView lightsGrid;
 
     private static int columnWidth, columnHeight;
 
@@ -48,8 +50,13 @@ public class LightsOutGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
         lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
-        setContentView(R.layout.activity_lights_out_game);
         createLights(this);
+        setContentView(R.layout.activity_lights_out_game);
+
+        lightsGrid = findViewById(R.id.LightsGrid);
+        lightsGrid.setNumColumns(5);
+        lightsGrid.setLightsOutBoardManager(lightsOutBoardManager);
+        lightsOutBoardManager.getLightsOutBoard().addObserver(this);
 
 
         lightsGrid.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -75,9 +82,7 @@ public class LightsOutGameActivity extends AppCompatActivity {
      */
     private void createLights(Context context) {
         LightsOutBoard lightsBoard = lightsOutBoardManager.getLightsOutBoard();
-        lightsGrid = findViewById(R.id.LightsGrid);
-        lightsGrid.setNumColumns(LightsOutBoard.NUM_COLS);
-
+        lightsButtons = new ArrayList<>();
         for (int row = 0; row != LightsOutBoard.NUM_ROWS; row++) {
             for (int col = 0; col != LightsOutBoard.NUM_COLS; col++) {
                 Button light = new Button(context);
@@ -143,5 +148,10 @@ public class LightsOutGameActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        display();
     }
 }
