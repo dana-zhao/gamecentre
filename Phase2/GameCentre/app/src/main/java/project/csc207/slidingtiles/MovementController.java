@@ -1,10 +1,7 @@
 package project.csc207.slidingtiles;
 
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
-
-import project.csc207.catchingball.catchballresult;
 
 class MovementController {
 

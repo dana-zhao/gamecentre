@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -14,9 +15,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import project.csc207.AccountManager;
+import project.csc207.LauncherActivity;
 import project.csc207.R;
 
 /** 
@@ -26,7 +34,7 @@ import project.csc207.R;
   * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
   */
 
-public class catchball extends AppCompatActivity {
+public class CatchBall extends AppCompatActivity {
 
     /*
     the score, starting text, and elements of images
@@ -68,7 +76,7 @@ public class catchball extends AppCompatActivity {
     /*
     Score of the game
      */
-    private int score = 0;
+    private int score;
 
     /*
     Initialize Class
@@ -77,18 +85,25 @@ public class catchball extends AppCompatActivity {
     private Timer timer = new Timer();
 
 
-    /*
+    /**
     Status Check
      */
     private boolean action_flg = false;
     private boolean start_flg = false;
 
+    private AccountManager accountManager;
     /*
     set up for game
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        try {
+            score = accountManager.getCurrentAccount().getCatchballScoreForSave();
+        }catch (NullPointerException e){
+            score = 0;
+        }
         setContentView(R.layout.activity_catchball);
 
         scoreLabel = (TextView) findViewById(R.id.scoreLabel);
@@ -117,8 +132,8 @@ public class catchball extends AppCompatActivity {
         pink.setY(-80);
         black.setX(-80);
         black.setY(-80);
-
-        scoreLabel.setText("Score : 0");
+        String text ="Score : 0" + Integer.toString(score);
+        scoreLabel.setText(text);
     }
 
     /*
@@ -172,7 +187,8 @@ public class catchball extends AppCompatActivity {
         box.setY(boxY);
 
         scoreLabel.setText("Score : " + score);
-
+        accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+        saveToFile(LauncherActivity.SAVE_FILENAME);
     }
 
     /*
@@ -211,7 +227,7 @@ public class catchball extends AppCompatActivity {
             timer.cancel();
             timer = null;
 
-            Intent intent = new Intent(getApplicationContext(), catchballresult.class);
+            Intent intent = new Intent(getApplicationContext(), CatchBallResult.class);
             intent.putExtra("SCORE", score);
             startActivity(intent);
         }
@@ -278,6 +294,43 @@ public class catchball extends AppCompatActivity {
 
         return super.dispatchKeyEvent(event);
     }
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(accountManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 
+    /**
+     * Load the board manager from fileName.
+     *
+     * @param fileName the name of the file
+     */
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                accountManager = (AccountManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
 
 }

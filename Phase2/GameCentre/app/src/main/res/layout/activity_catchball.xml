@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".catchingball.catchball">
+    tools:context=".catchingball.CatchBall">
 
     <!--
      * A xml that build the front basis of the game named catching the ball

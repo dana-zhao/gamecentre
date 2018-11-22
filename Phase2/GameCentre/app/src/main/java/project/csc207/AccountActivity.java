@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
+import project.csc207.catchingball.CatchBallStart;
 import project.csc207.lightsOutGame.LightsOutStartingActivity;
 import project.csc207.slidingtiles.BoardManager;
 import project.csc207.slidingtiles.StartingActivity;
@@ -34,6 +35,7 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
         addLightsOutListener();
+        addCatchingTheBallListener();
         displayAccountName();
     }
 
@@ -57,6 +59,21 @@ public class AccountActivity extends AppCompatActivity {
                 Intent slidingTilesIntent = new Intent(AccountActivity.this,
                         StartingActivity.class);
                 startActivity(slidingTilesIntent);
+            }
+        });
+    }
+
+    /**
+     Activate the game catching the ball.
+     */
+    private void addCatchingTheBallListener() {
+        Button catchBallButton = findViewById(R.id.CatchingBallButton);
+        catchBallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent catchBallIntent = new Intent(AccountActivity.this,
+                        CatchBallStart.class);
+                startActivity(catchBallIntent);
             }
         });
     }

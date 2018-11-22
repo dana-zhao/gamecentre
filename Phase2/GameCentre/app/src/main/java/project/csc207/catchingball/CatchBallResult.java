@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ import project.csc207.R;
   * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
   */
 
-public class catchballresult extends AppCompatActivity {
+public class CatchBallResult extends AppCompatActivity {
 
     /*
     set up the outline for the result page with calculated scores
@@ -55,7 +54,7 @@ public class catchballresult extends AppCompatActivity {
     restart the game
      */
     public void tryAgain(View view) {
-        startActivity(new Intent(getApplicationContext(), catchballstart.class));
+        startActivity(new Intent(getApplicationContext(), CatchBallStart.class));
     }
 
 
