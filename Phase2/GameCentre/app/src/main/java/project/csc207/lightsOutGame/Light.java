@@ -3,13 +3,14 @@ package project.csc207.lightsOutGame;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Observable;
 
 import project.csc207.R;
 
 /**
  *  A light in LightsOut Board
  */
-public class Light implements Comparable<Light>, Serializable {
+public class Light extends Observable implements Comparable<Light>, Serializable {
 
     /**
      * the background id to set the light to be white or black
@@ -41,16 +42,13 @@ public class Light implements Comparable<Light>, Serializable {
 
     /**
      * switch the light, change the background of light and the getState state.
-     * @param light as a Light Object
      */
-    public void switchLight(Light light){
-        if(light.isOn){
-            light.isOn = false;
-            light.background = R.drawable.lightsoff;
+     void switchLight(){
+        if(this.isOn){
+            setLight(false);
         }
         else{
-            light.isOn = true;
-            light.background = R.drawable.lightson;
+            setLight(true);
         }
     }
 
@@ -72,6 +70,8 @@ public class Light implements Comparable<Light>, Serializable {
         else{
             background = R.drawable.lightsoff;
         }
+        setChanged();
+        notifyObservers();
     }
 
     @Override

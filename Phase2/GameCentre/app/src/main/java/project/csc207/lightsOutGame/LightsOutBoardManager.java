@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * manage the LightOutBoard, including switch light, check for a win, and managing taps
@@ -14,6 +15,8 @@ public class LightsOutBoardManager implements Serializable {
      *  the LightsOut Board to be managed
      */
     private  LightsOutBoard lightsOutBoard;
+
+    private Stack<Integer> gameMoves = new Stack<>();
 
     LightsOutBoard getLightsOutBoard() {
         return lightsOutBoard;
@@ -33,14 +36,15 @@ public class LightsOutBoardManager implements Serializable {
     }
 
     /**
-     * Return whether all lights in Light Out Board are On
+     * Return whether all lights in Light Out Board are Off, note there are always 25 lights in
+     * LightsOut Board
      *
      * @return whether all lights in Light Out Board are On
      */
     boolean allLightsOut(){
-        for (int i =0; i < lightsOutBoard.numLights()-1; i++){
+        for (int i =0; i < 25; i++){
             int row = i / LightsOutBoard.NUM_ROWS;
-            int col = 1 % LightsOutBoard.NUM_COLS;
+            int col = i % LightsOutBoard.NUM_COLS;
             Light lightToCheck = lightsOutBoard.getLight(row, col);
             if (lightToCheck.getState()){
                 return false;
@@ -71,11 +75,29 @@ public class LightsOutBoardManager implements Serializable {
         return lights;
     }
 
+    /**
+     * Switch The light and lights around the select Light
+     * @param position the position of the light
+     */
     public void touchToSwitch(int position){
+        gameMoves.push(position);
         List<Light> lightsToSwitch = getLightsAround(position);
         for(Light light:lightsToSwitch){
-            light.switchLight(light);
+            light.switchLight();
         }
+    }
+
+    /**
+     * undo the previous switch, if no previous switch do nothing
+     */
+    void undo(){
+        if (!gameMoves.empty()){
+            int position = gameMoves.pop();
+            touchToSwitch(position);
+            // because touchToSwitch called and position add to gameMoves again
+            gameMoves.pop();
+        }
+
     }
 
 }

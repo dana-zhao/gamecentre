@@ -13,7 +13,7 @@ import java.util.Stack;
  * the Board for Lights Out Game
  */
 
-public class LightsOutBoard extends Observable implements Serializable, Iterable<Light> {
+public class LightsOutBoard implements Serializable, Iterable<Light> {
 
 
     static int NUM_ROWS = 5;
@@ -23,7 +23,6 @@ public class LightsOutBoard extends Observable implements Serializable, Iterable
     /**
      * All the moves made to the board.
      */
-    private Stack<int[]> gameMoves = new Stack<>();
 
     private Light[][] lights = new Light[NUM_COLS][NUM_ROWS];
 
@@ -52,19 +51,6 @@ public class LightsOutBoard extends Observable implements Serializable, Iterable
     public int numLights() {
         return NUM_COLS*NUM_COLS;
     }
-
-//    /**
-//     * Undo the previous move.
-//     */
-//    void undo() {
-//        if (!gameMoves.empty()) {
-//            int[] moves = gameMoves.pop();
-//            swapTiles(moves[0], moves[1], moves[2], moves[3]);
-//            gameMoves.pop();
-//        }
-//    }
-
-
 
     @NonNull
     @Override

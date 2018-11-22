@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.GridView;
 
 import java.io.FileNotFoundException;
@@ -53,11 +55,33 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
+        addObserverToLights();
+        addViewToActivity();
+        AddUndoListener();
 
+        final Chronometer chronometerTimer =  findViewById(R.id.timer);
+        chronometerTimer.start();
+
+    }
+
+    private void AddUndoListener() {
+        final Button undoButton =  findViewById(R.id.undoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lightsOutBoardManager.undo();
+            }
+        });
+    }
+
+    /**
+     * add View to Activity
+     */
+    private void addViewToActivity() {
         lightsGrid = findViewById(R.id.LightsGrid);
         lightsGrid.setNumColumns(5);
         lightsGrid.setLightsOutBoardManager(lightsOutBoardManager);
-        lightsOutBoardManager.getLightsOutBoard().addObserver(this);
+
         lightsGrid.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -74,6 +98,20 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
                     }
                 });
     }
+
+    /**
+     * add Observer to each light in LightsOutBoard, Since the Light will change its background by
+     * switchLight method. Notes the LightsOutBoard always has 25 lights in it, in 5 x 5.
+     */
+    private void addObserverToLights(){
+        for(int i=0;i<25;i++){
+            int row = i / 5;
+            int col = i % 5;
+            // Since the NUM_ROW and NUM_COL of lightsOutBoard is always 5
+            lightsOutBoardManager.getLightsOutBoard().getLight(row,col).addObserver(this);
+        }
+    }
+
 
     /**
      * Creates the buttons for the lights
@@ -96,6 +134,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * Update light backgrounds.
      */
     private void updateLights() {
+        System.out.println("UpdateLights Called");
         LightsOutBoard board = lightsOutBoardManager.getLightsOutBoard();
         int nextPos = 0;
         for (Button b : lightsButtons) {
@@ -151,6 +190,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("Update Called");
         display();
     }
 }

@@ -37,13 +37,6 @@ public class LightsOutDetectGridView extends GridView {
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public LightsOutDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
-
     private void init(final Context context) {
         sController = new SwitchController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -52,7 +45,7 @@ public class LightsOutDetectGridView extends GridView {
             public boolean onSingleTapConfirmed(MotionEvent event) {
                 int position = LightsOutDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
-
+                System.out.println(position);
                 sController.processTapSwitch(context, position);
                 return true;
             }

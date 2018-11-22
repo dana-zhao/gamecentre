@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,11 +38,12 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         loadFromFile(LauncherActivity.SAVE_FILENAME);
         accountManager.getCurrentAccount().setLightsOutBoardManager(new LightsOutBoardManager());
         saveToFile(TEMP_SAVE_FILENAME);
-        //upload and update LightsOutBoardManager in Account
 
         setContentView(R.layout.activity_lights_out_starting);
         displayAccountName();
         addStartButtonListener();
+        addLoadButtonListener();
+        addSaveButtonListener();
     }
 
     /**
@@ -61,10 +63,69 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                accountManager.getCurrentAccount().
+                        setLightsOutBoardManager(new LightsOutBoardManager());
                 switchToGame();
             }
         });
     }
+
+    /**
+     * Activate the load button.
+     */
+    private void addLoadButtonListener() {
+        Button loadButton = findViewById(R.id.LoadButtonLights);
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFromFile(SAVE_FILENAME);
+                saveToFile(TEMP_SAVE_FILENAME);
+                makeToastLoadedText();
+                switchToGame();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was loaded successfully.
+     */
+    private void makeToastLoadedText() {
+        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Activate the save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButtonLights);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountManager.updateAccount();
+                saveToFile(SAVE_FILENAME);
+                saveToFile(TEMP_SAVE_FILENAME);
+                makeToastSavedText();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * Read the temporary board from disk.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadFromFile(TEMP_SAVE_FILENAME);
+    }
+
 
     /**
      * Switch to the LightsOutGameActivity view to play the game.
@@ -76,6 +137,11 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         startActivity(gameActivityIntent);
     }
 
+    /**
+     * Load the board manager from fileName.
+     *
+     * @param fileName the name of the file
+     */
     private void loadFromFile(String fileName) {
 
         try {
@@ -94,6 +160,11 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
