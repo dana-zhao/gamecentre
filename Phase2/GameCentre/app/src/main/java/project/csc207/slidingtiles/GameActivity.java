@@ -1,7 +1,6 @@
 package project.csc207.slidingtiles;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,9 +63,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private int score = 0;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +71,41 @@ public class GameActivity extends AppCompatActivity implements Observer {
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
+        AddViewToActivity();
+        AddUndoListener();
+
+        final Chronometer chronometerTimer =  findViewById(R.id.timer);
+        chronometerTimer.start();
+
+        Button finishButton = findViewById(R.id.finish);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chronometerTimer.stop();
+                scoreboardsliding.timeTaken(chronometerTimer.getFormat());
+                // convert string time to the int
+                scoreboardsliding.convertTime();
+                scoreboardsliding.scoreCount();
+
+                openScoreResult(scoreboardsliding.getScore());
+            }
+        });
+    }
+
+    private void AddUndoListener() {
+        final Button undoButton =  findViewById(R.id.undoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boardManager.getBoard().undo();
+            }
+        });
+    }
+
+    /**
+     * Add View To activity and set up Observer and call display method
+     */
+    private void AddViewToActivity() {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
@@ -96,32 +127,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         display();
                     }
                 });
-
-        final Button undoButton =  findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boardManager.getBoard().undo();
-            }
-        });
-
-        final Chronometer chronometerTimer =  findViewById(R.id.timer);
-        chronometerTimer.start();
-
-        Button finishButton = findViewById(R.id.finish);
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chronometerTimer.stop();
-                scoreboardsliding.timeTaken(chronometerTimer.getFormat());
-                // convert string time to the int
-                scoreboardsliding.convertTime();
-                scoreboardsliding.scoreCount();
-
-                openScoreResult(scoreboardsliding.getScore());
-            }
-        });
     }
+
 
     /**
      * after game is over, clicking the finish button
