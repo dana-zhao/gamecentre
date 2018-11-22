@@ -101,13 +101,12 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
     /**
      * add Observer to each light in LightsOutBoard, Since the Light will change its background by
-     * switchLight method. Notes the LightsOutBoard always has 25 lights in it, in 5 x 5.
+     * switchLight method.
      */
     private void addObserverToLights(){
-        for(int i=0;i<25;i++){
-            int row = i / 5;
-            int col = i % 5;
-            // Since the NUM_ROW and NUM_COL of lightsOutBoard is always 5
+        for(int i=0;i<LightsOutBoard.NUM_COLS*LightsOutBoard.NUM_ROWS;i++){
+            int row = i / LightsOutBoard.NUM_ROWS;
+            int col = i % LightsOutBoard.NUM_COLS;
             lightsOutBoardManager.getLightsOutBoard().getLight(row,col).addObserver(this);
         }
     }
