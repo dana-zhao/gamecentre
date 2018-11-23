@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
+import java.util.Observable;
 
 /**
  * manage the LightOutBoard, including switch light, check for a win, and managing taps
  */
-public class LightsOutBoardManager implements Serializable {
+public class LightsOutBoardManager extends Observable implements Serializable {
 
     /**
      *  the LightsOut Board to be managed
      */
-    private  LightsOutBoard lightsOutBoard;
+    private LightsOutBoard lightsOutBoard;
 
     private Stack<Integer> gameMoves = new Stack<>();
 
@@ -42,7 +43,7 @@ public class LightsOutBoardManager implements Serializable {
      * @return whether all lights in Light Out Board are On
      */
     boolean allLightsOut(){
-        for (int i =0; i < 25; i++){
+        for (int i =0; i < LightsOutBoard.NUM_ROWS * LightsOutBoard.NUM_COLS; i++){
             int row = i / LightsOutBoard.NUM_ROWS;
             int col = i % LightsOutBoard.NUM_COLS;
             Light lightToCheck = lightsOutBoard.getLight(row, col);
@@ -85,6 +86,8 @@ public class LightsOutBoardManager implements Serializable {
         for(Light light:lightsToSwitch){
             light.switchLight();
         }
+        setChanged();
+        notifyObservers();
     }
 
     /**

@@ -10,7 +10,7 @@ import project.csc207.R;
 /**
  *  A light in LightsOut Board
  */
-public class Light extends Observable implements Comparable<Light>, Serializable {
+public class Light extends Observable implements Serializable {
 
     /**
      * the background id to set the light to be white or black
@@ -67,15 +67,9 @@ public class Light extends Observable implements Comparable<Light>, Serializable
         if (state){
             background = R.drawable.lightson;
         }
-        else{
+        else {
             background = R.drawable.lightsoff;
         }
-        setChanged();
-        notifyObservers();
     }
 
-    @Override
-    public int compareTo(@NonNull Light o) {
-        return o.id - this.id;
-    }
 }

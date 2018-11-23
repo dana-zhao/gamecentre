@@ -52,10 +52,10 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         super.onCreate(savedInstanceState);
         loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
         lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
+        lightsOutBoardManager.addObserver(this);
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
-        addObserverToLights();
         addViewToActivity();
         AddUndoListener();
 
@@ -99,18 +99,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
                 });
     }
 
-    /**
-     * add Observer to each light in LightsOutBoard, Since the Light will change its background by
-     * switchLight method.
-     */
-    private void addObserverToLights(){
-        for(int i=0;i<LightsOutBoard.NUM_COLS*LightsOutBoard.NUM_ROWS;i++){
-            int row = i / LightsOutBoard.NUM_ROWS;
-            int col = i % LightsOutBoard.NUM_COLS;
-            lightsOutBoardManager.getLightsOutBoard().getLight(row,col).addObserver(this);
-        }
-    }
-
 
     /**
      * Creates the buttons for the lights
@@ -126,7 +114,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
                 lightsButtons.add(light);
             }
         }
-
     }
 
     /**

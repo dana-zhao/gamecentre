@@ -28,10 +28,10 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
 
 
     /**
-     * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     * A new board of lights in row-major order.
+     * Precondition: len(lights) == NUM_ROWS * NUM_COLS
      *
-     * @param lights the tiles for the board
+     * @param lights the lights for the board
      */
     LightsOutBoard(List<Light> lights) {
         Iterator<Light> iter = lights.iterator();
@@ -44,7 +44,7 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
     }
 
 
-    public Light getLight(int row, int col){
+    Light getLight(int row, int col){
         return lights[row][col];
     }
 
