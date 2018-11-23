@@ -14,7 +14,7 @@ public class LightTest {
     public void testGetId() {
         int result = testLight.getId();
         int correctId = 0;
-        assertEquals(result, correctId);
+        assertEquals(correctId, result);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class LightTest {
     @Test
     public void testGetBackground() {
         int result = testLight.getBackground();
-        assertEquals(result, R.drawable.lightson);
+        assertEquals(R.drawable.lightson, result);
     }
 
     @Test

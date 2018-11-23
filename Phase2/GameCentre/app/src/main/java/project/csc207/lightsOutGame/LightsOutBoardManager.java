@@ -47,7 +47,7 @@ public class LightsOutBoardManager extends Observable implements Serializable {
             int row = i / LightsOutBoard.NUM_ROWS;
             int col = i % LightsOutBoard.NUM_COLS;
             Light lightToCheck = lightsOutBoard.getLight(row, col);
-            if (lightToCheck.getState()){
+            if (!(lightToCheck.getState())){
                 return false;
             }
         }

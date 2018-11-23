@@ -78,12 +78,12 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
 
         @Override
         public boolean hasNext() {
-            return !(getLight(row, col).getId() == (NUM_COLS * NUM_ROWS));
+            return !(getLight(row, col).getId() == (NUM_COLS * NUM_ROWS - 1));
         }
 
         @Override
         public Light next() {
-            Light next = getLight(row, col);
+            Light nextLight = getLight(row, col);
             if (col < NUM_COLS - 1) {
                 col++;
             } else {
@@ -96,7 +96,7 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
                 }
 
             }
-            return next;
+            return nextLight;
         }
     }
 }

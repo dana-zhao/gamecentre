@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.GridView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,14 +56,14 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         setContentView(R.layout.activity_lights_out_game);
 
         addViewToActivity();
-        AddUndoListener();
+        addUndoListener();
 
         final Chronometer chronometerTimer =  findViewById(R.id.timer);
         chronometerTimer.start();
 
     }
 
-    private void AddUndoListener() {
+    private void addUndoListener() {
         final Button undoButton =  findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
