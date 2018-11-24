@@ -24,6 +24,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".lightsoutgame.LightsOutStartingActivity" />
         <activity android:name=".lightsoutgame.LightsOutGameActivity"></activity>
+        <activity android:name=".catchingball.CatchBallStart"></activity>
+        <activity android:name=".catchingball.CatchBall"></activity>
+        <activity android:name=".catchingball.CatchBallResult"></activity>
     </application>
 
 </manifest>
