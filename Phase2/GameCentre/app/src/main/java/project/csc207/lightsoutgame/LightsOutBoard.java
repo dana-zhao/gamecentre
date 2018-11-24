@@ -76,7 +76,7 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
 
         @Override
         public boolean hasNext() {
-            return !(getLight(row, col).getId() == (NUM_COLS * NUM_ROWS - 1));
+            return (getLight(row, col).getId() < (NUM_COLS * NUM_ROWS - 1));
         }
 
         @Override
