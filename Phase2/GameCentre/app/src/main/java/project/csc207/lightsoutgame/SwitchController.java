@@ -1,4 +1,4 @@
-package project.csc207.lightsOutGame;
+package project.csc207.lightsoutgame;
 
 import android.content.Context;
 import android.widget.Toast;

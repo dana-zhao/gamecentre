@@ -12,12 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 
 import project.csc207.catchingball.CatchBallStart;
-import project.csc207.lightsOutGame.LightsOutStartingActivity;
-import project.csc207.slidingtiles.BoardManager;
+import project.csc207.lightsoutgame.LightsOutStartingActivity;
 import project.csc207.slidingtiles.StartingActivity;
 
 public class AccountActivity extends AppCompatActivity {

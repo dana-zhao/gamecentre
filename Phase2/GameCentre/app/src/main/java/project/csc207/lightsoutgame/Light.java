@@ -1,6 +1,4 @@
-package project.csc207.lightsOutGame;
-
-import android.support.annotation.NonNull;
+package project.csc207.lightsoutgame;
 
 import java.io.Serializable;
 import java.util.Observable;

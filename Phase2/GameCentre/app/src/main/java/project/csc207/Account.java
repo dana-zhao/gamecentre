@@ -1,7 +1,7 @@
 package project.csc207;
 import java.io.Serializable;
 
-import project.csc207.lightsOutGame.LightsOutBoardManager;
+import project.csc207.lightsoutgame.LightsOutBoardManager;
 import project.csc207.slidingtiles.BoardManager;
 
 public class Account implements Serializable {

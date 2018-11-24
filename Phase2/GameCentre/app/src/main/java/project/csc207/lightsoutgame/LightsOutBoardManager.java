@@ -1,4 +1,4 @@
-package project.csc207.lightsOutGame;
+package project.csc207.lightsoutgame;
 
 import java.io.Serializable;
 import java.util.ArrayList;

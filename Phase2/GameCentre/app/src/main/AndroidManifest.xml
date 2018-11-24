@@ -22,8 +22,8 @@
         <activity android:name=".ScoreRank" />
         <activity android:name=".ScoreResult" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".lightsOutGame.LightsOutStartingActivity" />
-        <activity android:name=".lightsOutGame.LightsOutGameActivity"></activity>
+        <activity android:name=".lightsoutgame.LightsOutStartingActivity" />
+        <activity android:name=".lightsoutgame.LightsOutGameActivity"></activity>
     </application>
 
 </manifest>

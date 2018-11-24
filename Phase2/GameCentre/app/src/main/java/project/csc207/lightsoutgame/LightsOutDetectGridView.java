@@ -1,8 +1,6 @@
-package project.csc207.lightsOutGame;
+package project.csc207.lightsoutgame;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;

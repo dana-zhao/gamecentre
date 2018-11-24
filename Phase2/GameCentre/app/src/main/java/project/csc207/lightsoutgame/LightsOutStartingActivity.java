@@ -1,4 +1,4 @@
-package project.csc207.lightsOutGame;
+package project.csc207.lightsoutgame;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

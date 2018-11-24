@@ -1,4 +1,4 @@
-package project.csc207.lightsOutGame;
+package project.csc207.lightsoutgame;
 import org.junit.*;
 
 import project.csc207.R;
