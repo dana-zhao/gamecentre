@@ -37,7 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        accountManager.hasAllAccount();
+        if (accountManager.getAllAccount() == null){
+            accountManager.setAllAccount(new HashMap());
+        }
 
         setContentView(R.layout.activity_register);
 

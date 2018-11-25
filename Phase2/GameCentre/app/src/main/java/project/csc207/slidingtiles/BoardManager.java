@@ -46,31 +46,31 @@ public class BoardManager implements Serializable {
         tiles.add(new Tile(24));
         Collections.shuffle(tiles);
         this.board = new Board(tiles, boardSize);
-        while (!(isSolvable(boardSize, tiles))){
-            Collections.shuffle(tiles);
-        }
-        this.board = new Board(tiles, boardSize)
+//        while (!(isSolvable(boardSize, tiles))){
+//            Collections.shuffle(tiles);
+//        }
+        this.board = new Board(tiles, boardSize);
     }
 
-    /**
-     * Check to make sure board is solvable
-     * Citations: https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
-     * https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html?
-     * @param boardSize the size of board
-     * @return
-     */
-    private boolean isSolvable(int boardSize, List<Tile> tiles) {
-        List<Integer> tileNums = new ArrayList<>();
-        for (Tile t: tiles) {
-            tileNums.add(t.getId());
-        }
-        if (boardSize % 2 == 1) {
-
-        }
-        else {
-
-        }
-    }
+//    /**
+//     * Check to make sure board is solvable
+//     * Citations: https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
+//     * https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html?
+//     * @param boardSize the size of board
+//     * @return
+//     */
+//    private boolean isSolvable(int boardSize, List<Tile> tiles) {
+//        List<Integer> tileNums = new ArrayList<>();
+//        for (Tile t: tiles) {
+//            tileNums.add(t.getId());
+//        }
+//        if (boardSize % 2 == 1) {
+//
+//        }
+//        else {
+//
+//        }
+//    }
 
     private int numOfInversions(List<Integer> tileNums) {
         int inversions = 0;
