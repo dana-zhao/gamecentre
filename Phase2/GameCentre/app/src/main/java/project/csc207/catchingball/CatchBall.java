@@ -187,9 +187,7 @@ public class CatchBall extends AppCompatActivity {
         box.setY(boxY);
 
         scoreLabel.setText("Score : " + score);
-        accountManager.getCurrentAccount().setCatchballScoreForSave(score);
-        accountManager.updateAccount();
-        saveToFile(LauncherActivity.SAVE_FILENAME);
+
     }
 
     /*
@@ -205,6 +203,9 @@ public class CatchBall extends AppCompatActivity {
 
             score += 10;
             orangeX = -10;
+            accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+            accountManager.updateAccount();
+            saveToFile(LauncherActivity.SAVE_FILENAME);
         }
 
 
@@ -216,6 +217,9 @@ public class CatchBall extends AppCompatActivity {
 
             score += 30;
             pinkX = -10;
+            accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+            accountManager.updateAccount();
+            saveToFile(LauncherActivity.SAVE_FILENAME);
         }
 
 
@@ -224,10 +228,9 @@ public class CatchBall extends AppCompatActivity {
 
         if (0 <= blackCenterX && blackCenterX <= boxSize &&
                 boxY <= blackCenterY && blackCenterY <= boxY + boxSize) {
-
             timer.cancel();
             timer = null;
-            accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+            accountManager.getCurrentAccount().setCatchballScoreForSave(0);
             accountManager.updateAccount();
             saveToFile(LauncherActivity.SAVE_FILENAME);
             Intent intent = new Intent(getApplicationContext(), CatchBallResult.class);
