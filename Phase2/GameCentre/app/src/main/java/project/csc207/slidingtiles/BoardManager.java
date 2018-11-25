@@ -49,7 +49,7 @@ public class BoardManager implements Serializable {
         while (!(isSolvable(boardSize, tiles))){
             Collections.shuffle(tiles);
         }
-        this.board = new Board(tiles, boardSize)
+        this.board = new Board(tiles, boardSize);
     }
 
     /**
@@ -57,25 +57,35 @@ public class BoardManager implements Serializable {
      * Citations: https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
      * https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html?
      * @param boardSize the size of board
-     * @return
+     * @return whether the board is solvable
      */
     private boolean isSolvable(int boardSize, List<Tile> tiles) {
         List<Integer> tileNums = new ArrayList<>();
         for (Tile t: tiles) {
             tileNums.add(t.getId());
         }
+        int inversions = numOfInversions(tileNums);
         if (boardSize % 2 == 1) {
-
+            return inversions % 2 == 0;
         }
         else {
-
+            if (this.board.getBlankRow() % 2 == 1) {
+                return inversions % 2 == 1;
+            }
+            else {
+                return inversions % 2 == 0;
+            }
         }
     }
 
     private int numOfInversions(List<Integer> tileNums) {
         int inversions = 0;
-        for (int i = 0; i < tileNums.size() - 1; i++) {
-
+        for (int i = 0; i < tileNums.size(); i++) {
+            for (int j = i + 1; j < tileNums.size(); j++) {
+                if (tileNums.get(j) < tileNums.get(i)) {
+                    inversions++;
+                }
+            }
         }
         return inversions;
     }

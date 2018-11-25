@@ -35,12 +35,18 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
 
+
+    /**
+     * The row that the blank is on when the board is initialized.
+     */
+    private int blankRow;
+
     /*
     the scoreboard for sliding tiles
     * */
 //    private ScoreBoardSliding scoreBoardSliding;
 
-        /**
+    /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
      *
@@ -71,9 +77,18 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
+                if (this.tiles[row][col].getId() == Board.NUM_ROWS * Board.NUM_COLS - 1) {
+                    this.blankRow = row;
+                }
             }
         }
     }
+
+    /**
+     * Return the row of the blank when initialized.
+     * @return the row of the blank
+     */
+    int getBlankRow() { return this.blankRow; }
 
     /**
      * Return the number of tiles on the board.

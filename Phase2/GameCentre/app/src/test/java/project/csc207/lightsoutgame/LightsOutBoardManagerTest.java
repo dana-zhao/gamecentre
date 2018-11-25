@@ -20,10 +20,11 @@ public class LightsOutBoardManagerTest {
 
     @Test
     public void testAllLightsOut() {
+        helper.getLightsAllOff(testBoard);
         Light testLight = testBoard.getLight(0,0);
-        testLight.setLight(false);
-        assertFalse(testBoardManager.allLightsOut());
         testLight.setLight(true);
+        assertFalse(testBoardManager.allLightsOut());
+        testLight.setLight(false);
         assertTrue(testBoardManager.allLightsOut());
     }
 
