@@ -188,6 +188,7 @@ public class CatchBall extends AppCompatActivity {
 
         scoreLabel.setText("Score : " + score);
         accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+        accountManager.updateAccount();
         saveToFile(LauncherActivity.SAVE_FILENAME);
     }
 
@@ -226,7 +227,9 @@ public class CatchBall extends AppCompatActivity {
 
             timer.cancel();
             timer = null;
-
+            accountManager.getCurrentAccount().setCatchballScoreForSave(score);
+            accountManager.updateAccount();
+            saveToFile(LauncherActivity.SAVE_FILENAME);
             Intent intent = new Intent(getApplicationContext(), CatchBallResult.class);
             intent.putExtra("SCORE", score);
             startActivity(intent);
@@ -279,7 +282,7 @@ public class CatchBall extends AppCompatActivity {
     }
 
 
-    /*
+    /**
     Disable Return Button
      */
     @Override

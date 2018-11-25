@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.util.HashMap;
 
 
 import project.csc207.catchingball.CatchBallStart;
@@ -29,7 +30,6 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        accountManager.hasAllAccount();
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
         addLightsOutListener();

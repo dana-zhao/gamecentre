@@ -16,7 +16,7 @@ public class Account implements Serializable {
      */
     private LightsOutBoardManager lbm;
 
-    private int catchballScoreForSave;
+    private int catchBallScoreForSave;
 
     /**
     The score for the current account.
@@ -87,11 +87,11 @@ public class Account implements Serializable {
     }
 
     public void setCatchballScoreForSave(int catchballScoreForSave) {
-        this.catchballScoreForSave = catchballScoreForSave;
+        this.catchBallScoreForSave = catchballScoreForSave;
     }
 
     public int getCatchballScoreForSave() {
-        return catchballScoreForSave;
+        return catchBallScoreForSave;
     }
 
     /**
