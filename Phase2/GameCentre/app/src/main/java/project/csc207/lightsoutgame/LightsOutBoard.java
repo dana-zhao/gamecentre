@@ -65,18 +65,23 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
 
     class LightsOutBoardIterator implements Iterator<Light>{
         /**
-         * The row of the current tile.
+         * The row of the current light.
          */
         int row = 0;
 
         /**
-         * The column of the current tile.
+         * The column of the current light.
          */
         int col = 0;
 
+        /**
+         * Id of light.
+         */
+        int id = 0;
+
         @Override
         public boolean hasNext() {
-            return (getLight(row, col).getId() < (NUM_COLS * NUM_ROWS - 1));
+            return id < (NUM_COLS * NUM_ROWS);
         }
 
         @Override
@@ -94,6 +99,7 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
                 }
 
             }
+            id++;
             return nextLight;
         }
     }
