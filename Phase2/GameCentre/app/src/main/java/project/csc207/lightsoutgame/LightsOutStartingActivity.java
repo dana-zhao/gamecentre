@@ -22,10 +22,6 @@ import project.csc207.R;
 public class LightsOutStartingActivity extends AppCompatActivity {
 
     /**
-     * The main save file.
-     */
-    public static final String SAVE_FILENAME = "save_file.ser";
-    /**
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
@@ -78,7 +74,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
+                loadFromFile(LauncherActivity.SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
@@ -102,7 +98,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accountManager.updateAccount();
-                saveToFile(SAVE_FILENAME);
+                saveToFile(LauncherActivity.SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();
             }

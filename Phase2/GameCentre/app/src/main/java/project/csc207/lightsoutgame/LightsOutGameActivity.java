@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import project.csc207.AccountManager;
+import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.slidingtiles.CustomAdapter;
 
@@ -27,7 +28,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     /**
      * Board manager of Lights Out Board.
      */
-    private LightsOutBoardManager lightsOutBoardManager;
 
     /**
      * Buttons of Lights Out.
@@ -50,8 +50,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
-        lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
-        lightsOutBoardManager.addObserver(this);
+        accountManager.getCurrentAccount().getLightsOutBoardManager().addObserver(this);
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
@@ -68,7 +67,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lightsOutBoardManager.undo();
+                accountManager.getCurrentAccount().getLightsOutBoardManager().undo();
             }
         });
     }
@@ -79,7 +78,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     private void addViewToActivity() {
         lightsGrid = findViewById(R.id.LightsGrid);
         lightsGrid.setNumColumns(5);
-        lightsGrid.setLightsOutBoardManager(lightsOutBoardManager);
+        lightsGrid.setLightsOutBoardManager
+                (accountManager.getCurrentAccount().getLightsOutBoardManager());
 
         lightsGrid.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -104,7 +104,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * @param context the context
      */
     private void createLights(Context context) {
-        LightsOutBoard lightsBoard = lightsOutBoardManager.getLightsOutBoard();
+        LightsOutBoard lightsBoard
+                = accountManager.getCurrentAccount().getLightsOutBoardManager().getLightsOutBoard();
         lightsButtons = new ArrayList<>();
         for (int row = 0; row != LightsOutBoard.NUM_ROWS; row++) {
             for (int col = 0; col != LightsOutBoard.NUM_COLS; col++) {
@@ -120,7 +121,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      */
     private void updateLights() {
         System.out.println("UpdateLights Called");
-        LightsOutBoard board = lightsOutBoardManager.getLightsOutBoard();
+        LightsOutBoard board =
+                accountManager.getCurrentAccount().getLightsOutBoardManager().getLightsOutBoard();
         int nextPos = 0;
         for (Button b : lightsButtons) {
             int row = nextPos / LightsOutBoard.NUM_ROWS;
@@ -128,14 +130,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
             b.setBackgroundResource(board.getLight(row, col).getBackground());
             nextPos++;
         }
+        saveToFile(LauncherActivity.SAVE_FILENAME);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveToFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
-    }
-
     /**
      * Set up background images and use adapter to set the view.
      */
