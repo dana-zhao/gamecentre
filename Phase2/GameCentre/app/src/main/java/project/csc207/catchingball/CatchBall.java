@@ -128,7 +128,7 @@ public class CatchBall extends AppCompatActivity {
         pink.setY(-80);
         black.setX(-80);
         black.setY(-80);
-        String text ="Score : 0" + Integer.toString(score);
+        String text ="Score : " + Integer.toString(score);
         scoreLabel.setText(text);
     }
 
@@ -226,12 +226,14 @@ public class CatchBall extends AppCompatActivity {
                 boxY <= blackCenterY && blackCenterY <= boxY + boxSize) {
             timer.cancel();
             timer = null;
+
             accountManager.getCurrentAccount().setCatchballScoreForSave(0);
             if (score > accountManager.getCurrentAccount().catchBallScore){
                 accountManager.getCurrentAccount().catchBallScore = score;
             }
             accountManager.updateAccount();
             saveToFile(LauncherActivity.SAVE_FILENAME);
+
             Intent intent = new Intent(getApplicationContext(), CatchBallResult.class);
             intent.putExtra("SCORE", score);
             startActivity(intent);
@@ -284,21 +286,6 @@ public class CatchBall extends AppCompatActivity {
     }
 
 
-    /**
-    Disable Return Button
-     */
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_BACK:
-                    return true;
-            }
-        }
-
-        return super.dispatchKeyEvent(event);
-    }
     /**
      * Save the board manager to fileName.
      *
