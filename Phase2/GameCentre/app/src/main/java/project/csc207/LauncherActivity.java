@@ -41,7 +41,9 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        accountManager.hasAllAccount();
+        if(accountManager.getAllAccount() == null){
+            accountManager.setAllAccount( new HashMap<>());
+        }
         addLogInButtonListener();
         addSignUpButtonListener();
     }
