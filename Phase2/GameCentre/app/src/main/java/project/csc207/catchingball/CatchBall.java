@@ -73,12 +73,12 @@ public class CatchBall extends AppCompatActivity {
     private int pinkSpeed;
     private int blackSpeed;
 
-    /*
+    /**
     Score of the game
      */
     private int score;
 
-    /*
+    /**
     Initialize Class
      */
     private Handler handler = new Handler();
@@ -99,11 +99,7 @@ public class CatchBall extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        try {
-            score = accountManager.getCurrentAccount().getCatchballScoreForSave();
-        }catch (NullPointerException e){
-            score = 0;
-        }
+        score = accountManager.getCurrentAccount().getCatchballScoreForSave();
         setContentView(R.layout.activity_catchball);
 
         scoreLabel = (TextView) findViewById(R.id.scoreLabel);
@@ -231,6 +227,9 @@ public class CatchBall extends AppCompatActivity {
             timer.cancel();
             timer = null;
             accountManager.getCurrentAccount().setCatchballScoreForSave(0);
+            if (score > accountManager.getCurrentAccount().catchBallScore){
+                accountManager.getCurrentAccount().catchBallScore = score;
+            }
             accountManager.updateAccount();
             saveToFile(LauncherActivity.SAVE_FILENAME);
             Intent intent = new Intent(getApplicationContext(), CatchBallResult.class);

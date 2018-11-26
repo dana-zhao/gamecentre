@@ -21,7 +21,18 @@ public class Account implements Serializable {
     /**
     The score for the current account.
      */
-    private double scores = 0;
+    public int slidingTileScores;
+
+    /**
+     The score for the current account.
+     */
+    public int catchBallScore;
+    /**
+     The score for the current account.
+     */
+    public int lightOutScores0;
+
+
 
     /**
     The username of the account currently logged in.
@@ -51,11 +62,8 @@ public class Account implements Serializable {
     }
 
     /**
-    Return the score for the current user.
+    Return the highest catch ball score for the current user.
      */
-    public double getScore() {
-        return scores;
-    }
 
     /**
     Return the score for the current user.

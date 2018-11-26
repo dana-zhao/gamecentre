@@ -23,16 +23,16 @@ public class ScoreBoardSliding implements project.csc207.ScoreBoard {
      */
     private double score;
 
-    /*
+    /**
     The converted version of time.
      */
     private int updatedTime;
 
     ScoreBoardSliding(project.csc207.Account account) {
-        this.newScore = account.getScore();
+        this.newScore = account.slidingTileScores;
     }
 
-    /*
+    /**
     calculated score
      */
     public void scoreCount() {
