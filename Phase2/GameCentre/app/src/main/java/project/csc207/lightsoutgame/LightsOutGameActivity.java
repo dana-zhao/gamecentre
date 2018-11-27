@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -120,7 +121,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * Update light backgrounds.
      */
     private void updateLights() {
-        System.out.println("UpdateLights Called");
         LightsOutBoard board =
                 accountManager.getCurrentAccount().getLightsOutBoardManager().getLightsOutBoard();
         int nextPos = 0;
@@ -171,7 +171,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Update Called");
         display();
     }
 }

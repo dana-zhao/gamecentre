@@ -34,7 +34,6 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         loadFromFile(LauncherActivity.SAVE_FILENAME);
         accountManager.getCurrentAccount().setLightsOutBoardManager(new LightsOutBoardManager());
         saveToFile(TEMP_SAVE_FILENAME);
-
         setContentView(R.layout.activity_lights_out_starting);
         displayAccountName();
         addStartButtonListener();
@@ -75,9 +74,12 @@ public class LightsOutStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
+                if(accountManager.getCurrentAccount().getLightsOutBoardManager() == null){
+                    makeToastLoadedText();
+                }
+                else {
                 saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
-                switchToGame();
+                switchToGame();}
             }
         });
     }
@@ -86,7 +88,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
      * Display that a game was loaded successfully.
      */
     private void makeToastLoadedText() {
-        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "No Loaded Game", Toast.LENGTH_SHORT).show();
     }
 
     /**

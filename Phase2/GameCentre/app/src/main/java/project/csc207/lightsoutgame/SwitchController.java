@@ -22,5 +22,4 @@ class SwitchController {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
         }
-
 }

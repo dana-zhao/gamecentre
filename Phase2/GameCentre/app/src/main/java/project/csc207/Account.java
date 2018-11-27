@@ -30,7 +30,7 @@ public class Account implements Serializable {
     /**
      The score for the current account.
      */
-    public int lightOutScores0;
+    public int lightOutScores;
 
 
 

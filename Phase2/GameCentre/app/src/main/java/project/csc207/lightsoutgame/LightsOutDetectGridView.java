@@ -43,7 +43,6 @@ public class LightsOutDetectGridView extends GridView {
             public boolean onSingleTapConfirmed(MotionEvent event) {
                 int position = LightsOutDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
-                System.out.println(position);
                 sController.processTapSwitch(context, position);
                 return true;
             }
