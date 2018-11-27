@@ -75,10 +75,11 @@ public class LightsOutStartingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
                 if(accountManager.getCurrentAccount().getLightsOutBoardManager() == null){
-                    makeToastLoadedText();
+                    makeToastNoLoadedText();
                 }
                 else {
                 saveToFile(TEMP_SAVE_FILENAME);
+                makeToastLoadedText();
                 switchToGame();}
             }
         });
@@ -88,9 +89,11 @@ public class LightsOutStartingActivity extends AppCompatActivity {
      * Display that a game was loaded successfully.
      */
     private void makeToastLoadedText() {
-        Toast.makeText(this, "No Loaded Game", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
-
+    private void makeToastNoLoadedText() {
+        Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
+    }
     /**
      * Activate the save button.
      */

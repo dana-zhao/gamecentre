@@ -135,6 +135,9 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(SAVE_FILENAME);
+                if (accountManager.getCurrentAccount().getBoardManager() == null){
+                    makeToastNoLoadedText();
+                }
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
@@ -147,6 +150,10 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
+    }
+
+    private void makeToastNoLoadedText() {
+        Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
     }
 
     /**
