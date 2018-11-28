@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class AccountManager implements Serializable {
+
     /**
-   All accounts with key account Id and variable Account
-    */
+     * All accounts with key account Id and variable Account
+     */
     private HashMap<String, Account> allAccount;
 
     private Account currentAccount;
@@ -15,54 +16,72 @@ public class AccountManager implements Serializable {
         this.currentAccount = null;
         this.allAccount = null;
     }
+
     /**
-     Return allAccount
+     * Get the current account
+     * @return an Account that is the current logged in account
      */
     public Account getCurrentAccount() {
         return currentAccount;
     }
+
     /**
-     Return allAccount
+     * Get all accounts
+     * @return a Hashmap of all acounts
      */
     public HashMap<String, Account> getAllAccount() {
         return allAccount;
     }
 
     /**
-     Set allAccount
+     * Set current account
+     * @param id id of the account to be set as current account
      */
     void setCurrentAccount(String id) {
 
         this.currentAccount = allAccount.get(id);
     }
+
     /**
-     Return true if user id has been used
+     * Check if user id has been used
+     * @param id id of the new user
+     * @return whether the new user id is usable
      */
     boolean notNewUser(String id){
         return  this.allAccount.containsKey(id);
     }
+
     /**
-     Update current account information to allAccount
+     * Update current account information to allAccount
      */
     public void updateAccount(){
         allAccount.put(currentAccount.getUserName(), currentAccount);
     }
+
     /**
-     Return true if the password is correct for indexing user id
+     * Return true if the password is correct for indexing user id
+     * @param id id of the user that attempts to log in
+     * @param password password imputed by the user
+     * @return whether the password for the user is correct
      */
     boolean rightPassword(String id, String password){
         return this.allAccount.get(id).getPassword().equals(password);
     }
+
     /**
-     Set a new user and add it to allAccount
+     * Set a new user and add it to allAccount
+     * @param id id of the new user
+     * @param password password of the new user
      */
     void signUp(String id, String password){
         this.allAccount.put(id, new Account(id, password));
     }
+
     /**
-     Set  allAccount
+     * Set allAccount
+     * @param hMap the HashMap to be set as allAccount
      */
-    void setAllAccount(HashMap hashMap){
-        this.allAccount = hashMap;
+    void setAllAccount(HashMap hMap){
+        this.allAccount = hMap;
     }
 }

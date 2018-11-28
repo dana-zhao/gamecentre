@@ -20,22 +20,25 @@ import java.util.HashMap;
 public class LauncherActivity extends AppCompatActivity {
 
     /**
-    The input username field.
+     * The input username field
      */
     private EditText usernameBox;
 
     /**
-    The input password field.
+     * The input password field
      */
     private EditText passwordBox;
+
     /**
-     * The main save file.
+     * The main save file
      */
     public static final String SAVE_FILENAME = "save_file.ser";
+
     /**
-     * The account manager.
+     * The account manager
      */
     private AccountManager accountManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +51,8 @@ public class LauncherActivity extends AppCompatActivity {
         addSignUpButtonListener();
     }
 
-    /*
-    Activate the log in button.
+    /**
+     * Activate the log in button
      */
     private void addLogInButtonListener() {
         Button btnLogin = findViewById(R.id.LogInButton);
@@ -76,8 +79,8 @@ public class LauncherActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    Activate the sign up button.
+    /**
+     * Activate the sign up button.
      */
     private void addSignUpButtonListener() {
         Button btnRegister = findViewById(R.id.SignUpButton);
