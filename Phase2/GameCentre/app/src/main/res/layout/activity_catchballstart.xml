@@ -76,10 +76,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START"
         android:layout_marginTop="60dp"
-        android:onClick="startGame"/>
+        android:onClick="startGame"
+        android:text="START" />
 
+    <Button
+        android:id="@+id/catchBallScoreBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scoreboard" />
 
 
 </android.support.v7.widget.LinearLayoutCompat>
