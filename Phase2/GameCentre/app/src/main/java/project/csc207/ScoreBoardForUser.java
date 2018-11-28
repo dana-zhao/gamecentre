@@ -7,7 +7,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ScoreRank extends AppCompatActivity {
+public class ScoreBoardForUser extends AppCompatActivity {
     /*
     the account from current user
     * */

@@ -13,7 +13,6 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="Welcome To Sliding Tiles \n A Puzzle Game where you must arrange the numbers in the correct order"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <Button
@@ -64,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
-            android:text="3 X 3 Board" />
+            android:text="@string/Boardsize3" />
 
         <RadioButton
             android:id="@+id/RowNum4"
@@ -72,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="4 X 4 Board" />
+            android:text="@string/Boardsize4" />
 
         <RadioButton
             android:id="@+id/RowNum5"
@@ -80,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
-            android:text="5 X 5 Board" />
+            android:text="@string/BoardSize5" />
     </RadioGroup>
 
     <TextView
@@ -91,7 +90,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="-31dp"
         android:layout_marginBottom="119dp"
-        android:text="Difficulty : " />
+        android:text="@string/difficultyOfSTG" />
 
     <Button
         android:id="@+id/RankButton"

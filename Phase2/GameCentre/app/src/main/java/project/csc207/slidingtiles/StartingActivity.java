@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
-import project.csc207.ScoreRank;
+import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -79,7 +79,7 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     public void openScoreRank() {
-        Intent intent = new Intent(this, ScoreRank.class);
+        Intent intent = new Intent(this, ScoreBoardForUser.class);
         startActivity(intent);
     }
 
