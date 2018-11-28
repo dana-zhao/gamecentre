@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ScoreBoardForUser extends AppCompatActivity {
-    /*
-    the account from current user
-    * */
+    /**
+     * The account from user
+     */
     private Account account;
 
     @Override
