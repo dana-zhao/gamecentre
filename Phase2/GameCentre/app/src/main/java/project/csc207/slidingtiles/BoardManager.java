@@ -4,17 +4,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Stack;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class BoardManager implements Serializable {
+public class BoardManager extends Observable implements Serializable {
 
     /**
      * The board being managed.
      */
     private Board board;
 
+    /**
+     * the state of the game
+     */
+    private boolean GAME_OVER = false;
 
     /**
      * Manage a board that has been pre-populated.
@@ -134,6 +140,7 @@ public class BoardManager implements Serializable {
 
     /**
      * Process a touch at position in the board, swapping tiles as appropriate.
+     * and update the statement of game
      *
      * @param position the position
      */
@@ -156,8 +163,31 @@ public class BoardManager implements Serializable {
         } else if ((right != null) && blankId == right.getId()) {
             board.swapTiles(row, col + 1, row, col);
         }
+
+        GAME_OVER = puzzleSolved();
+
+        setChanged();
+        notifyObservers();
     }
 
+    /**
+     * return true if puzzle is solved, else return false
+     * @return whether the puzzle is solved or not
+     */
+    boolean isGameOver() {
+        return GAME_OVER;
+    }
+
+
+    /**
+     * count the score of sliding tile games and return it, the larger the board, the greater the
+     * score player will get once they finished the game
+     * @return the score of the sliding tile game
+     */
+    int countScore(){
+        return 100*board.numTiles()/board.getGameMoves();
+
+    }
 }
 
 

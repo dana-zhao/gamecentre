@@ -13,7 +13,7 @@ import java.util.Stack;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class Board implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
@@ -40,6 +40,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * The row that the blank is on when the board is initialized.
      */
     private int blankRow;
+
 
     /*
     the scoreboard for sliding tiles
@@ -123,14 +124,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         Tile second = this.tiles[row2][col2];
         this.tiles[row1][col1] = second;
         this.tiles[row2][col2] = first;
-
-        // notify the scoreboard to add the score
-//        scoreBoardSliding.addMoves();
-
-        setChanged();
-        notifyObservers();
         gameMoves.push(new int[]{row1, col1, row2, col2});
-
     }
 
     /**
@@ -142,6 +136,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
             swapTiles(moves[0], moves[1], moves[2], moves[3]);
             gameMoves.pop();
         }
+    }
+
+    /**
+     * return the number of Moves done by the Player
+     * @return the number of moves to solve the game
+     */
+    int getGameMoves() {
+        return gameMoves.size();
     }
 
     @NonNull

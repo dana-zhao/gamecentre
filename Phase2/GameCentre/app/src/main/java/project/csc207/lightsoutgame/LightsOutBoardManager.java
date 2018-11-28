@@ -17,11 +17,21 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      */
     private LightsOutBoard lightsOutBoard;
 
+    /**
+     * the Stack contains all moves done by player
+     */
     private Stack<Integer> gameMoves;
 
+    /**
+     * the minimum number of Moves required to solve the Game
+     */
     private int min_moves;
 
-    private boolean gameover = false;
+    /**
+     * statement of whether the game is solved or not
+     */
+    private boolean GAME_OVER = false;
+
 
     LightsOutBoard getLightsOutBoard() {
         return lightsOutBoard;
@@ -91,7 +101,7 @@ public class LightsOutBoardManager extends Observable implements Serializable {
         for(Light light:lightsToSwitch){
             light.switchLight();
         }
-        gameover = allLightsOut();
+        GAME_OVER = allLightsOut();
         setChanged();
         notifyObservers();
     }
@@ -129,7 +139,7 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * return the number of moves the player had
      * @return the number of moves
      */
-   int getGameMoves() {
+    int getGameMoves() {
         return gameMoves.size();
     }
 
@@ -159,8 +169,8 @@ public class LightsOutBoardManager extends Observable implements Serializable {
         }
     }
 
-    boolean isGameover() {
-        return gameover;
+    boolean isGameOver() {
+        return GAME_OVER;
     }
 
     /**
