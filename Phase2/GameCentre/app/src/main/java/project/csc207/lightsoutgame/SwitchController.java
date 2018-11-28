@@ -16,7 +16,6 @@ class SwitchController {
     }
 
     void processTapSwitch(Context context, int position) {
-        System.out.println("Switch Controller Called");
             lightsOutBoardManager.touchToSwitch(position);
             if (lightsOutBoardManager.allLightsOut()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();

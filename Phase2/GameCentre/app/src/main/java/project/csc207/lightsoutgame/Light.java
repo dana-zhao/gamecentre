@@ -18,7 +18,7 @@ public class Light extends Observable implements Serializable {
     /**
      * the status of light, if On, then the light is white, otherwise is black.
      */
-    private boolean isOn = true;
+    private boolean isOn = false;
 
     /**
      *  the unique id for each light

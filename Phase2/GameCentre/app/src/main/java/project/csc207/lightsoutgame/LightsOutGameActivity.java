@@ -1,5 +1,6 @@
 package project.csc207.lightsoutgame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +22,7 @@ import java.util.Observer;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.ScoreResult;
 import project.csc207.slidingtiles.CustomAdapter;
 
 public class LightsOutGameActivity extends AppCompatActivity implements Observer {
@@ -29,6 +30,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     /**
      * Board manager of Lights Out Board.
      */
+    private LightsOutBoardManager lightsOutBoardManager;
 
     /**
      * Buttons of Lights Out.
@@ -51,7 +53,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
-        accountManager.getCurrentAccount().getLightsOutBoardManager().addObserver(this);
+        lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
+        lightsOutBoardManager.addObserver(this);
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
@@ -63,6 +66,9 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
     }
 
+    /**
+     * add undo button listener
+     */
     private void addUndoListener() {
         final Button undoButton =  findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +80,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     }
 
     /**
-     * add View to Activity
+     * set the game and lights in 5 x 5 grids
      */
     private void addViewToActivity() {
         lightsGrid = findViewById(R.id.LightsGrid);
@@ -105,8 +111,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * @param context the context
      */
     private void createLights(Context context) {
-        LightsOutBoard lightsBoard
-                = accountManager.getCurrentAccount().getLightsOutBoardManager().getLightsOutBoard();
+        LightsOutBoard lightsBoard = lightsOutBoardManager.getLightsOutBoard();
         lightsButtons = new ArrayList<>();
         for (int row = 0; row != LightsOutBoard.NUM_ROWS; row++) {
             for (int col = 0; col != LightsOutBoard.NUM_COLS; col++) {
@@ -172,5 +177,23 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     @Override
     public void update(Observable o, Object arg) {
         display();
+        gameOver();
+    }
+
+    /**
+     * set the score of the game to Account and jump to ScoreResult page if the game is over
+     */
+    public void gameOver(){
+        if (lightsOutBoardManager.isGameover()){
+            int score = lightsOutBoardManager.countScore();
+            accountManager.getCurrentAccount().setLightOutScores(score);
+            goToScoreResult();
+        }
+    }
+
+    private void goToScoreResult(){
+        Intent gameResultIntent = new Intent(LightsOutGameActivity.this,
+                ScoreResult.class);
+        startActivity(gameResultIntent);
     }
 }

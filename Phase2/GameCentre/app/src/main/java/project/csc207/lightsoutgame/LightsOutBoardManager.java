@@ -17,7 +17,11 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      */
     private LightsOutBoard lightsOutBoard;
 
-    private Stack<Integer> gameMoves = new Stack<>();
+    private Stack<Integer> gameMoves;
+
+    private int min_moves;
+
+    private boolean gameover = false;
 
     LightsOutBoard getLightsOutBoard() {
         return lightsOutBoard;
@@ -28,12 +32,13 @@ public class LightsOutBoardManager extends Observable implements Serializable {
         final int numLights = LightsOutBoard.NUM_COLS * LightsOutBoard.NUM_ROWS;
         for (int lightsNum = 0; lightsNum != numLights; lightsNum++){
             Light light = new Light(lightsNum);
-            //Assign light a random on or off state
-            Random randomBool = new Random();
-            light.setLight(randomBool.nextBoolean());
             lights.add(light);
         }
+        gameMoves = new Stack<>();
         this.lightsOutBoard = new LightsOutBoard(lights);
+        randomSetBoard();
+        System.out.println(gameMoves);
+        gameMoves = new Stack<>();
     }
 
     /**
@@ -59,7 +64,7 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * @param position the position of light to check
      * @return a list of Lights around and include the give light
      */
-    public List<Light> getLightsAround(int position){
+    List<Light> getLightsAround(int position){
         int row = position / LightsOutBoard.NUM_ROWS;
         int col = position % LightsOutBoard.NUM_COLS;
         Light lightToCheck = lightsOutBoard.getLight(row,col);
@@ -80,12 +85,13 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * Switch The light and lights around the select Light
      * @param position the position of the light
      */
-    public void touchToSwitch(int position){
+    void touchToSwitch(int position){
         gameMoves.push(position);
         List<Light> lightsToSwitch = getLightsAround(position);
         for(Light light:lightsToSwitch){
             light.switchLight();
         }
+        gameover = allLightsOut();
         setChanged();
         notifyObservers();
     }
@@ -103,4 +109,65 @@ public class LightsOutBoardManager extends Observable implements Serializable {
 
     }
 
+    /**
+     * set the number of minimum Moves to solve the Board
+     * @param min_moves the minimum moves required for solving the Board.
+     */
+    private void setMin_moves(int min_moves) {
+        this.min_moves = min_moves;
+    }
+
+    /**
+     * return the number of minimum moves to solve the Board.
+     * @return the number of minimum moves
+     */
+    public int getMin_moves() {
+        return min_moves;
+    }
+
+    /**
+     * return the number of moves the player had
+     * @return the number of moves
+     */
+   int getGameMoves() {
+        return gameMoves.size();
+    }
+
+    /**
+     * Randomly set the Board by switch any position on the board 10 to 30 times.
+     * with different switch position each time.
+     */
+    private void randomSetBoard(){
+        Random randomMoves = new Random();
+        setMin_moves(randomMoves.nextInt(31));
+        if (min_moves<10){
+            min_moves = 10;
+        }
+        min_moves = 1;
+        Random randomPosition = new Random();
+        int position = 0;
+        for(int i =0;i<this.min_moves;i++){
+            int newPosition = randomPosition.nextInt(25);
+            if (position != newPosition){
+                position = newPosition;
+                touchToSwitch(position);
+            }
+            else{
+                position = position + 1 <24 ? position+1:position-1;
+                touchToSwitch(position);
+            }
+        }
+    }
+
+    boolean isGameover() {
+        return gameover;
+    }
+
+    /**
+     * count and return the score when the game is finished
+     * @return the score of the game
+     */
+    int countScore(){
+        return min_moves * 10 / getGameMoves();
+    }
 }
