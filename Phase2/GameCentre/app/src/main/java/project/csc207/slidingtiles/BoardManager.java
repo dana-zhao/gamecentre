@@ -87,6 +87,12 @@ public class BoardManager extends Observable implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param tileNums
+     * @param boardSize
+     * @return
+     */
     private int getInversions(List<Integer> tileNums, int boardSize) {
         int inversions = 0;
         //Remove the blank tile
