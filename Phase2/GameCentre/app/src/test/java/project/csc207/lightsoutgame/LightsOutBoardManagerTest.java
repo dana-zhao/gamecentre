@@ -13,14 +13,13 @@ public class LightsOutBoardManagerTest {
 
     private LightsOutBoardManager testBoardManager = new LightsOutBoardManager();
     private LightsOutBoard testBoard = testBoardManager.getLightsOutBoard();
-    private LightsOutTestHelpMethods helper = new LightsOutTestHelpMethods();
 
     @Before
-    public void setUp(){ helper.getLightsAllOn(testBoard); }
+    public void setUp(){ LightsOutTestHelpMethods.getLightsAllOn(testBoard); }
 
     @Test
     public void testAllLightsOut() {
-        helper.getLightsAllOff(testBoard);
+        LightsOutTestHelpMethods.getLightsAllOff(testBoard);
         Light testLight = testBoard.getLight(0,0);
         testLight.setLight(true);
         assertFalse(testBoardManager.allLightsOut());

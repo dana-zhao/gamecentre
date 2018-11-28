@@ -186,7 +186,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     public void gameOver(){
         if (lightsOutBoardManager.isGameover()){
             int score = lightsOutBoardManager.countScore();
-            accountManager.getCurrentAccount().setLightOutScores(score);
+            //accountManager.getCurrentAccount().setLightOutScores(score);
             goToScoreResult();
         }
     }

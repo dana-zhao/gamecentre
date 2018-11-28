@@ -32,6 +32,8 @@ public class BoardManager implements Serializable {
         return board;
     }
 
+    void setBoard(Board newBoard) { this.board = newBoard; }
+
     /**
      * Manage a new shuffled board.
      *
@@ -62,9 +64,10 @@ public class BoardManager implements Serializable {
     private boolean isSolvable(int boardSize, List<Tile> tiles) {
         List<Integer> tileNums = new ArrayList<>();
         for (Tile t: tiles) {
-            tileNums.add(t.getId());
+            //Add 1 so ids start from 1
+            tileNums.add(t.getId() + 1);
         }
-        int inversions = numOfInversions(tileNums);
+        int inversions = getInversions(tileNums, boardSize);
         if (boardSize % 2 == 1) {
             return inversions % 2 == 0;
         }
@@ -78,8 +81,10 @@ public class BoardManager implements Serializable {
         }
     }
 
-    private int numOfInversions(List<Integer> tileNums) {
+    private int getInversions(List<Integer> tileNums, int boardSize) {
         int inversions = 0;
+        //Remove the blank tile
+        tileNums.remove(Integer.valueOf(boardSize * boardSize));
         for (int i = 0; i < tileNums.size(); i++) {
             for (int j = i + 1; j < tileNums.size(); j++) {
                 if (tileNums.get(j) < tileNums.get(i)) {
