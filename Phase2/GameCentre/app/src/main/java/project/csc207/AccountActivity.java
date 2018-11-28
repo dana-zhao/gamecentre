@@ -35,6 +35,7 @@ public class AccountActivity extends AppCompatActivity {
         addLightsOutListener();
         addCatchingTheBallListener();
         displayAccountName();
+        addScoreBoardListener();
     }
 
     /**
@@ -84,8 +85,24 @@ public class AccountActivity extends AppCompatActivity {
         lightsOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent lightsOutIntent = new Intent(AccountActivity.this, LightsOutStartingActivity.class);
+                Intent lightsOutIntent =
+                        new Intent(AccountActivity.this, LightsOutStartingActivity.class);
                 startActivity(lightsOutIntent);
+            }
+        });
+    }
+
+    /**
+     * Activate the ScoreBoard For User
+     */
+    private void addScoreBoardListener(){
+        Button scoreBoardButton = findViewById(R.id.ScoreBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scoreBoardIntent =
+                        new Intent(AccountActivity.this,ScoreBoardForUser.class);
+                startActivity(scoreBoardIntent);
             }
         });
     }
