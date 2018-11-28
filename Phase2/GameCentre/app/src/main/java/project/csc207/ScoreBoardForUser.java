@@ -1,7 +1,6 @@
 package project.csc207;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class ScoreBoardForUser extends AppCompatActivity {
 
@@ -27,7 +24,7 @@ public class ScoreBoardForUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        setContentView(R.layout.activity_scorerank);
+        setContentView(R.layout.activity_scoreboard_for_user);
 
         displayAccountName();
         setScoreTextView();
@@ -39,7 +36,7 @@ public class ScoreBoardForUser extends AppCompatActivity {
      */
     private void displayAccountName() {
         TextView accountNameTextView = findViewById(R.id.AccountName);
-        String username = accountManager.getCurrentAccount().getUserName();
+        String username = "Account User: "+ accountManager.getCurrentAccount().getUserName();
         accountNameTextView.setText(username);
     }
 
@@ -51,7 +48,7 @@ public class ScoreBoardForUser extends AppCompatActivity {
         TextView lightsOutText = findViewById(R.id.LightsOutScore);
 
         Integer slidingTileScore = account.getSlidingTileScores();
-        Integer catchingBallScore = account.getCatchballScoreForSave();
+        Integer catchingBallScore = account.getCatchBallScore();
         Integer lightsOutScore = account.getLightOutScores();
 
         String slidingTile = "The Score of Sliding Tile Game: " + slidingTileScore.toString();

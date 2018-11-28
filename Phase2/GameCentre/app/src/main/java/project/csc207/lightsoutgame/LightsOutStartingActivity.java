@@ -39,6 +39,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+        addScoreBoardListener();
     }
 
     /**
@@ -175,5 +176,21 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+
+    /**
+     * Activate the start button.
+     */
+    private void addScoreBoardListener() {
+        Button scoreBoardButton = findViewById(R.id.LightsOutScoreBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scoreBoardIntent = new Intent(LightsOutStartingActivity.this,
+                        ScoreBoardForLightsOut.class);
+                startActivity(scoreBoardIntent);
+            }
+        });
     }
 }

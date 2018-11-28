@@ -59,12 +59,20 @@ public class StartingActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+        AddScoreBoardButtonListener();
+    }
 
-        final Button rankButton = findViewById(R.id.RankButton);
+    /**
+     * jump to ScoreBoard for SlidingTiles once the button is click
+     */
+    private void AddScoreBoardButtonListener() {
+        final Button rankButton = findViewById(R.id.SlidingTileScoreButton);
         rankButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openScoreRank();
+                Intent scoreBoard = new Intent(StartingActivity.this,
+                        ScoreBoardForSlidingTiles.class);
+                startActivity(scoreBoard);
             }
         });
     }
@@ -78,19 +86,12 @@ public class StartingActivity extends AppCompatActivity {
         accountNameSlidingTextView.setText(username);
     }
 
-    public void openScoreRank() {
-        Intent intent = new Intent(this, ScoreBoardForUser.class);
-        startActivity(intent);
-    }
-
     /**
      * Activate the board size buttons.
      */
     private void addNumRowsListener() {
         RadioGroup NumOfRows;
         NumOfRows = findViewById(R.id.ChoicesOfBoardSize);
-
-
         NumOfRows.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

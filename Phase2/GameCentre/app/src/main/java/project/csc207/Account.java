@@ -21,17 +21,17 @@ public class Account implements Serializable {
     /**
     The score for the current account.
      */
-    private int slidingTileScores;
+    private int slidingTileScores = 0 ;
 
     /**
      The score for the current account.
      */
-    public int catchBallScore;
+    private int catchBallScore = 0;
 
     /**
      * The highest score for lights out game of the current account.
      */
-    private int lightOutScores;
+    private int lightOutScores = 0;
 
 
     /**
@@ -141,5 +141,23 @@ public class Account implements Serializable {
      */
     public int getSlidingTileScores() {
         return slidingTileScores;
+    }
+
+    /**
+     * get the record of Catching Ball Game
+     * @return the record score of Catching Ball
+     */
+    public int getCatchBallScore() {
+        return catchBallScore;
+    }
+
+    /**
+     * set the record of Catching Ball Game if the new score is higher than the record
+     * @param catchBallScore the new score of Catching Ball Game
+     */
+    public void setCatchBallScore(int catchBallScore) {
+        if (catchBallScore > this.catchBallScore){
+        this.catchBallScore = catchBallScore;
+        }
     }
 }
