@@ -2,130 +2,69 @@ package project.csc207;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
-import android.content.Context;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
-import project.csc207.slidingtiles.ScoreBoardSliding;
-import project.csc207.slidingtiles.StartingActivity;
-
+/**
+ * the page show up when the game is over, user can choose go back to GameCenter and select
+ * new games
+ */
 public class ScoreResult extends AppCompatActivity {
 
-    /**
-     * The ScoreBoardSliding scoreBoard.
-     */
-    private ScoreBoardSliding scoreBoard;
-    /**
-     * The account manager.
-     */
-    private AccountManager accountManager;
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //loadFromFile(LauncherActivity.SAVE_FILENAME);
+
         setContentView(R.layout.activity_score_result);
 
-        TextView scoreLabel = (TextView) findViewById(R.id.newscore);
-        TextView highScoreLabel = (TextView) findViewById(R.id.highScore);
+        TextView scoreLabel = findViewById(R.id.newscore);
+        TextView highScoreLabel = findViewById(R.id.highScore);
 
-        int score = getIntent().getIntExtra("SCORE", 0);
-        scoreLabel.setText(score + "");
+        setScoresToText(scoreLabel, highScoreLabel);
+        addGoBackToGameCenterButton();
+    }
 
-        SharedPreferences settings = getSharedPreferences("HIGH_SCORE_st", Context.MODE_PRIVATE);
-        int highScore = settings.getInt("HIGH_SCORE", 0);
+    private void setScoresToText(TextView scoreLabel, TextView highScoreLabel) {
+        int indexOfScore = 0;
+        int indexOfRecord= 1;
 
-        if (score > highScore) {
-            highScoreLabel.setText("High Score : " + score);
-
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putInt("HIGH_SCORE", score);
-            editor.commit();
+        ArrayList<Integer> scores = getIntent().getIntegerArrayListExtra("scores");
+        String score = scores.get(indexOfScore).toString();
+        String highScore = scores.get(indexOfRecord).toString();
+        String strForScore = "Your Score : " + score;
+        String strForHighScore = "Your Record Score : " + highScore;
+        if (scores.get(indexOfScore) > scores.get(indexOfRecord)){
+            strForScore = "Congratulation!!! New Records: " + score;
+            strForHighScore = "Your New Record Score : " + score;
+            scoreLabel.setText(strForScore);
+            highScoreLabel.setText(strForHighScore);
 
         } else {
-            highScoreLabel.setText("High Score : " + highScore);
-
+            scoreLabel.setText(strForScore);
+            highScoreLabel.setText(strForHighScore);
         }
-
-        /*
-        SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
-        String user = accountManager.getCurrentAccount().getUserName();
-        int score = preferences.getInt(user, 0);
-
-        TextView userScore = findViewById(R.id.score);
-        userScore.setText(Integer.toString(score));
-        */
-
-
-        final Button playAgainButton = (Button) findViewById(R.id.playagain);
+    }
+    private void addGoBackToGameCenterButton() {
+        final Button playAgainButton = findViewById(R.id.BackToGameCenter);
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGame();
+                goToGameCenter();
             }
         });
     }
 
-    /*
-    Open a new game.
+    /**
+     * Go back to GameCenter.
      */
-    public void openGame() {
-        Intent intent = new Intent(this, StartingActivity.class);
+    void goToGameCenter() {
+        Intent intent = new Intent(this, AccountActivity.class);
         startActivity(intent);
     }
-
-
-
-    /*
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    /*
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                accountManager = (AccountManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    /*
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(accountManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    } */
 }
+

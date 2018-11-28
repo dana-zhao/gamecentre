@@ -19,14 +19,17 @@
         <activity android:name=".slidingtiles.GameActivity" />
         <activity android:name=".slidingtiles.StartingActivity" />
         <activity android:name=".AccountActivity" />
-        <activity android:name=".ScoreRank" />
+        <activity android:name=".ScoreBoardForUser" />
         <activity android:name=".ScoreResult" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".lightsoutgame.LightsOutStartingActivity" />
-        <activity android:name=".lightsoutgame.LightsOutGameActivity"></activity>
-        <activity android:name=".catchingball.CatchBallStart"></activity>
-        <activity android:name=".catchingball.CatchBall"></activity>
-        <activity android:name=".catchingball.CatchBallResult"></activity>
+        <activity android:name=".lightsoutgame.LightsOutGameActivity" />
+        <activity android:name=".catchingball.CatchBallStart" />
+        <activity android:name=".catchingball.CatchBall" />
+        <activity android:name=".catchingball.CatchBallResult" />
+        <activity android:name=".slidingtiles.ScoreBoardForSlidingTiles" />
+        <activity android:name=".lightsoutgame.ScoreBoardForLightsOut" />
+        <activity android:name=".catchingball.ScoreBoardForCatchingBall"></activity>
     </application>
 
 </manifest>

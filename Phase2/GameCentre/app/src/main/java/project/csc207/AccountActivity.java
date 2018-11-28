@@ -79,7 +79,7 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * Activate Lights Out game.
      */
-        private void addLightsOutListener() {
+    private void addLightsOutListener() {
         Button lightsOutButton = findViewById(R.id.LightsOutButton);
         lightsOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,7 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loadFromFile(String fileName) {
 
         try {

@@ -21,17 +21,17 @@ public class Account implements Serializable {
     /**
     The score for the current account.
      */
-    public int slidingTileScores;
+    private int slidingTileScores;
 
     /**
      The score for the current account.
      */
     public int catchBallScore;
-    /**
-     The score for the current account.
-     */
-    public int lightOutScores;
 
+    /**
+     * The highest score for lights out game of the current account.
+     */
+    private int lightOutScores;
 
 
     /**
@@ -61,9 +61,6 @@ public class Account implements Serializable {
         return userName;
     }
 
-    /**
-    Return the highest catch ball score for the current user.
-     */
 
     /**
     Return the score for the current user.
@@ -110,5 +107,39 @@ public class Account implements Serializable {
         this.lbm = lbm;
     }
 
+    /**
+     * set the lights out Game score to new score if the new score is higher than the record score.
+     * @param lightOutScores the new score of LightsOut game
+     */
+    public void setLightOutScores(int lightOutScores) {
+        if (this.lightOutScores < lightOutScores){
+        this.lightOutScores = lightOutScores;
+        }
+    }
 
+    /**
+     * return the highest score of lights out Game
+     * @return the highest score of light out Game
+     */
+    public int getLightOutScores() {
+        return lightOutScores;
+    }
+
+    /**
+     * set the slidingTile score to new score if the new score is higher than record
+     * @param slidingTileScores new score of sliding tile game
+     */
+    public void setSlidingTileScores(int slidingTileScores) {
+        if (this.slidingTileScores < slidingTileScores){
+            this.slidingTileScores = slidingTileScores;
+        }
+    }
+
+    /**
+     * get the sliding tile game record
+     * @return the record of sliding tile game
+     */
+    public int getSlidingTileScores() {
+        return slidingTileScores;
+    }
 }

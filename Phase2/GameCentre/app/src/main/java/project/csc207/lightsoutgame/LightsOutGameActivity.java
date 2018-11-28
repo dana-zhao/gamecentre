@@ -145,6 +145,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         lightsGrid.setAdapter(new CustomAdapter(lightsButtons,columnWidth,columnHeight));
     }
 
+
     private void loadFromFile(String fileName) {
 
         try {
@@ -162,6 +163,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
+
 
     public void saveToFile(String fileName) {
         try {
@@ -184,16 +186,22 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * set the score of the game to Account and jump to ScoreResult page if the game is over
      */
     public void gameOver(){
-        if (lightsOutBoardManager.isGameover()){
+        if (lightsOutBoardManager.isGameOver()){
+            ArrayList<Integer> scores = new ArrayList<>();
             int score = lightsOutBoardManager.countScore();
-            //accountManager.getCurrentAccount().setLightOutScores(score);
-            goToScoreResult();
+            int records = accountManager.getCurrentAccount().getLightOutScores();
+            accountManager.getCurrentAccount().setLightOutScores(score);
+            saveToFile(LauncherActivity.SAVE_FILENAME);
+            scores.add(score);
+            scores.add(records);
+            goToScoreResult(scores);
         }
     }
 
-    private void goToScoreResult(){
+    private void goToScoreResult(ArrayList<Integer> scores){
         Intent gameResultIntent = new Intent(LightsOutGameActivity.this,
                 ScoreResult.class);
+        gameResultIntent.putIntegerArrayListExtra("scores",scores);
         startActivity(gameResultIntent);
     }
 }

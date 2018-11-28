@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
-import project.csc207.ScoreRank;
+import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -53,11 +53,12 @@ public class StartingActivity extends AppCompatActivity {
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
+        setStringTextView();
+        addNumRowsListener();
         displayAccountName();
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
-        addNumRowsListener();
 
         final Button rankButton = findViewById(R.id.RankButton);
         rankButton.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +79,7 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     public void openScoreRank() {
-        Intent intent = new Intent(this, ScoreRank.class);
+        Intent intent = new Intent(this, ScoreBoardForUser.class);
         startActivity(intent);
     }
 
@@ -124,6 +125,17 @@ public class StartingActivity extends AppCompatActivity {
                 switchToGame();
             }
         });
+    }
+
+    /**
+     * set the String for xml document
+     */
+    private void setStringTextView(){
+        TextView textView = findViewById(R.id.GameText);
+        String str = "Welcome To Sliding Tiles  A Puzzle Game where you mu" +
+                "st arrange the numbers in the correct order";
+        textView.setText(str);
+
     }
 
     /**
@@ -235,5 +247,6 @@ public class StartingActivity extends AppCompatActivity {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+
 }
 

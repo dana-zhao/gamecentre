@@ -19,9 +19,12 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import project.csc207.Account;
 import project.csc207.AccountManager;
+import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.ScoreResult;
+import project.csc207.lightsoutgame.LightsOutGameActivity;
 
 /**
  * The game activity.
@@ -54,15 +57,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private static int columnWidth, columnHeight;
 
 
-    /**
-     * scoreboard and score_result
-     */
-    private ScoreBoardSliding scoreboardsliding;
-    private ScoreResult scoreresult;
-
-    private int score = 0;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,26 +68,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
         AddViewToActivity();
         AddUndoListener();
 
-        final Chronometer chronometerTimer =  findViewById(R.id.timer);
+        final Chronometer chronometerTimer = findViewById(R.id.timer);
         chronometerTimer.start();
 
-        Button finishButton = findViewById(R.id.finish);
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chronometerTimer.stop();
-                scoreboardsliding.timeTaken(chronometerTimer.getFormat());
-                // convert string time to the int
-                scoreboardsliding.convertTime();
-                scoreboardsliding.scoreCount();
-
-                openScoreResult(scoreboardsliding.getScore());
-            }
-        });
     }
 
     private void AddUndoListener() {
-        final Button undoButton =  findViewById(R.id.undoButton);
+        final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
         gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        boardManager.addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -128,38 +109,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     }
                 });
     }
-
-
-    /**
-     * after game is over, clicking the finish button
-     */
-    public void openScoreResult(double score) {
-        /*
-        SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
-        String user = accountManager.getCurrentAccount().getUserName();
-        int userScore = 150;
-
-
-        SharedPreferences.Editor editor = preferences.edit();
-        Boolean existsUser = preferences.contains(user);
-        if (existsUser) {
-            int oldScore = preferences.getInt(user, 0);
-            if (userScore > oldScore) {
-                editor.putInt(user, userScore);
-                editor.apply();
-            }
-        } else {
-            editor.putInt(user, userScore);
-            editor.commit();
-        }
-        */
-
-        // pass the score to the pop page and pop window
-        Intent intent = new Intent(this, ScoreResult.class);
-        intent.putExtra("SCORE", score);
-        startActivity(intent);
-    }
-
 
     /**
      * Create the buttons for displaying the tiles.
@@ -181,6 +130,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
+     * And AutoSave for any change
      */
     private void updateTileButtons() {
         Board board = boardManager.getBoard();
@@ -191,6 +141,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
+        saveToFile(LauncherActivity.SAVE_FILENAME);
     }
 
     /**
@@ -213,7 +164,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-               accountManager = (AccountManager) input.readObject();
+                accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -244,16 +195,44 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         display();
+        gameOver();
     }
 
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    // Display
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+    }
+
+
+    /**
+     * jump to ScoreResult page if the game is over, and update the score to Account if the score
+     * is higher than the record
+     */
+    void gameOver() {
+        if (boardManager.isGameOver()) {
+            Account account = accountManager.getCurrentAccount();
+            int score = boardManager.countScore();
+            int record = account.getSlidingTileScores();
+            account.setSlidingTileScores(score);
+            saveToFile(LauncherActivity.SAVE_FILENAME);
+            ArrayList<Integer> scores = new ArrayList<>();
+            scores.add(score);
+            scores.add(record);
+            goToScoreResult(scores);
+
+        }
+
+    }
+
+    private void goToScoreResult(ArrayList<Integer> scores) {
+        Intent gameResultIntent = new Intent(GameActivity.this,
+                ScoreResult.class);
+        gameResultIntent.putIntegerArrayListExtra("scores", scores);
+        startActivity(gameResultIntent);
     }
 
 }

@@ -8,4 +8,10 @@
     <string name="save_game">Save Game</string>
     <string name="scoreboard">Score Board</string>
     <string name="account_name">Account Name</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="go_to_gameCenter_button">Go to GameCenter</string>
+    <string name="Boardsize3">3 X 3 Board</string>
+    <string name="Boardsize4">4 X 4 Board</string>
+    <string name="BoardSize5">5 X 5 Board</string>
+    <string name="difficultyOfSTG">Difficulty:</string>
 </resources>
