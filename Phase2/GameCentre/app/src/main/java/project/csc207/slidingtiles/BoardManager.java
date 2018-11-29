@@ -88,10 +88,10 @@ public class BoardManager extends Observable implements Serializable {
     }
 
     /**
-     * 
-     * @param tileNums
-     * @param boardSize
-     * @return
+     * Get the number of inversions (times a tile's id precedes a lesser id) for a board
+     * @param tileNums tile ids in a list
+     * @param boardSize size of board
+     * @return number of inversions
      */
     private int getInversions(List<Integer> tileNums, int boardSize) {
         int inversions = 0;

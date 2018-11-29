@@ -14,11 +14,9 @@ public class LightsOutBoardManagerTest {
     private LightsOutBoardManager testBoardManager = new LightsOutBoardManager();
     private LightsOutBoard testBoard = testBoardManager.getLightsOutBoard();
 
-    @Before
-    public void setUp(){ LightsOutTestHelpMethods.getLightsAllOn(testBoard); }
-
     @Test
     public void testAllLightsOut() {
+        testBoard.getLight(4, 4).setLight(true);
         LightsOutTestHelpMethods.getLightsAllOff(testBoard);
         Light testLight = testBoard.getLight(0,0);
         testLight.setLight(true);
@@ -48,6 +46,7 @@ public class LightsOutBoardManagerTest {
 
     @Test
     public void testTouchToSwitch() {
+        LightsOutTestHelpMethods.getLightsAllOn(testBoard);
         testBoardManager.touchToSwitch(7);
         assertFalse(testBoard.getLight(0, 2).getState());
         assertFalse(testBoard.getLight(1, 1).getState());

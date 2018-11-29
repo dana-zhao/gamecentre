@@ -13,9 +13,14 @@ import java.util.List;
 
 public class LightsOutBoard implements Serializable, Iterable<Light> {
 
-
+    /**
+     * Length of rows
+     */
     static int NUM_ROWS = 5;
 
+    /**
+     * Length of columns
+     */
     static int NUM_COLS = 5;
 
     /**
@@ -44,10 +49,6 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
 
     Light getLight(int row, int col){
         return lights[row][col];
-    }
-
-    public int numLights() {
-        return NUM_COLS*NUM_COLS;
     }
 
     @NonNull
