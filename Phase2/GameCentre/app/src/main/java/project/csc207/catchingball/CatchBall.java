@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,8 +29,9 @@ import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.ScoreResult;
 
-/** 
+/* 
  * A class that build the basis of the game named catching the ball
+ *
  * This was adapted from a video from codingwithsara on Youtube
  * link here:
   * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
@@ -40,8 +40,8 @@ import project.csc207.ScoreResult;
 public class CatchBall extends AppCompatActivity {
 
     /**
-    the score, starting text, and elements of images
-    */
+     * the score, starting text, and elements of images
+     */
     private TextView scoreLabel;
     private TextView startLabel;
     private ImageView box;
@@ -50,16 +50,16 @@ public class CatchBall extends AppCompatActivity {
     private ImageView black;
 
     /**
-    Size of the screen
-    */
+     * Size of the screen
+     */
     private int frameHeight;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
 
     /**
-    Position of the obstacles
-    */
+     * Position of the obstacles
+     */
     private int boxY;
     private int orangeX;
     private int orangeY;
@@ -69,20 +69,20 @@ public class CatchBall extends AppCompatActivity {
     private int blackY;
 
     /**
-    Speed of the obstacles
-    */
+     * Speed of the obstacles
+     */
     private int boxSpeed;
     private int orangeSpeed;
     private int pinkSpeed;
     private int blackSpeed;
 
     /**
-    Score of the game
+     * Score of the game
      */
     private int score;
 
     /**
-    Initialize Class
+     * Initialize Class
      */
     private Handler handler = new Handler();
     private Timer timer = new Timer();
@@ -105,22 +105,14 @@ public class CatchBall extends AppCompatActivity {
         loadFromFile(LauncherActivity.SAVE_FILENAME);
         score = accountManager.getCurrentAccount().getCatchballScoreForSave();
         setContentView(R.layout.activity_catchball);
+        setGameViews();
+        setBallAndBoxSpeedAndPosition();
+    }
 
-        scoreLabel = findViewById(R.id.scoreLabel);
-        startLabel = findViewById(R.id.startLabel);
-        box = findViewById(R.id.box);
-        orange = findViewById(R.id.orange);
-        pink = findViewById(R.id.pink);
-        black = findViewById(R.id.black);
-
-        WindowManager wm = getWindowManager();
-        Display disp = wm.getDefaultDisplay();
-        Point size = new Point();
-        disp.getSize(size);
-
-        screenWidth = size.x;
-        screenHeight = size.y;
-
+    /**
+     * set the speed and position of ball and box
+     */
+    private void setBallAndBoxSpeedAndPosition() {
         boxSpeed = Math.round(screenHeight / 60);
         orangeSpeed = Math.round(screenWidth / 60);
         pinkSpeed = Math.round(screenWidth / 36);
@@ -137,12 +129,55 @@ public class CatchBall extends AppCompatActivity {
     }
 
     /**
+     * set the View of game materials and the Window of the Game
+     */
+    private void setGameViews() {
+        scoreLabel = findViewById(R.id.scoreLabel);
+        startLabel = findViewById(R.id.startLabel);
+        box = findViewById(R.id.box);
+        orange = findViewById(R.id.orange);
+        pink = findViewById(R.id.pink);
+        black = findViewById(R.id.black);
+        WindowManager wm = getWindowManager();
+        Display disp = wm.getDefaultDisplay();
+        Point size = new Point();
+        disp.getSize(size);
+
+        screenWidth = size.x;
+        screenHeight = size.y;
+    }
+
+    /**
      * change the position while hitting the obstacles
      */
     public void changePos() {
 
-        hitCheck();
+        hitOrange();
+        hitPink();
+        hitBlack();
+        changingParticlePosition();
 
+        if (action_flg) {
+            boxY -= boxSpeed;
+
+        } else {
+            boxY += boxSpeed;
+        }
+
+        // Check box position.
+        if (boxY < 0) { boxY = 0;}
+        if (boxY > frameHeight - boxSize){ boxY = frameHeight - boxSize; }
+
+        box.setY(boxY);
+        String str = "Score : " + score;
+        scoreLabel.setText(str);
+
+    }
+
+    /**
+     * changing the position of Particles
+     */
+    private void changingParticlePosition() {
         orangeX -= orangeSpeed;
         if (orangeX < 0) {
             orangeX = screenWidth + 20;
@@ -168,37 +203,7 @@ public class CatchBall extends AppCompatActivity {
         }
         pink.setX(pinkX);
         pink.setY(pinkY);
-
-
-        if (action_flg) {
-            // Touching
-            boxY -= boxSpeed;
-
-        } else {
-            // Releasing
-            boxY += boxSpeed;
-        }
-
-        // Check box position.
-        if (boxY < 0) boxY = 0;
-
-        if (boxY > frameHeight - boxSize) boxY = frameHeight - boxSize;
-
-        box.setY(boxY);
-        String str = "Score : " + score;
-        scoreLabel.setText(str);
-
     }
-
-    /**
-     * check if it hits the obstacles
-     */
-    public void hitCheck() {
-        hitOrange();
-        hitPink();
-        hitBlack();
-    }
-
 
     /**
      * update the Score of current game to Account and jump to Score Result Page if the box hit
@@ -229,7 +234,7 @@ public class CatchBall extends AppCompatActivity {
     }
 
     /**
-     * check if the box hit the pink particle
+     * Add 30 points to score if the box hit the pink particle, and save the score of current game
      */
     private void hitPink() {
         int pinkCenterX = pinkX + pink.getWidth() / 2;
@@ -247,7 +252,7 @@ public class CatchBall extends AppCompatActivity {
     }
 
     /**
-     * check if the box hit the Orange Particle
+     * add 10 points to score and save the current game score if the box hits the pink particle
      */
     private void hitOrange() {
         int orangeCenterX = orangeX + orange.getWidth() / 2;
@@ -263,6 +268,7 @@ public class CatchBall extends AppCompatActivity {
             saveToFile(LauncherActivity.SAVE_FILENAME);
         }
     }
+
 
     /**
      * adjust the frame and manage the time
@@ -299,6 +305,11 @@ public class CatchBall extends AppCompatActivity {
     }
 
 
+    /**
+     * jump to ScoreResult page with an Array list be given, contains the score of the current game
+     * and the highest score of Catching Ball Game of current Account.
+     * @param scores the current game score and the record score of Catching Ball Game
+     */
     private void goToScoreResult(ArrayList<Integer> scores){
         Intent gameResultIntent = new Intent(CatchBall.this,
                 ScoreResult.class);

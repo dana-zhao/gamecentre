@@ -19,6 +19,9 @@ import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
 
+/**
+ * ScoreBoard For CatchingBall game, with rank of top 3 Accounts and current Account's score
+ */
 public class ScoreBoardForCatchingBall extends AppCompatActivity {
 
     private AccountManager accountManager;
