@@ -60,10 +60,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
         addViewToActivity();
         addUndoListener();
-
-        final Chronometer chronometerTimer =  findViewById(R.id.timer);
-        chronometerTimer.start();
-
     }
 
     /**

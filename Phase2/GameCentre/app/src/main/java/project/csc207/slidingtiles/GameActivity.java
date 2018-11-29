@@ -68,9 +68,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         AddViewToActivity();
         AddUndoListener();
 
-        final Chronometer chronometerTimer = findViewById(R.id.timer);
-        chronometerTimer.start();
-
     }
 
     private void AddUndoListener() {
