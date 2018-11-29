@@ -26,7 +26,6 @@
         <activity android:name=".lightsoutgame.LightsOutGameActivity" />
         <activity android:name=".catchingball.CatchBallStart" />
         <activity android:name=".catchingball.CatchBall" />
-        <activity android:name=".catchingball.CatchBallResult" />
         <activity android:name=".slidingtiles.ScoreBoardForSlidingTiles" />
         <activity android:name=".lightsoutgame.ScoreBoardForLightsOut" />
         <activity android:name=".catchingball.ScoreBoardForCatchingBall"></activity>

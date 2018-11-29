@@ -13,7 +13,7 @@ import java.util.Stack;
 /**
  * The sliding tiles board.
  */
-public class Board implements Serializable, Iterable<Tile> {
+public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
@@ -135,6 +135,9 @@ public class Board implements Serializable, Iterable<Tile> {
             int[] moves = gameMoves.pop();
             swapTiles(moves[0], moves[1], moves[2], moves[3]);
             gameMoves.pop();
+
+            setChanged();
+            notifyObservers();
         }
     }
 

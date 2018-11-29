@@ -19,17 +19,15 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class StartingActivity extends AppCompatActivity {
+public class StartingActivity extends AppCompatActivity implements SaveLoad {
 
-    /**
-     * The main save file.
-     */
-    public static final String SAVE_FILENAME = "save_file.ser";
+
     /**
      * A temporary save file.
      */
@@ -59,12 +57,20 @@ public class StartingActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+        AddScoreBoardButtonListener();
+    }
 
-        final Button rankButton = findViewById(R.id.RankButton);
+    /**
+     * jump to ScoreBoard for SlidingTiles once the button is click
+     */
+    private void AddScoreBoardButtonListener() {
+        final Button rankButton = findViewById(R.id.SlidingTileScoreButton);
         rankButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openScoreRank();
+                Intent scoreBoard = new Intent(StartingActivity.this,
+                        ScoreBoardForSlidingTiles.class);
+                startActivity(scoreBoard);
             }
         });
     }
@@ -78,19 +84,12 @@ public class StartingActivity extends AppCompatActivity {
         accountNameSlidingTextView.setText(username);
     }
 
-    public void openScoreRank() {
-        Intent intent = new Intent(this, ScoreBoardForUser.class);
-        startActivity(intent);
-    }
-
     /**
      * Activate the board size buttons.
      */
     private void addNumRowsListener() {
         RadioGroup NumOfRows;
         NumOfRows = findViewById(R.id.ChoicesOfBoardSize);
-
-
         NumOfRows.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -146,7 +145,7 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
+                loadFromFile(LauncherActivity.SAVE_FILENAME);
                 if (accountManager.getCurrentAccount().getBoardManager() == null){
                     makeToastNoLoadedText();
                 }
@@ -177,7 +176,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accountManager.updateAccount();
-                saveToFile(SAVE_FILENAME);
+                saveToFile(LauncherActivity.SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();
             }
@@ -214,7 +213,7 @@ public class StartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);

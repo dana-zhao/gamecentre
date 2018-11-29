@@ -153,7 +153,6 @@ public class LightsOutBoardManager extends Observable implements Serializable {
         if (min_moves<10){
             min_moves = 10;
         }
-        min_moves = 1;
         Random randomPosition = new Random();
         int position = 0;
         for(int i =0;i<this.min_moves;i++){
@@ -178,6 +177,6 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * @return the score of the game
      */
     int countScore(){
-        return min_moves * 10 / getGameMoves();
+        return min_moves * 30 - getGameMoves();
     }
 }

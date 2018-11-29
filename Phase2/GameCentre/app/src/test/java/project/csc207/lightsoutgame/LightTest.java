@@ -10,6 +10,11 @@ public class LightTest {
 
     private Light testLight = new Light(0);
 
+    @Before
+    public void setUp() {
+        testLight.setLight(true);
+    }
+
     @Test
     public void testGetId() {
         int result = testLight.getId();

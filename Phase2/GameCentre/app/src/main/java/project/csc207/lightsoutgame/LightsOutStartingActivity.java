@@ -18,8 +18,9 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 
-public class LightsOutStartingActivity extends AppCompatActivity {
+public class LightsOutStartingActivity extends AppCompatActivity implements SaveLoad {
 
     /**
      * A temporary save file.
@@ -39,6 +40,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+        addScoreBoardListener();
     }
 
     /**
@@ -143,7 +145,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -175,5 +177,21 @@ public class LightsOutStartingActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+
+    /**
+     * Activate the start button.
+     */
+    private void addScoreBoardListener() {
+        Button scoreBoardButton = findViewById(R.id.LightsOutScoreBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scoreBoardIntent = new Intent(LightsOutStartingActivity.this,
+                        ScoreBoardForLightsOut.class);
+                startActivity(scoreBoardIntent);
+            }
+        });
     }
 }

@@ -10,11 +10,10 @@ public class LightsOutBoardTest {
 
     private LightsOutBoardManager testBoardManager = new LightsOutBoardManager();
     private LightsOutBoard testBoard = testBoardManager.getLightsOutBoard();
-    private LightsOutTestHelpMethods helper = new LightsOutTestHelpMethods();
 
     @Before
     public void setUp(){
-        helper.getLightsAllOn(testBoard);
+        LightsOutTestHelpMethods.getLightsAllOn(testBoard);
     }
 
     @Test

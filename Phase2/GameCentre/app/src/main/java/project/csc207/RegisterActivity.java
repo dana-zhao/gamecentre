@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 import project.csc207.slidingtiles.BoardManager;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements SaveLoad{
     /**
      * The main save file.
      */
@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
