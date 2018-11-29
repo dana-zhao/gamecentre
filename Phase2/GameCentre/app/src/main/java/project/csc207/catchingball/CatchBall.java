@@ -27,6 +27,7 @@ import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
 
 /* 
@@ -37,7 +38,7 @@ import project.csc207.ScoreResult;
   * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
   */
 
-public class CatchBall extends AppCompatActivity {
+public class CatchBall extends AppCompatActivity implements SaveLoad {
 
     /**
      * the score, starting text, and elements of images
@@ -338,7 +339,7 @@ public class CatchBall extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);

@@ -18,8 +18,9 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 
-public class LightsOutStartingActivity extends AppCompatActivity {
+public class LightsOutStartingActivity extends AppCompatActivity implements SaveLoad {
 
     /**
      * A temporary save file.
@@ -144,7 +145,7 @@ public class LightsOutStartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);

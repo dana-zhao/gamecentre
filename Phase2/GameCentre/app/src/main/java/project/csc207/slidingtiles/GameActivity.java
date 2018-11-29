@@ -23,18 +23,15 @@ import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
 import project.csc207.lightsoutgame.LightsOutGameActivity;
 
 /**
  * The game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class GameActivity extends AppCompatActivity implements Observer,SaveLoad {
 
-    /**
-     * The board manager.
-     */
-    private BoardManager boardManager;
     /**
      * The account manager.
      */
@@ -61,7 +58,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
-        boardManager = accountManager.getCurrentAccount().getBoardManager();
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -71,12 +67,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     private void AddUndoListener() {
-        boardManager.getBoard().addObserver(this);
+        accountManager.getCurrentAccount().getBoardManager().getBoard().addObserver(this);
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager.getBoard().undo();
+                accountManager.getCurrentAccount().getBoardManager().getBoard().undo();
             }
         });
     }
@@ -88,8 +84,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
-        gridView.setBoardManager(boardManager);
-        boardManager.addObserver(this);
+        gridView.setBoardManager(accountManager.getCurrentAccount().getBoardManager());
+        accountManager.getCurrentAccount().getBoardManager().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -114,7 +110,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        Board board = accountManager.getCurrentAccount().getBoardManager().getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
@@ -131,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * And AutoSave for any change
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        Board board = accountManager.getCurrentAccount().getBoardManager().getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / Board.NUM_ROWS;
@@ -156,7 +152,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -211,9 +207,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * is higher than the record
      */
     void gameOver() {
-        if (boardManager.isGameOver()) {
+        if (accountManager.getCurrentAccount().getBoardManager().isGameOver()) {
             Account account = accountManager.getCurrentAccount();
-            int score = boardManager.countScore();
+            int score = accountManager.getCurrentAccount().getBoardManager().countScore();
             int record = account.getSlidingTileScores();
             account.setSlidingTileScores(score);
             saveToFile(LauncherActivity.SAVE_FILENAME);

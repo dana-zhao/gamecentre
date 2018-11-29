@@ -19,17 +19,15 @@ import java.io.ObjectOutputStream;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class StartingActivity extends AppCompatActivity {
+public class StartingActivity extends AppCompatActivity implements SaveLoad {
 
-    /**
-     * The main save file.
-     */
-    public static final String SAVE_FILENAME = "save_file.ser";
+
     /**
      * A temporary save file.
      */
@@ -147,7 +145,7 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(SAVE_FILENAME);
+                loadFromFile(LauncherActivity.SAVE_FILENAME);
                 if (accountManager.getCurrentAccount().getBoardManager() == null){
                     makeToastNoLoadedText();
                 }
@@ -178,7 +176,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accountManager.updateAccount();
-                saveToFile(SAVE_FILENAME);
+                saveToFile(LauncherActivity.SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastSavedText();
             }
@@ -215,7 +213,7 @@ public class StartingActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);

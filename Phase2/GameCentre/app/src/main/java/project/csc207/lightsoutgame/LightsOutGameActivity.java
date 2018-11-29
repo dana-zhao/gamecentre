@@ -22,15 +22,12 @@ import java.util.Observer;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
 import project.csc207.slidingtiles.CustomAdapter;
 
-public class LightsOutGameActivity extends AppCompatActivity implements Observer {
+public class LightsOutGameActivity extends AppCompatActivity implements Observer, SaveLoad {
 
-    /**
-     * Board manager of Lights Out Board.
-     */
-    private LightsOutBoardManager lightsOutBoardManager;
 
     /**
      * Buttons of Lights Out.
@@ -53,8 +50,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(LightsOutStartingActivity.TEMP_SAVE_FILENAME);
-        lightsOutBoardManager = accountManager.getCurrentAccount().getLightsOutBoardManager();
-        lightsOutBoardManager.addObserver(this);
+        accountManager.getCurrentAccount().getLightsOutBoardManager().addObserver(this);
         createLights(this);
         setContentView(R.layout.activity_lights_out_game);
 
@@ -107,7 +103,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * @param context the context
      */
     private void createLights(Context context) {
-        LightsOutBoard lightsBoard = lightsOutBoardManager.getLightsOutBoard();
+        LightsOutBoard lightsBoard =
+                accountManager.getCurrentAccount().getLightsOutBoardManager().getLightsOutBoard();
         lightsButtons = new ArrayList<>();
         for (int row = 0; row != LightsOutBoard.NUM_ROWS; row++) {
             for (int col = 0; col != LightsOutBoard.NUM_COLS; col++) {
@@ -142,7 +139,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     }
 
 
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -182,9 +179,9 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * set the score of the game to Account and jump to ScoreResult page if the game is over
      */
     public void gameOver(){
-        if (lightsOutBoardManager.isGameOver()){
+        if (accountManager.getCurrentAccount().getLightsOutBoardManager().isGameOver()){
             ArrayList<Integer> scores = new ArrayList<>();
-            int score = lightsOutBoardManager.countScore();
+            int score = accountManager.getCurrentAccount().getLightsOutBoardManager().countScore();
             int records = accountManager.getCurrentAccount().getLightOutScores();
             accountManager.getCurrentAccount().setLightOutScores(score);
             saveToFile(LauncherActivity.SAVE_FILENAME);
