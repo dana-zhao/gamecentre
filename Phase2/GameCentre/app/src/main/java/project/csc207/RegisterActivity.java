@@ -20,13 +20,6 @@ import java.util.HashMap;
 import project.csc207.slidingtiles.BoardManager;
 
 public class RegisterActivity extends AppCompatActivity implements SaveLoad{
-    /**
-     * The main save file.
-     */
-
-    /**
-     * A temporary save file.
-     */
 
     /**
      * The account manager.
