@@ -196,7 +196,7 @@ public class BoardManager extends Observable implements Serializable {
      * @return the score of the sliding tile game
      */
     int countScore(){
-        return 100*board.numTiles()/board.getGameMoves();
+        return 40*board.numTiles() - board.getGameMoves();
 
     }
 }

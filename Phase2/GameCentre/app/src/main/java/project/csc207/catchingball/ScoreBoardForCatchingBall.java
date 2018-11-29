@@ -49,7 +49,7 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
     }
 
     /**
-     * set the textView for top players
+     * set the textView for top players,leave blank space if not enough player
      */
     private void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1Player);
@@ -63,7 +63,7 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
         }
 
         while (textForView.size() < 3) {
-            textForView.add("User: " + " Score :");
+            textForView.add(" ");
         }
 
         num1Player.setText(textForView.get(0));

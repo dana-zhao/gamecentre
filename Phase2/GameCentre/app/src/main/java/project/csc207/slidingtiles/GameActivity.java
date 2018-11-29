@@ -71,6 +71,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     private void AddUndoListener() {
+        boardManager.getBoard().addObserver(this);
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override

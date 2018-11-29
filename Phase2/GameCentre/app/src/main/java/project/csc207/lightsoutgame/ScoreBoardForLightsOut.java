@@ -46,7 +46,7 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
     }
 
     /**
-     * set the textView for top players
+     * set the textView for top players, if not enough player, it will leave blank space
      */
     private void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1LightsOut);
@@ -59,7 +59,7 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
             textForView.add(str);
         }
         while (textForView.size() < 3) {
-            textForView.add("User: " + " Score :");
+            textForView.add(" ");
         }
         num1Player.setText(textForView.get(0));
         num2Player.setText(textForView.get(1));
