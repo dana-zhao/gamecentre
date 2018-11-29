@@ -14,4 +14,6 @@
     <string name="Boardsize4">4 X 4 Board</string>
     <string name="BoardSize5">5 X 5 Board</string>
     <string name="difficultyOfSTG">Difficulty:</string>
+    <string name="undo_button">Undo</string>
+    <string name="catching_ball_game">Catching Ball</string>
 </resources>
