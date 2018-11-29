@@ -16,7 +16,6 @@ public class LightsOutBoardManagerTest {
 
     @Test
     public void testAllLightsOut() {
-        testBoard.getLight(4, 4).setLight(true);
         LightsOutTestHelpMethods.getLightsAllOff(testBoard);
         Light testLight = testBoard.getLight(0,0);
         testLight.setLight(true);
