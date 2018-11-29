@@ -17,7 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends AppCompatActivity implements SaveLoad{
 
     /**
     The input username field.
@@ -89,7 +89,7 @@ public class LauncherActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);

@@ -17,10 +17,11 @@
         android:id="@+id/scoreLabel"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Score : 300"
-        android:textSize="18sp"
-        android:paddingLeft="10dp"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="30dp"
+        android:text="@string/score"
+        android:textSize="18sp" />
 
     <FrameLayout
         android:id="@+id/frame"
@@ -31,35 +32,39 @@
             android:id="@+id/startLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap to Start"
-            android:textSize="30sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="130dp"/>
+            android:layout_marginTop="130dp"
+            android:text="@string/tap_to_start"
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/box"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/box"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/box"
+            android:src="@drawable/box" />
 
         <ImageView
             android:id="@+id/orange"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/orange"/>
+            android:contentDescription="@string/orangeball_point"
+            android:src="@drawable/orange" />
 
         <ImageView
             android:id="@+id/black"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/star"/>
+            android:contentDescription="@string/blackball"
+            android:src="@drawable/star" />
 
         <ImageView
             android:id="@+id/pink"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/pink"/>
+            android:contentDescription="@string/pinkball_score"
+            android:src="@drawable/pink" />
 
     </FrameLayout>
 

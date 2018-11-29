@@ -1,5 +1,6 @@
 package project.csc207;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,9 @@ public class AccountActivity extends AppCompatActivity {
         addLightsOutListener();
         addCatchingTheBallListener();
         displayAccountName();
+        addScoreBoardListener();
+        addLogOffListener();
+
     }
 
     /**
@@ -84,8 +88,39 @@ public class AccountActivity extends AppCompatActivity {
         lightsOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent lightsOutIntent = new Intent(AccountActivity.this, LightsOutStartingActivity.class);
+                Intent lightsOutIntent =
+                        new Intent(AccountActivity.this, LightsOutStartingActivity.class);
                 startActivity(lightsOutIntent);
+            }
+        });
+    }
+
+    /**
+     * Activate the ScoreBoard For User
+     */
+    private void addScoreBoardListener(){
+        Button scoreBoardButton = findViewById(R.id.ScoreBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scoreBoardIntent =
+                        new Intent(AccountActivity.this,ScoreBoardForUser.class);
+                startActivity(scoreBoardIntent);
+            }
+        });
+    }
+
+    /**
+     Activate the game sliding tiles.
+     */
+    private void addLogOffListener() {
+        Button slidingTilesButton = findViewById(R.id.LogOff);
+        slidingTilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logoffIntent = new Intent(AccountActivity.this,
+                        LauncherActivity.class);
+                startActivity(logoffIntent);
             }
         });
     }
