@@ -140,11 +140,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
         startActivity(gameActivityIntent);
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -163,11 +159,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -181,7 +173,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
 
 
     /**
-     * Activate the start button.
+     * Activate the Score button.
      */
     private void addScoreBoardListener() {
         Button scoreBoardButton = findViewById(R.id.LightsOutScoreBoardButton);

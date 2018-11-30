@@ -20,7 +20,6 @@ import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.SaveLoad;
-import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -226,6 +225,8 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
+
+
 
     @Override
     public void saveToFile(String fileName) {
