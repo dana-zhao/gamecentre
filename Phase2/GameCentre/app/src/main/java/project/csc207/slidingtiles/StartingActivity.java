@@ -147,10 +147,10 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
                 if (accountManager.getCurrentAccount().getBoardManager() == null) {
                     makeToastNoLoadedText();
-                }
+                }else{
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
-                switchToGame();
+                switchToGame();}
             }
         });
     }
