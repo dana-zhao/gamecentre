@@ -39,7 +39,6 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
         displayAccountName();
         addStartButtonListener();
         addLoadButtonListener();
-        addSaveButtonListener();
         addScoreBoardListener();
     }
 
@@ -93,31 +92,14 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
     private void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Display that No game was saved before.
+     */
     private void makeToastNoLoadedText() {
         Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
     }
-    /**
-     * Activate the save button.
-     */
-    private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.SaveButtonLights);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accountManager.updateAccount();
-                saveToFile(LauncherActivity.SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastSavedText();
-            }
-        });
-    }
 
-    /**
-     * Display that a game was saved successfully.
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
+
 
 
     /**
