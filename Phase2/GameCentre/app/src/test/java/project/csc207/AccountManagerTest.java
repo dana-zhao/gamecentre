@@ -91,6 +91,7 @@ public class AccountManagerTest {
 
         assertTrue(currentAccountManager.rightPassword("5678", "4321"));
         assertFalse(currentAccountManager.rightPassword("5678", "21"));
+        assertFalse(currentAccountManager.rightPassword("123", "21"));
     }
 
     @Test
