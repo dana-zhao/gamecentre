@@ -3,26 +3,31 @@
 1. phone number: 6478363206
 2. email: yuxi.dai@utoronto.ca
 3. preferred contact way: facebook/slack
+4. git user name: Tristydai
 
 #Jinjie Sun
 1. phone number: 403-383-5880
 2. email: jinjie.sun@mail.utoronto.ca
 3. preferred contact way: facebook/email
+4. git user name: Jinjie Sun
 
 #Dana Zhao
 1. phone number:7788835666
 2. email: dana.zhao@mail.utoronto.ca
 3. preferred contact way: facebook/email
+4. git user name: danazhao
 
 #Yining Zhang
 1. phone number: 437-997-9570
 2. email: elaineyining.zhang@mail.utoronto.ca
 3. preferred contact way: facebook/email
+4. git user name: Yining Zhang
 
 #Caiquan Shi
 1. phone number: 4168328710
 2. email: Caiquan.shi@mail.utoronto.ca
 3. preferred contact way: email
+4. git user name: caiquanshi; xande
 
 #TEAM MEETING:
 every week during the lab time
