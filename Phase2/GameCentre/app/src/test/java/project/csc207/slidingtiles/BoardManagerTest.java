@@ -26,6 +26,7 @@ public class BoardManagerTest {
         testEvenBoardManager.setBoard(testEvenBoard);
     }*/
 
+    //Need to rewrite, not sure how to test meaningfully + seems to be running infinitely
     @Test
     public void testBoardManagerConstructor() {
         //Test that odd sized board is solvable

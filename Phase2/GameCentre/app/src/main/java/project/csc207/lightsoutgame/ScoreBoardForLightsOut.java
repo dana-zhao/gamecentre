@@ -39,6 +39,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
 
     }
 
+    /**
+     * Text view for the account.
+     */
     @Override
     public void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.LightsOutTitle);
@@ -51,6 +54,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
         accountScoreText.setText(accountsAndScore);
     }
 
+    /**
+     * Text view for the top players.
+     */
     @Override
     public void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1LightsOut);
@@ -70,6 +76,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
         num3Player.setText(textForView.get(2));
     }
 
+    /**
+     * Set the scores of the top players.
+     */
     @Override
     public void setTopPlayers() {
         topPlayers = new ArrayList<>();
@@ -82,6 +91,13 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
         }
     }
 
+    /**
+     * Check to see who are the top players and return them.
+     * @param player     The Account of the player to check
+     * @param score      The highest score of checked player for a type of game
+     * @param topPlayers An Array list contains top 3 players of the game.
+     * @return the top players
+     */
     @Override
     public ArrayList<Account> checkTopPlayers(Account player, int score,
                                               ArrayList<Account> topPlayers) {
@@ -105,6 +121,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
         return topPlayers;
     }
 
+    /**
+     * Load from the save file
+     */
     private void loadFromFile() {
 
         try {

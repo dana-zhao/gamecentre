@@ -23,7 +23,7 @@ import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
-import project.csc207.slidingtiles.CustomAdapter;
+import project.csc207.CustomAdapter;
 
 public class LightsOutGameActivity extends AppCompatActivity implements Observer, SaveLoad {
 
@@ -43,6 +43,9 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      */
     private LightsOutDetectGridView lightsGrid;
 
+    /**
+     * Dimensions for size of the columns.
+     */
     private static int columnWidth, columnHeight;
 
     @Override
@@ -131,7 +134,6 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         saveToFile(LauncherActivity.SAVE_FILENAME);
     }
 
-
     /**
      * Set up background images and use adapter to set the view.
      */
@@ -140,7 +142,11 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         lightsGrid.setAdapter(new CustomAdapter(lightsButtons, columnWidth, columnHeight));
     }
 
-    @Override
+    /**
+     * Load from save file
+     *
+     * @param fileName name of save file
+     */
     public void loadFromFile(String fileName) {
 
         try {
@@ -159,6 +165,11 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
     }
 
+    /**
+     * Save to the file.
+     *
+     * @param fileName name of save file
+     */
     @Override
     public void saveToFile(String fileName) {
         try {
@@ -171,6 +182,12 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
     }
 
+    /**
+     * Update the game's display and check for game over.
+     *
+     * @param o   observer
+     * @param arg arguments
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();
@@ -181,7 +198,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * set the score of the game to Account and jump to ScoreResult page if the game is over
      */
     public void gameOver() {
-        if (accountManager.getCurrentAccount().getLightsOutBoardManager().isGameOver()) {
+        if (accountManager.getCurrentAccount().getLightsOutBoardManager().allLightsOut()) {
             ArrayList<Integer> scores = new ArrayList<>();
             int score = accountManager.getCurrentAccount().getLightsOutBoardManager().countScore();
             int records = accountManager.getCurrentAccount().getLightOutScores();
@@ -193,6 +210,11 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
     }
 
+    /**
+     * Go to score result screen.
+     *
+     * @param scores list of scores
+     */
     private void goToScoreResult(ArrayList<Integer> scores) {
         Intent gameResultIntent = new Intent(LightsOutGameActivity.this,
                 ScoreResult.class);

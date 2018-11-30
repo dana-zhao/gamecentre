@@ -20,6 +20,7 @@ import java.util.Observer;
 
 import project.csc207.Account;
 import project.csc207.AccountManager;
+import project.csc207.CustomAdapter;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.SaveLoad;
