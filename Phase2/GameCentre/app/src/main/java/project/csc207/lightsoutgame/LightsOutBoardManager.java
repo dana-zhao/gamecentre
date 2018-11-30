@@ -25,7 +25,7 @@ public class LightsOutBoardManager extends Observable implements Serializable {
     /**
      * the minimum number of Moves required to solve the Game
      */
-    private int min_moves;
+    private int minMoves;
 
     /**
      * Return lights out board manager's lights out board.
@@ -134,10 +134,10 @@ public class LightsOutBoardManager extends Observable implements Serializable {
     /**
      * set the number of minimum Moves to solve the Board
      *
-     * @param min_moves the minimum moves required for solving the Board.
+     * @param minMoves the minimum moves required for solving the Board.
      */
-    private void setMinMoves(int min_moves) {
-        this.min_moves = min_moves;
+    private void setMinMoves(int minMoves) {
+        this.minMoves = minMoves;
     }
 
     /**
@@ -147,12 +147,12 @@ public class LightsOutBoardManager extends Observable implements Serializable {
     private void randomSetBoard() {
         Random randomMoves = new Random();
         setMinMoves(randomMoves.nextInt(31));
-        if (min_moves < 10) {
-            min_moves = 10;
+        if (minMoves < 10) {
+            minMoves = 10;
         }
         Random randomPosition = new Random();
         int position = 0;
-        for (int i = 0; i < this.min_moves; i++) {
+        for (int i = 0; i < this.minMoves; i++) {
             int newPosition = randomPosition.nextInt(25);
             if (position != newPosition) {
                 position = newPosition;
@@ -170,6 +170,6 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * @return the score of the game
      */
     int countScore() {
-        return min_moves * 30 - gameMoves.size();
+        return minMoves * 30 - gameMoves.size();
     }
 }

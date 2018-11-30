@@ -52,7 +52,6 @@ public class BoardManager extends Observable implements Serializable {
         }
         tiles.add(new Tile(24));
         Collections.shuffle(tiles);
-        this.board = new Board(tiles, boardSize);
         while (!(isSolvable(boardSize, tiles))){
             Collections.shuffle(tiles);
         }
@@ -70,24 +69,28 @@ public class BoardManager extends Observable implements Serializable {
         List<Integer> tileNums = new ArrayList<>();
         for (Tile t: tiles) {
             //Add 1 so ids start from 1
-            tileNums.add(t.getId() + 1);
+            tileNums.add(t.getId());
         }
+        int blankTileRow = tileNums.indexOf(25) / Board.NUM_ROWS;
         int inversions = getInversions(tileNums, boardSize);
         if (boardSize % 2 == 1) {
             return inversions % 2 == 0;
         }
         else {
-            if (this.board.getBlankRow() % 2 == 1) {
-                return inversions % 2 == 1;
-            }
-            else {
+            //Blank row is on odd row starting from bottom
+            if (blankTileRow % 2 == 1) {
                 return inversions % 2 == 0;
+            }
+            //Blank row is on even row starting from bottom
+            else {
+                return inversions % 2 == 1;
             }
         }
     }
 
     /**
      * Get the number of inversions (times a tile's id precedes a lesser id) for a board
+     * Citation: https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
      * @param tileNums tile ids in a list
      * @param boardSize size of board
      * @return number of inversions
@@ -95,8 +98,8 @@ public class BoardManager extends Observable implements Serializable {
     private int getInversions(List<Integer> tileNums, int boardSize) {
         int inversions = 0;
         //Remove the blank tile
-        tileNums.remove(Integer.valueOf(boardSize * boardSize));
-        for (int i = 0; i < tileNums.size(); i++) {
+        tileNums.remove(Integer.valueOf(25));
+        for (int i = 0; i < tileNums.size() - 1; i++) {
             for (int j = i + 1; j < tileNums.size(); j++) {
                 if (tileNums.get(j) < tileNums.get(i)) {
                     inversions++;

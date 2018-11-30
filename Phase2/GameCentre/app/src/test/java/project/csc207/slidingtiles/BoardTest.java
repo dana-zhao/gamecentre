@@ -10,10 +10,11 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
+    private final int EVEN_SIZE = 4;
+
 
     @Test
     public void numTiles() {
-        int EVEN_SIZE = 4;
 
         List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < EVEN_SIZE * EVEN_SIZE; i++) {
@@ -26,7 +27,6 @@ public class BoardTest {
 
     @Test
     public void getTile() {
-        int EVEN_SIZE = 4;
 
         List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < EVEN_SIZE * EVEN_SIZE; i++) {
@@ -36,29 +36,27 @@ public class BoardTest {
         Tile testTile = new Tile(0);
         Tile testTile2 = new Tile(1);
 
-        assertEquals(testTile.getId(), testSolvedBoard.getTile(0,0).getId());
-        assertEquals(testTile2.getId(), testSolvedBoard.getTile(0,1).getId());
+        assertEquals(testTile.getId(), testSolvedBoard.getTile(0, 0).getId());
+        assertEquals(testTile2.getId(), testSolvedBoard.getTile(0, 1).getId());
 
     }
 
     @Test
     public void swapTiles() {
-        int EVEN_SIZE = 4;
 
         List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < EVEN_SIZE * EVEN_SIZE; i++) {
             tiles.add(new Tile(i));
         }
         Board testSolvedBoard = new Board(tiles);
-        testSolvedBoard.swapTiles(0,0,0,1);
-        assertEquals(2,testSolvedBoard.getTile(0,0).getId());
-        assertEquals(1,testSolvedBoard.getTile(0,1).getId());
+        testSolvedBoard.swapTiles(0, 0, 0, 1);
+        assertEquals(2, testSolvedBoard.getTile(0, 0).getId());
+        assertEquals(1, testSolvedBoard.getTile(0, 1).getId());
     }
 
 
     @Test
     public void getGameMoves() {
-        int EVEN_SIZE = 4;
 
         List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < EVEN_SIZE * EVEN_SIZE; i++) {
