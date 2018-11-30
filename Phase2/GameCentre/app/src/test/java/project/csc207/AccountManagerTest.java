@@ -8,7 +8,9 @@ import static org.junit.Assert.*;
 
 public class AccountManagerTest {
 
-
+    /**
+     * Test whether the getter of the account is working
+     */
     @Test
     public void getCurrentAccount() {
         AccountManager currentAccountManager = new AccountManager();
@@ -21,6 +23,9 @@ public class AccountManagerTest {
         assertEquals(testAccount, currentAccountManager.getCurrentAccount());
     }
 
+    /**
+     * Test whether the getter of the account hash map is working
+     */
     @Test
     public void getAllAccount() {
         AccountManager currentAccountManager = new AccountManager();
@@ -33,6 +38,9 @@ public class AccountManagerTest {
 
     }
 
+    /**
+     * Test whether the setter of the account is working
+     */
     @Test
     public void setCurrentAccount() {
         AccountManager currentAccountManager = new AccountManager();
@@ -46,6 +54,9 @@ public class AccountManagerTest {
 
     }
 
+    /**
+     * Test whether the user already exists in hash map that stores all the existing accounts
+     */
     @Test
     public void notNewUser() {
         AccountManager currentAccountManager = new AccountManager();
@@ -61,6 +72,9 @@ public class AccountManagerTest {
 
     }
 
+    /**
+     * Test whether the updateAccount method updates the user info to hash map
+     */
     @Test
     public void updateAccount() {
         AccountManager currentAccountManager = new AccountManager();
@@ -79,6 +93,9 @@ public class AccountManagerTest {
 
     }
 
+    /**
+     * Test whether the rightPassword check the username and corresponding password correctly
+     */
     @Test
     public void rightPassword() {
         AccountManager currentAccountManager = new AccountManager();
@@ -94,6 +111,9 @@ public class AccountManagerTest {
         assertFalse(currentAccountManager.rightPassword("123", "21"));
     }
 
+    /**
+     * Test whether the signUp saved the username and passwords in hash map of accounts
+     */
     @Test
     public void signUp() {
         AccountManager currentAccountManager = new AccountManager();
@@ -109,6 +129,9 @@ public class AccountManagerTest {
 
     }
 
+    /**
+     * Test whether the setter of the hash map of account is working
+     */
     @Test
     public void setAllAccount() {
         AccountManager currentAccountManager = new AccountManager();
