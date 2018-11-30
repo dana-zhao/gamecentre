@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import project.csc207.Account;
 import project.csc207.AccountManager;
@@ -32,7 +31,7 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_board_for_catching_ball);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        loadFromFile();
 
         setTopPlayers();
         setTextViewForTopPlayers();
@@ -112,10 +111,10 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
         return topPlayers;
     }
 
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LauncherActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 accountManager = (AccountManager) input.readObject();

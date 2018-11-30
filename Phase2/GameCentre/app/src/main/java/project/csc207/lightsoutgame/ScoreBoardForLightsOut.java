@@ -31,7 +31,7 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_board_for_lights_out);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        loadFromFile();
 
         setTopPlayers();
         setTextViewForTopPlayers();
@@ -105,10 +105,10 @@ public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBo
         return topPlayers;
     }
 
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LauncherActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 accountManager = (AccountManager) input.readObject();
