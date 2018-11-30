@@ -8,14 +8,14 @@ import android.widget.Button;
 
 import project.csc207.R;
 
-/*
- * A class that build the starting page of the game named catching the ball
- *
- * This was adapted from a video from codingwithsara on Youtube
- * link here:
- * https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
- */
 
+/**
+ *  A class that build the basis of the game named catching the ball
+ *
+ *  This was adapted from a video from codingwithsara on Youtube
+ *  link here:
+ *   https://www.youtube.com/watch?v=ojD6ZDi2ep8&list=PLRdMAPi4QUfbIg6dRXf56cbMfeYtTdNSA
+ */
 
 public class CatchBallStart extends AppCompatActivity {
 
