@@ -83,4 +83,18 @@ public class LightsOutBoardManagerTest {
         assertTrue(testBoard.getLight(2, 2).getState());
         assertTrue(testBoard.getLight(1, 3).getState());
     }
+
+    /**
+     * Test countScore gives lower score to player if they take more moves
+     */
+    @Test
+    public void testCountScore() {
+        testBoardManager.touchToSwitch(7);
+        testBoardManager.touchToSwitch(8);
+        int lowerScore = testBoardManager.countScore();
+        testBoardManager.undo();
+        int higherScore = testBoardManager.countScore();
+        //The higher score should be higher than the lower score by one since it took one less move
+        assertEquals(higherScore - lowerScore, 1);
+    }
 }
