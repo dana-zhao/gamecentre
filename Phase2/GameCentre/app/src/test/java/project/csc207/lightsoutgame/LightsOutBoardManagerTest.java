@@ -15,6 +15,7 @@ public class LightsOutBoardManagerTest {
     private LightsOutBoardManager testBoardManager = new LightsOutBoardManager();
     private LightsOutBoard testBoard = testBoardManager.getLightsOutBoard();
 
+
     /**
      * Test allLightsOut method correctly returns whether or not all lights are off
      */
