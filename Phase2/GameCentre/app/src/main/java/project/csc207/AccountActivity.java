@@ -32,7 +32,7 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        loadFromFile();
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
         addLightsOutListener();
@@ -127,10 +127,10 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LauncherActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 accountManager = (AccountManager) input.readObject();
