@@ -26,7 +26,7 @@ class SwitchController {
      */
     void processTapSwitch(Context context, int position) {
             lightsOutBoardManager.touchToSwitch(position);
-            if (lightsOutBoardManager.isGameOver()) {
+            if (lightsOutBoardManager.allLightsOut()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
         }
