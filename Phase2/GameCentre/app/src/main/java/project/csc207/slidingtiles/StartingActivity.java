@@ -162,7 +162,7 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
     }
 
     /**
-     * Display that No game was saved before.
+     * Display that no game was saved before.
      */
     private void makeToastNoLoadedText() {
         Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
