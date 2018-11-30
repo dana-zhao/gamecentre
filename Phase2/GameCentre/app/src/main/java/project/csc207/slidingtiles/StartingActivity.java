@@ -55,7 +55,6 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
         displayAccountName();
         addStartButtonListener();
         addLoadButtonListener();
-        addSaveButtonListener();
         AddScoreBoardButtonListener();
     }
 
@@ -162,32 +161,13 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Display that no game was saved before.
+     */
     private void makeToastNoLoadedText() {
         Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Activate the save button.
-     */
-    private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.SaveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accountManager.updateAccount();
-                saveToFile(LauncherActivity.SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastSavedText();
-            }
-        });
-    }
-
-    /**
-     * Display that a game was saved successfully.
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * Read the temporary board from disk.

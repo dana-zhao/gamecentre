@@ -19,7 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="65dp"
         android:text="@string/new_game" />
 
     <Button
@@ -27,16 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="41dp"
         android:layout_toStartOf="@+id/StartButton"
         android:text="@string/load_game" />
-
-    <Button
-        android:id="@+id/SaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_toEndOf="@+id/StartButton"
-        android:text="@string/save_game" />
 
     <TextView
         android:id="@+id/AccountNameSliding"
