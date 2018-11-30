@@ -76,13 +76,13 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
             @Override
             public void onClick(View v) {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
-                if(accountManager.getCurrentAccount().getLightsOutBoardManager() == null){
+                if (accountManager.getCurrentAccount().getLightsOutBoardManager() == null) {
                     makeToastNoLoadedText();
+                } else {
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                    switchToGame();
                 }
-                else {
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
-                switchToGame();}
             }
         });
     }
@@ -93,9 +93,11 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
     private void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
+
     private void makeToastNoLoadedText() {
         Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * Activate the save button.
      */
@@ -140,11 +142,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
         startActivity(gameActivityIntent);
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -163,11 +161,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -181,7 +175,7 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
 
 
     /**
-     * Activate the start button.
+     * Activate the Score button.
      */
     private void addScoreBoardListener() {
         Button scoreBoardButton = findViewById(R.id.LightsOutScoreBoardButton);

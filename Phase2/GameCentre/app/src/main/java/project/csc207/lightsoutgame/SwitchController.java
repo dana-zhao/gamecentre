@@ -11,10 +11,19 @@ class SwitchController {
     SwitchController() {
     }
 
+    /**
+     * Set lights out board manager
+     * @param lightsOutBoardManager lights out board manager
+     */
     void setLightsOutBoardManager(LightsOutBoardManager lightsOutBoardManager) {
         this.lightsOutBoardManager = lightsOutBoardManager;
     }
 
+    /**
+     * Process the tap, switching the light and displaying a win message if the player wins.
+     * @param context the context
+     * @param position position on the board
+     */
     void processTapSwitch(Context context, int position) {
             lightsOutBoardManager.touchToSwitch(position);
             if (lightsOutBoardManager.allLightsOut()) {

@@ -1,5 +1,12 @@
 package project.csc207.lightsoutgame;
 
+/*
+Adapted from GestureDetectGridView and therefore:
+https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
+
+This extension of GridView contains built in logic for handling swipes between buttons
+ */
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -7,34 +14,67 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 public class LightsOutDetectGridView extends GridView {
-
-
+    /**
+     * Minimum swipe distance
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+    /**
+     * Gesture detector
+     */
     private GestureDetector gDetector;
+    /**
+     * Switch controller
+     */
     private SwitchController sController;
+    /**
+     * Check for fling motion
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * Touch event coordinates
+     */
     private float mTouchX;
     private float mTouchY;
-    private LightsOutBoardManager lightsOutBoardManager;
 
 
+    /**
+     * Lights out gesture detect grid view.
+     *
+     * @param context the context
+     */
     public LightsOutDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * Lights out gesture detect grid view.
+     *
+     * @param context the context
+     * @param attrs   attributes
+     */
     public LightsOutDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * Lights out gesture detect grid view.
+     *
+     * @param context      the context
+     * @param attrs        attributes
+     * @param defStyleAttr style attributes
+     */
     public LightsOutDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    /**
+     * Initialize lights out gesture detect grid view
+     *
+     * @param context the context
+     */
     private void init(final Context context) {
         sController = new SwitchController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -56,6 +96,12 @@ public class LightsOutDetectGridView extends GridView {
     }
 
 
+    /**
+     * Check if touch event is intercepted and onTouchEvent should be called
+     *
+     * @param ev motion event
+     * @return is touch event intercepted
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -83,13 +129,24 @@ public class LightsOutDetectGridView extends GridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Detect touch event. Suggested override of performClick is not needed and was not in the
+     * original.
+     *
+     * @param ev motion event
+     * @return the gesture detector consumed the event
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Set lights out board manager for the switch controller
+     *
+     * @param lightsOutBoardManager lights out board manager
+     */
     public void setLightsOutBoardManager(LightsOutBoardManager lightsOutBoardManager) {
-        this.lightsOutBoardManager = lightsOutBoardManager;
         sController.setLightsOutBoardManager(lightsOutBoardManager);
     }
 }

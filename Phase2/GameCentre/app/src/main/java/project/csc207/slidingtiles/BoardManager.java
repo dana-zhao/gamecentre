@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
-import java.util.Stack;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -188,7 +187,6 @@ public class BoardManager extends Observable implements Serializable {
     boolean isGameOver() {
         return GAME_OVER;
     }
-
 
     /**
      * count the score of sliding tile games and return it, the larger the board, the greater the

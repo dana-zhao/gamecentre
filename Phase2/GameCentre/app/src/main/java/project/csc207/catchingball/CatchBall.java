@@ -31,7 +31,7 @@ import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
 
 
-/**
+/*
  *  A class that build the basis of the game named catching the ball
  *
  *  This was adapted from a video from codingwithsara on Youtube

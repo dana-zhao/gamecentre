@@ -1,4 +1,4 @@
-package project.csc207.slidingtiles;
+package project.csc207;
 
 /*
 Taken from:

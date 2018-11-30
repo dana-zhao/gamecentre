@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.content.Intent;
 
 import java.io.FileNotFoundException;
@@ -21,11 +20,11 @@ import java.util.Observer;
 
 import project.csc207.Account;
 import project.csc207.AccountManager;
+import project.csc207.CustomAdapter;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.SaveLoad;
 import project.csc207.ScoreResult;
-import project.csc207.lightsoutgame.LightsOutGameActivity;
 
 /**
  * The game activity.
@@ -147,11 +146,7 @@ public class GameActivity extends AppCompatActivity implements Observer,SaveLoad
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -170,11 +165,7 @@ public class GameActivity extends AppCompatActivity implements Observer,SaveLoad
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -222,6 +213,10 @@ public class GameActivity extends AppCompatActivity implements Observer,SaveLoad
 
     }
 
+    /**
+     * jump to Score Result page and set Intent extra with given List
+     * @param scores Arraylist with score and record of Sliding Tile
+     */
     private void goToScoreResult(ArrayList<Integer> scores) {
         Intent gameResultIntent = new Intent(GameActivity.this,
                 ScoreResult.class);
