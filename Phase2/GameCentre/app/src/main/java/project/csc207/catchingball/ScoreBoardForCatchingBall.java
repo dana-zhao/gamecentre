@@ -27,6 +27,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
     private AccountManager accountManager;
     private ArrayList<Account> topPlayers;
 
+    /**
+     * set up for the scoreboard page
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
 
     }
 
+    /**
+     * set up the score for the current account
+     */
     @Override
     public void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.Title);
@@ -51,6 +57,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
         accountScoreText.setText(accountsAndScore);
     }
 
+    /**
+     * set up the top 3 scores for the played account with their username
+     */
     @Override
     public void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1Player);
@@ -73,6 +82,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
 
     }
 
+    /**
+     * set up the multiple scores from different games for the top players
+     */
     @Override
     public void setTopPlayers() {
         topPlayers = new ArrayList<>();
@@ -88,6 +100,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
         }
     }
 
+    /**
+     * double check info of top 3 players
+     */
     @Override
     public ArrayList<Account> checkTopPlayers(Account player, int score,
                                               ArrayList<Account> topPlayers) {
@@ -111,6 +126,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity implements Scor
         return topPlayers;
     }
 
+    /**
+     * load the saved file
+     */
     private void loadFromFile() {
 
         try {
