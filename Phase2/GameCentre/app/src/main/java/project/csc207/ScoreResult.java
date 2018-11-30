@@ -1,6 +1,5 @@
 package project.csc207;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,16 +28,23 @@ public class ScoreResult extends AppCompatActivity {
         addGoBackToGameCenterButton();
     }
 
+    /**
+     * Set the Score Based on the Array list of scores on Intent Extra and set the TextView to
+     * corresponding label.
+     *
+     * @param scoreLabel     The label used to set text view of Score
+     * @param highScoreLabel the label used to set text view of Highest score
+     */
     private void setScoresToText(TextView scoreLabel, TextView highScoreLabel) {
         int indexOfScore = 0;
-        int indexOfRecord= 1;
+        int indexOfRecord = 1;
 
         ArrayList<Integer> scores = getIntent().getIntegerArrayListExtra("scores");
         String score = scores.get(indexOfScore).toString();
         String highScore = scores.get(indexOfRecord).toString();
         String strForScore = "Your Score : " + score;
         String strForHighScore = "Your Record Score : " + highScore;
-        if (scores.get(indexOfScore) > scores.get(indexOfRecord)){
+        if (scores.get(indexOfScore) > scores.get(indexOfRecord)) {
             strForScore = "Congratulation!!! New Records: " + score;
             strForHighScore = "Your New Record Score : " + score;
             scoreLabel.setText(strForScore);
@@ -49,6 +55,7 @@ public class ScoreResult extends AppCompatActivity {
             highScoreLabel.setText(strForHighScore);
         }
     }
+
     private void addGoBackToGameCenterButton() {
         final Button playAgainButton = findViewById(R.id.BackToGameCenter);
         playAgainButton.setOnClickListener(new View.OnClickListener() {

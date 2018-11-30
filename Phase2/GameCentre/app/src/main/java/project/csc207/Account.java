@@ -1,13 +1,17 @@
 package project.csc207;
+
 import java.io.Serializable;
 
 import project.csc207.lightsoutgame.LightsOutBoardManager;
 import project.csc207.slidingtiles.BoardManager;
 
+/**
+ * The Account with all Scores and BoardManager of different games, with setters and getters
+ */
 public class Account implements Serializable {
 
     /**
-    The account saved boardManager
+     * The account saved boardManager
      */
     private BoardManager bm;
 
@@ -19,12 +23,12 @@ public class Account implements Serializable {
     private int catchBallScoreForSave;
 
     /**
-    The score for the current account.
+     * The score for the current account.
      */
-    private int slidingTileScores = 0 ;
+    private int slidingTileScores = 0;
 
     /**
-     The score for the current account.
+     * The score for the current account.
      */
     private int catchBallScore = 0;
 
@@ -33,19 +37,18 @@ public class Account implements Serializable {
      */
     private int lightOutScores = 0;
 
-
     /**
-    The username of the account currently logged in.
+     * The username of the account currently logged in.
      */
     private String userName;
 
     /**
-    The password of the account currently logged in.
+     * The password of the account currently logged in.
      */
     private String password;
 
     /**
-    Create a new account.
+     * Create a new account.
      */
     Account(String userName, String password) {
         this.userName = userName;
@@ -53,9 +56,8 @@ public class Account implements Serializable {
         this.bm = null;
     }
 
-
     /**
-    Return the current account's username.
+     * Return the current account's username.
      */
     public String getUserName() {
         return userName;
@@ -63,9 +65,9 @@ public class Account implements Serializable {
 
 
     /**
-    Return the score for the current user.
+     * Return the score for the current user.
      */
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
@@ -85,6 +87,7 @@ public class Account implements Serializable {
 
     /**
      * Return the saved LightOutBoardManager
+     *
      * @return saved LightOutBoardManager
      */
     public LightsOutBoardManager getLightsOutBoardManager() {
@@ -101,6 +104,7 @@ public class Account implements Serializable {
 
     /**
      * set the saved LightsOutBoardManager
+     *
      * @param lbm the given LightsOutBoardManager
      */
     public void setLightsOutBoardManager(LightsOutBoardManager lbm) {
@@ -109,16 +113,18 @@ public class Account implements Serializable {
 
     /**
      * set the lights out Game score to new score if the new score is higher than the record score.
+     *
      * @param lightOutScores the new score of LightsOut game
      */
     public void setLightOutScores(int lightOutScores) {
-        if (this.lightOutScores < lightOutScores){
-        this.lightOutScores = lightOutScores;
+        if (this.lightOutScores < lightOutScores) {
+            this.lightOutScores = lightOutScores;
         }
     }
 
     /**
      * return the highest score of lights out Game
+     *
      * @return the highest score of light out Game
      */
     public int getLightOutScores() {
@@ -127,16 +133,18 @@ public class Account implements Serializable {
 
     /**
      * set the slidingTile score to new score if the new score is higher than record
+     *
      * @param slidingTileScores new score of sliding tile game
      */
     public void setSlidingTileScores(int slidingTileScores) {
-        if (this.slidingTileScores < slidingTileScores){
+        if (this.slidingTileScores < slidingTileScores) {
             this.slidingTileScores = slidingTileScores;
         }
     }
 
     /**
      * get the sliding tile game record
+     *
      * @return the record of sliding tile game
      */
     public int getSlidingTileScores() {
@@ -145,6 +153,7 @@ public class Account implements Serializable {
 
     /**
      * get the record of Catching Ball Game
+     *
      * @return the record score of Catching Ball
      */
     public int getCatchBallScore() {
@@ -153,11 +162,12 @@ public class Account implements Serializable {
 
     /**
      * set the record of Catching Ball Game if the new score is higher than the record
+     *
      * @param catchBallScore the new score of Catching Ball Game
      */
     public void setCatchBallScore(int catchBallScore) {
-        if (catchBallScore > this.catchBallScore){
-        this.catchBallScore = catchBallScore;
+        if (catchBallScore > this.catchBallScore) {
+            this.catchBallScore = catchBallScore;
         }
     }
 }

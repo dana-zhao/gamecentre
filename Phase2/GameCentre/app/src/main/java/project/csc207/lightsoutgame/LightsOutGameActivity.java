@@ -170,6 +170,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      *
      * @param fileName name of save file
      */
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(

@@ -17,8 +17,13 @@ import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.ScoreBoardForGame;
 
-public class ScoreBoardForLightsOut extends AppCompatActivity {
+/**
+ * Score Board of Lights out game
+ */
+public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBoardForGame {
+
     private AccountManager accountManager;
     private ArrayList<Account> topPlayers;
 
@@ -34,10 +39,8 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
 
     }
 
-    /**
-     * Set text view for the account.
-     */
-    private void setTextViewForAccount() {
+    @Override
+    public void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.LightsOutTitle);
         TextView accountScoreText = findViewById(R.id.userScoreLightsOut);
         String title = "ScoreBoard For Lights Out Game";
@@ -48,10 +51,8 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
         accountScoreText.setText(accountsAndScore);
     }
 
-    /**
-     * set the textView for top players, if not enough player, it will leave blank space
-     */
-    private void setTextViewForTopPlayers() {
+    @Override
+    public void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1LightsOut);
         TextView num2Player = findViewById(R.id.num2LightsOut);
         TextView num3Player = findViewById(R.id.num3LightsOut);
@@ -69,11 +70,8 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
         num3Player.setText(textForView.get(2));
     }
 
-
-    /**
-     * get top 3 Players
-     */
-    private void setTopPlayers() {
+    @Override
+    public void setTopPlayers() {
         topPlayers = new ArrayList<>();
         HashMap<String, Account> allaccounts = accountManager.getAllAccount();
         Collection<Account> accounts = allaccounts.values();
@@ -84,17 +82,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
         }
     }
 
-    /**
-     * return an list contains the top players of this game, update the list if the given player
-     * has higher score than the original top players, the list length might
-     *
-     * @param player     the account to check
-     * @param score      the score of CatchingBall game of the check account
-     * @param topPlayers the lists contains top 3 players
-     * @return the list contains top 3 players,could be less than 3 if less than 3 people register
-     */
-    private ArrayList<Account> checkTopPlayers(Account player, int score,
-                                               ArrayList<Account> topPlayers) {
+    @Override
+    public ArrayList<Account> checkTopPlayers(Account player, int score,
+                                              ArrayList<Account> topPlayers) {
 
         for (int i = 0; i < 3; i++) {
             if (i == topPlayers.size()) {
@@ -115,11 +105,6 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
         return topPlayers;
     }
 
-    /**
-     * Load from the save file
-     *
-     * @param fileName save file name
-     */
     private void loadFromFile(String fileName) {
 
         try {

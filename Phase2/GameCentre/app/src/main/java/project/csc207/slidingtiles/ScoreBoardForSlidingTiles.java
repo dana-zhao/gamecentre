@@ -17,8 +17,12 @@ import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.ScoreBoardForGame;
 
-public class ScoreBoardForSlidingTiles extends AppCompatActivity {
+/**
+ * Score Board for Sliding Tile Game
+ */
+public class ScoreBoardForSlidingTiles extends AppCompatActivity implements ScoreBoardForGame {
 
     private AccountManager accountManager;
     private ArrayList<Account> topPlayers;
@@ -27,7 +31,7 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_board_for_sliding_tiles);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        loadFromFile();
 
         setTopPlayers();
         setTextViewForTopPlayers();
@@ -35,7 +39,8 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
 
     }
 
-    private void setTextViewForAccount() {
+    @Override
+    public void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.SlidingTileTitle);
         TextView accountScoreText = findViewById(R.id.userScoreSlidingTile);
         String title = "ScoreBoard For Sliding Tiles Game";
@@ -46,10 +51,8 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
         accountScoreText.setText(accountsAndScore);
     }
 
-    /**
-     * set the textView for top players
-     */
-    private void setTextViewForTopPlayers() {
+    @Override
+    public void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1SlidingTile);
         TextView num2Player = findViewById(R.id.num2SlidingTile);
         TextView num3Player = findViewById(R.id.num3SlidingTile);
@@ -67,11 +70,8 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
         num3Player.setText(textForView.get(2));
     }
 
-
-    /**
-     * get top 3 Players
-     */
-    private void setTopPlayers() {
+    @Override
+    public void setTopPlayers() {
         topPlayers = new ArrayList<>();
         HashMap<String, Account> allAccount = accountManager.getAllAccount();
         Collection<Account> accounts = allAccount.values();
@@ -82,17 +82,9 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
         }
     }
 
-    /**
-     * return an list contains the top players of this game, update the list if the given player
-     * has higher score than the original top players, the list length might
-     *
-     * @param player     the account to check
-     * @param score      the score of CatchingBall game of the check account
-     * @param topPlayers the lists contains top 3 players
-     * @return the list contains top 3 players,could be less than 3 if less than 3 people register
-     */
-    private ArrayList<Account> checkTopPlayers(Account player, int score,
-                                               ArrayList<Account> topPlayers) {
+    @Override
+    public ArrayList<Account> checkTopPlayers(Account player, int score,
+                                              ArrayList<Account> topPlayers) {
 
         for (int i = 0; i < 3; i++) {
             if (i == topPlayers.size()) {
@@ -110,10 +102,13 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity {
         return topPlayers;
     }
 
-    private void loadFromFile(String fileName) {
+    /**
+     * load AccountManager from file
+     */
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LauncherActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 accountManager = (AccountManager) input.readObject();

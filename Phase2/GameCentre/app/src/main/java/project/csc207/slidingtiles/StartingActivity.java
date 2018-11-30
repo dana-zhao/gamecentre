@@ -20,7 +20,6 @@ import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
 import project.csc207.SaveLoad;
-import project.csc207.ScoreBoardForUser;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -129,7 +128,7 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
     /**
      * set the String for xml document
      */
-    private void setStringTextView(){
+    private void setStringTextView() {
         TextView textView = findViewById(R.id.GameText);
         String str = "Welcome To Sliding Tiles  A Puzzle Game where you mu" +
                 "st arrange the numbers in the correct order";
@@ -146,7 +145,7 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
             @Override
             public void onClick(View v) {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
-                if (accountManager.getCurrentAccount().getBoardManager() == null){
+                if (accountManager.getCurrentAccount().getBoardManager() == null) {
                     makeToastNoLoadedText();
                 }
                 saveToFile(TEMP_SAVE_FILENAME);
@@ -208,11 +207,7 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
         startActivity(tmp);
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -231,11 +226,9 @@ public class StartingActivity extends AppCompatActivity implements SaveLoad {
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
+
+
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(

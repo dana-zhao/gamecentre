@@ -41,12 +41,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     private int blankRow;
 
-
-    /*
-    the scoreboard for sliding tiles
-    * */
-//    private ScoreBoardSliding scoreBoardSliding;
-
     /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
@@ -62,7 +56,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
             }
         }
     }
-
 
     /**
      * A new board of tiles in row-major order.

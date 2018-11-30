@@ -1,7 +1,6 @@
 package project.csc207;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,24 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class LauncherActivity extends AppCompatActivity implements SaveLoad{
+public class LauncherActivity extends AppCompatActivity implements SaveLoad {
 
-    /**
-     * The input username field
-     */
-    private EditText usernameBox;
-
-    /**
-     * The input password field
-     */
-    private EditText passwordBox;
 
     /**
      * The main save file
@@ -44,8 +33,8 @@ public class LauncherActivity extends AppCompatActivity implements SaveLoad{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
-        if(accountManager.getAllAccount() == null){
-            accountManager.setAllAccount( new HashMap<>());
+        if (accountManager.getAllAccount() == null) {
+            accountManager.setAllAccount(new HashMap<String, Account>());
         }
         addLogInButtonListener();
         addSignUpButtonListener();
@@ -61,13 +50,9 @@ public class LauncherActivity extends AppCompatActivity implements SaveLoad{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usernameBox = findViewById(R.id.UsernameBox);
-                passwordBox = findViewById(R.id.PasswordBox);
-
                 String user = etUserName.getText().toString();
                 String password = etPassword.getText().toString();
-
-                if ( accountManager.notNewUser(user) && accountManager.rightPassword(user, password)) {
+                if (accountManager.notNewUser(user) && accountManager.rightPassword(user, password)) {
                     Intent accountActivity = new Intent(LauncherActivity.this, AccountActivity.class);
                     accountManager.setCurrentAccount(user);
                     saveToFile(SAVE_FILENAME);
@@ -92,6 +77,8 @@ public class LauncherActivity extends AppCompatActivity implements SaveLoad{
             }
         });
     }
+
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -101,17 +88,13 @@ public class LauncherActivity extends AppCompatActivity implements SaveLoad{
                 accountManager = (AccountManager) input.readObject();
                 inputStream.close();
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             accountManager = new AccountManager();
             System.out.println("not read ");
         }
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(

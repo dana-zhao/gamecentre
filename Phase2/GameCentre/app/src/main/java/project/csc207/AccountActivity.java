@@ -1,6 +1,5 @@
 package project.csc207;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.util.HashMap;
 
 
 import project.csc207.catchingball.CatchBallStart;
@@ -27,10 +25,12 @@ public class AccountActivity extends AppCompatActivity {
      * The account manager.
      */
     private AccountManager accountManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LauncherActivity.SAVE_FILENAME);
+        loadFromFile();
         setContentView(R.layout.activity_account);
         addSlidingTilesListener();
         addLightsOutListener();
@@ -51,7 +51,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     /**
-    Activate the game sliding tiles.
+     * Activate the game sliding tiles.
      */
     private void addSlidingTilesListener() {
         Button slidingTilesButton = findViewById(R.id.SlidingTilesButton);
@@ -66,7 +66,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     /**
-     Activate the game catching the ball.
+     * Activate the game catching the ball.
      */
     private void addCatchingTheBallListener() {
         Button catchBallButton = findViewById(R.id.CatchingBallButton);
@@ -98,20 +98,20 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * Activate the ScoreBoard For User
      */
-    private void addScoreBoardListener(){
+    private void addScoreBoardListener() {
         Button scoreBoardButton = findViewById(R.id.ScoreBoardButton);
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent scoreBoardIntent =
-                        new Intent(AccountActivity.this,ScoreBoardForUser.class);
+                        new Intent(AccountActivity.this, ScoreBoardForUser.class);
                 startActivity(scoreBoardIntent);
             }
         });
     }
 
     /**
-     Activate the game sliding tiles.
+     * Activate the game sliding tiles.
      */
     private void addLogOffListener() {
         Button slidingTilesButton = findViewById(R.id.LogOff);
@@ -125,10 +125,10 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LauncherActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 accountManager = (AccountManager) input.readObject();
