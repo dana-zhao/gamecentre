@@ -9,7 +9,7 @@ import android.widget.Button;
 import project.csc207.R;
 
 
-/**
+/*
  *  A class that build the basis of the game named catching the ball
  *
  *  This was adapted from a video from codingwithsara on Youtube

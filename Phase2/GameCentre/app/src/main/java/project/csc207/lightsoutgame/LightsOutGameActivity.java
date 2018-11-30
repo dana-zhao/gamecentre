@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.Chronometer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

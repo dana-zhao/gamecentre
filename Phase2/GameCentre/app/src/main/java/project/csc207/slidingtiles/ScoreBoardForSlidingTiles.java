@@ -102,6 +102,9 @@ public class ScoreBoardForSlidingTiles extends AppCompatActivity implements Scor
         return topPlayers;
     }
 
+    /**
+     * load AccountManager from file
+     */
     private void loadFromFile() {
 
         try {

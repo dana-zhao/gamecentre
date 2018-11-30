@@ -128,22 +128,6 @@ public class LightsOutBoardManager extends Observable implements Serializable {
     }
 
     /**
-     * return the number of minimum moves to solve the Board.
-     * @return the number of minimum moves
-     */
-    public int getMin_moves() {
-        return min_moves;
-    }
-
-    /**
-     * return the number of moves the player had
-     * @return the number of moves
-     */
-    int getGameMoves() {
-        return gameMoves.size();
-    }
-
-    /**
      * Randomly set the Board by switch any position on the board 10 to 30 times.
      * with different switch position each time.
      */
@@ -177,6 +161,6 @@ public class LightsOutBoardManager extends Observable implements Serializable {
      * @return the score of the game
      */
     int countScore(){
-        return min_moves * 30 - getGameMoves();
+        return min_moves * 30 - gameMoves.size();
     }
 }
