@@ -18,15 +18,15 @@ import project.csc207.Account;
 import project.csc207.AccountManager;
 import project.csc207.LauncherActivity;
 import project.csc207.R;
+import project.csc207.ScoreBoardForGame;
 
 /**
- * ScoreBoard For CatchingBall game, with rank of top 3 Accounts and current Account's score
+ * ScoreBoard For CatchingBall game
  */
-public class ScoreBoardForCatchingBall extends AppCompatActivity {
+public class ScoreBoardForCatchingBall extends AppCompatActivity implements ScoreBoardForGame {
 
     private AccountManager accountManager;
     private ArrayList<Account> topPlayers;
-    private ArrayList<String> textForView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
 
     }
 
-    private void setTextViewForAccount() {
+    @Override
+    public void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.Title);
         TextView accountScoreText = findViewById(R.id.UserScore);
         String title = "ScoreBoard For Catching Ball Game";
@@ -51,14 +52,12 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
         accountScoreText.setText(accountsAndScore);
     }
 
-    /**
-     * set the textView for top players,leave blank space if not enough player
-     */
-    private void setTextViewForTopPlayers() {
+    @Override
+    public void setTextViewForTopPlayers() {
         TextView num1Player = findViewById(R.id.num1Player);
         TextView num2Player = findViewById(R.id.num2Player);
         TextView num3Player = findViewById(R.id.num3Player);
-        textForView = new ArrayList<>();
+        ArrayList<String> textForView = new ArrayList<>();
 
         for (Account account : topPlayers) {
             String str = "User: " + account.getUserName() + " Score : " + account.getCatchBallScore();
@@ -75,11 +74,8 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
 
     }
 
-
-    /**
-     * get top 3 Players
-     */
-    private void setTopPlayers() {
+    @Override
+    public void setTopPlayers() {
         topPlayers = new ArrayList<>();
         HashMap<String, Account> allaccounts = accountManager.getAllAccount();
         Collection<Account> accounts = allaccounts.values();
@@ -93,17 +89,9 @@ public class ScoreBoardForCatchingBall extends AppCompatActivity {
         }
     }
 
-    /**
-     * return an list contains the top 3 players of this game, update the list if the given player
-     * has higher score than the original top players
-     *
-     * @param player     the account to check
-     * @param score      the score of CatchingBall game of the check account
-     * @param topPlayers the lists contains top 3 players
-     * @return the list contains top 3 players,could be less than 3 if less than 3 people sign in
-     */
-    private ArrayList<Account> checkTopPlayers(Account player, int score,
-                                               ArrayList<Account> topPlayers) {
+    @Override
+    public ArrayList<Account> checkTopPlayers(Account player, int score,
+                                              ArrayList<Account> topPlayers) {
 
         for (int i = 0; i < 3; i++) {
             if (i == topPlayers.size()) {

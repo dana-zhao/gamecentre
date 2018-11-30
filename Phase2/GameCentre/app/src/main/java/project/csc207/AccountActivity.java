@@ -27,6 +27,8 @@ public class AccountActivity extends AppCompatActivity {
      * The account manager.
      */
     private AccountManager accountManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     /**
-    Activate the game sliding tiles.
+     * Activate the game sliding tiles.
      */
     private void addSlidingTilesListener() {
         Button slidingTilesButton = findViewById(R.id.SlidingTilesButton);
@@ -66,7 +68,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     /**
-     Activate the game catching the ball.
+     * Activate the game catching the ball.
      */
     private void addCatchingTheBallListener() {
         Button catchBallButton = findViewById(R.id.CatchingBallButton);
@@ -98,20 +100,20 @@ public class AccountActivity extends AppCompatActivity {
     /**
      * Activate the ScoreBoard For User
      */
-    private void addScoreBoardListener(){
+    private void addScoreBoardListener() {
         Button scoreBoardButton = findViewById(R.id.ScoreBoardButton);
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent scoreBoardIntent =
-                        new Intent(AccountActivity.this,ScoreBoardForUser.class);
+                        new Intent(AccountActivity.this, ScoreBoardForUser.class);
                 startActivity(scoreBoardIntent);
             }
         });
     }
 
     /**
-     Activate the game sliding tiles.
+     * Activate the game sliding tiles.
      */
     private void addLogOffListener() {
         Button slidingTilesButton = findViewById(R.id.LogOff);
