@@ -14,19 +14,18 @@ import java.util.List;
 public class LightsOutBoard implements Serializable, Iterable<Light> {
 
     /**
-     * Length of rows
+     * Length of rows.
      */
     static int NUM_ROWS = 5;
 
     /**
-     * Length of columns
+     * Length of columns.
      */
     static int NUM_COLS = 5;
 
     /**
-     * All the moves made to the board.
+     * Board of lights.
      */
-
     private Light[][] lights = new Light[NUM_COLS][NUM_ROWS];
 
 
@@ -46,25 +45,31 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
         }
     }
 
-
-    Light getLight(int row, int col){
+    /**
+     * Return the light at the given row and column.
+     *
+     * @param row row of the board
+     * @param col column of the board
+     * @return light at the given row and column
+     */
+    Light getLight(int row, int col) {
         return lights[row][col];
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(lights) +
-                '}';
-    }
-
+    /**
+     * Return lights out board iterator.
+     *
+     * @return lights out board iterator
+     */
     @NonNull
     public Iterator<Light> iterator() {
         return new LightsOutBoardIterator();
     }
 
-    class LightsOutBoardIterator implements Iterator<Light>{
+    /**
+     * Iterator for lights out board.
+     */
+    class LightsOutBoardIterator implements Iterator<Light> {
         /**
          * The row of the current light.
          */
@@ -76,15 +81,25 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
         int col = 0;
 
         /**
-         * Id of light.
+         * Number of lights iterated through.
          */
-        int id = 0;
+        int numLights = 0;
 
+        /**
+         * Check if there is a next light.
+         *
+         * @return whether or not there's a next element
+         */
         @Override
         public boolean hasNext() {
-            return id < (NUM_COLS * NUM_ROWS);
+            return numLights < (NUM_COLS * NUM_ROWS);
         }
 
+        /**
+         * Go to the next light.
+         *
+         * @return next light
+         */
         @Override
         public Light next() {
             Light nextLight = getLight(row, col);
@@ -100,7 +115,7 @@ public class LightsOutBoard implements Serializable, Iterable<Light> {
                 }
 
             }
-            id++;
+            numLights++;
             return nextLight;
         }
     }

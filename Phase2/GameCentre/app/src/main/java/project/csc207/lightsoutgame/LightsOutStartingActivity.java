@@ -76,13 +76,13 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
             @Override
             public void onClick(View v) {
                 loadFromFile(LauncherActivity.SAVE_FILENAME);
-                if(accountManager.getCurrentAccount().getLightsOutBoardManager() == null){
+                if (accountManager.getCurrentAccount().getLightsOutBoardManager() == null) {
                     makeToastNoLoadedText();
+                } else {
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToastLoadedText();
+                    switchToGame();
                 }
-                else {
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadedText();
-                switchToGame();}
             }
         });
     }
@@ -93,9 +93,11 @@ public class LightsOutStartingActivity extends AppCompatActivity implements Save
     private void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
+
     private void makeToastNoLoadedText() {
         Toast.makeText(this, "No Saved Game", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * Activate the save button.
      */

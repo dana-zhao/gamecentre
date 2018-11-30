@@ -16,7 +16,7 @@ public class ScoreBoardForUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scorerank);
+        setContentView(R.layout.activity_scoreboard_for_user);
 
         SharedPreferences preferences = getSharedPreferences("SCORES", MODE_PRIVATE);
         Map<String, ?> allScores = preferences.getAll();

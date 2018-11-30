@@ -11,9 +11,15 @@ import static org.junit.Assert.assertEquals;
 
 public class LightsOutBoardManagerTest {
 
+    /**
+     * Lights out board manager and lights out board for testing.
+     */
     private LightsOutBoardManager testBoardManager = new LightsOutBoardManager();
     private LightsOutBoard testBoard = testBoardManager.getLightsOutBoard();
 
+    /**
+     * Test allLightsOut method correctly returns whether or not all lights are off
+     */
     @Test
     public void testAllLightsOut() {
         LightsOutTestHelpMethods.getLightsAllOff(testBoard);
@@ -24,6 +30,9 @@ public class LightsOutBoardManagerTest {
         assertTrue(testBoardManager.allLightsOut());
     }
 
+    /**
+     * Test getLightsAround method returns the lights around the selected light
+     */
     @Test
     public void testGetLightsAround() {
         //Test light in the middle of the grid
@@ -43,6 +52,9 @@ public class LightsOutBoardManagerTest {
         assertEquals(4, results.size());
     }
 
+    /**
+     * Test touchtoSwitch method switches the lights around the touched light
+     */
     @Test
     public void testTouchToSwitch() {
         LightsOutTestHelpMethods.getLightsAllOn(testBoard);
@@ -52,6 +64,20 @@ public class LightsOutBoardManagerTest {
         assertFalse(testBoard.getLight(2, 2).getState());
         assertFalse(testBoard.getLight(1, 3).getState());
         testBoardManager.touchToSwitch(7);
+        assertTrue(testBoard.getLight(0, 2).getState());
+        assertTrue(testBoard.getLight(1, 1).getState());
+        assertTrue(testBoard.getLight(2, 2).getState());
+        assertTrue(testBoard.getLight(1, 3).getState());
+    }
+
+    /**
+     * Test undo method undoes the last move made to the lights out board
+     */
+    @Test
+    public void testUndo() {
+        LightsOutTestHelpMethods.getLightsAllOn(testBoard);
+        testBoardManager.touchToSwitch(7);
+        testBoardManager.undo();
         assertTrue(testBoard.getLight(0, 2).getState());
         assertTrue(testBoard.getLight(1, 1).getState());
         assertTrue(testBoard.getLight(2, 2).getState());

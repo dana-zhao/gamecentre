@@ -34,6 +34,9 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
 
     }
 
+    /**
+     * Set text view for the account.
+     */
     private void setTextViewForAccount() {
         TextView titleText = findViewById(R.id.LightsOutTitle);
         TextView accountScoreText = findViewById(R.id.userScoreLightsOut);
@@ -112,6 +115,11 @@ public class ScoreBoardForLightsOut extends AppCompatActivity {
         return topPlayers;
     }
 
+    /**
+     * Load from the save file
+     *
+     * @param fileName save file name
+     */
     private void loadFromFile(String fileName) {
 
         try {
