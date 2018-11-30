@@ -19,8 +19,8 @@ public interface ScoreBoardForGame {
      *
      * @param player     The Account of the player to check
      * @param score      The highest score of checked player for a type of game
-     * @param topPlayers An Arraylist contains top 3 players of the game.
-     * @return An arraylist contains top 3 players, could be less than 3 if number of Accounts are
+     * @param topPlayers An Array list contains top 3 players of the game.
+     * @return An Array list contains top 3 players, could be less than 3 if number of Accounts are
      * less than 3
      */
     ArrayList<Account> checkTopPlayers(Account player, int score, ArrayList<Account> topPlayers);

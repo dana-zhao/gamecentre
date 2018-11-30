@@ -23,9 +23,9 @@ import project.csc207.ScoreBoardForGame;
  * Score Board of Lights out game
  */
 public class ScoreBoardForLightsOut extends AppCompatActivity implements ScoreBoardForGame {
+
     private AccountManager accountManager;
     private ArrayList<Account> topPlayers;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

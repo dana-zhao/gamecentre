@@ -62,7 +62,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
      * add undo button listener
      */
     private void addUndoListener() {
-        final Button undoButton =  findViewById(R.id.undoButton);
+        final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +100,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
 
     /**
      * Creates the buttons for the lights
+     *
      * @param context the context
      */
     private void createLights(Context context) {
@@ -130,15 +131,17 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
         saveToFile(LauncherActivity.SAVE_FILENAME);
     }
+
+
     /**
      * Set up background images and use adapter to set the view.
      */
     public void display() {
         updateLights();
-        lightsGrid.setAdapter(new CustomAdapter(lightsButtons,columnWidth,columnHeight));
+        lightsGrid.setAdapter(new CustomAdapter(lightsButtons, columnWidth, columnHeight));
     }
 
-
+    @Override
     public void loadFromFile(String fileName) {
 
         try {
@@ -157,7 +160,7 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
     }
 
-
+    @Override
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -178,8 +181,8 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
     /**
      * set the score of the game to Account and jump to ScoreResult page if the game is over
      */
-    public void gameOver(){
-        if (accountManager.getCurrentAccount().getLightsOutBoardManager().isGameOver()){
+    public void gameOver() {
+        if (accountManager.getCurrentAccount().getLightsOutBoardManager().isGameOver()) {
             ArrayList<Integer> scores = new ArrayList<>();
             int score = accountManager.getCurrentAccount().getLightsOutBoardManager().countScore();
             int records = accountManager.getCurrentAccount().getLightOutScores();
@@ -191,10 +194,10 @@ public class LightsOutGameActivity extends AppCompatActivity implements Observer
         }
     }
 
-    private void goToScoreResult(ArrayList<Integer> scores){
+    private void goToScoreResult(ArrayList<Integer> scores) {
         Intent gameResultIntent = new Intent(LightsOutGameActivity.this,
                 ScoreResult.class);
-        gameResultIntent.putIntegerArrayListExtra("scores",scores);
+        gameResultIntent.putIntegerArrayListExtra("scores", scores);
         startActivity(gameResultIntent);
     }
 }
