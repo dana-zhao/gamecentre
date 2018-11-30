@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements SaveLoad {
         super.onCreate(savedInstanceState);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
         if (accountManager.getAllAccount() == null) {
-            accountManager.setAllAccount(new HashMap());
+            accountManager.setAllAccount(new HashMap<String, Account>());
         }
         setContentView(R.layout.activity_register);
         final EditText userName = findViewById(R.id.userRegister);

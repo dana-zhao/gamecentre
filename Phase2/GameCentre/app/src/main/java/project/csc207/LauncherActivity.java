@@ -36,7 +36,7 @@ public class LauncherActivity extends AppCompatActivity implements SaveLoad {
         setContentView(R.layout.activity_launcher);
         loadFromFile(LauncherActivity.SAVE_FILENAME);
         if (accountManager.getAllAccount() == null) {
-            accountManager.setAllAccount(new HashMap<>());
+            accountManager.setAllAccount(new HashMap<String, Account>());
         }
         addLogInButtonListener();
         addSignUpButtonListener();

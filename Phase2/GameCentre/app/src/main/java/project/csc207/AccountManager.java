@@ -70,7 +70,11 @@ public class AccountManager implements Serializable {
      * @return whether the password for the user is correct
      */
     boolean rightPassword(String id, String password) {
-        return this.allAccount.get(id).getPassword().equals(password);
+        try{
+            return this.allAccount.get(id).getPassword().equals(password);
+        }catch (NullPointerException e){
+            return false;
+        }
     }
 
     /**
@@ -88,7 +92,7 @@ public class AccountManager implements Serializable {
      *
      * @param hMap the HashMap to be set as allAccount
      */
-    void setAllAccount(HashMap hMap) {
+    void setAllAccount(HashMap<String, Account> hMap) {
         this.allAccount = hMap;
     }
 }
